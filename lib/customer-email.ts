@@ -2,7 +2,7 @@ import type { AgentResult } from "./types";
 import type { CustomerDetails } from "./customer-enquiries";
 
 const KENTAINERS_ENQUIRY_EMAIL = "info@kentainers.asti-group.com";
-const CHATBOT_SIGNATURE = "Mango's Chatbot\nKentainers Product AI";
+const CHATBOT_SIGNATURE = "Chatbot\nKentainers Product AI";
 
 function escapeHtml(value: string) {
   return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
@@ -33,7 +33,7 @@ export async function sendCustomerEnquiryEmail(customer: CustomerDetails, questi
     CHATBOT_SIGNATURE
   ].join("\n");
 
-  const html = `<h2>New Kentainers Chatbot Enquiry</h2><p><strong>Enquiry ID:</strong> ${escapeHtml(enquiryId)}</p><p><strong>Customer name:</strong> ${escapeHtml(customer.name?.trim() || "Not provided")}</p><p><strong>Customer email:</strong> ${escapeHtml(customer.email?.trim() || "Not provided")}</p><p><strong>Customer phone:</strong> ${escapeHtml(customer.phone?.trim() || "Not provided")}</p><hr/><p><strong>Question</strong></p><p>${escapeHtml(question).replaceAll("\n", "<br/>")}</p><p><strong>Chatbot answer</strong></p><p>${escapeHtml(result.answer).replaceAll("\n", "<br/>")}</p><p><strong>Action:</strong> ${escapeHtml(result.action || "Not specified")}</p><p><strong>Sources:</strong> ${escapeHtml(sourceText)}</p><br/><p>Regards,<br/><strong>Mango's Chatbot</strong><br/>Kentainers Product AI</p>`;
+  const html = `<h2>New Kentainers Chatbot Enquiry</h2><p><strong>Enquiry ID:</strong> ${escapeHtml(enquiryId)}</p><p><strong>Customer name:</strong> ${escapeHtml(customer.name?.trim() || "Not provided")}</p><p><strong>Customer email:</strong> ${escapeHtml(customer.email?.trim() || "Not provided")}</p><p><strong>Customer phone:</strong> ${escapeHtml(customer.phone?.trim() || "Not provided")}</p><hr/><p><strong>Question</strong></p><p>${escapeHtml(question).replaceAll("\n", "<br/>")}</p><p><strong>Chatbot answer</strong></p><p>${escapeHtml(result.answer).replaceAll("\n", "<br/>")}</p><p><strong>Action:</strong> ${escapeHtml(result.action || "Not specified")}</p><p><strong>Sources:</strong> ${escapeHtml(sourceText)}</p><br/><p>Regards,<br/><strong>Chatbot</strong><br/>Kentainers Product AI</p>`;
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
