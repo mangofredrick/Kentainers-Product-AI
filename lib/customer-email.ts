@@ -1,15 +1,18 @@
 import type { AgentResult } from "./types";
 import type { CustomerDetails } from "./customer-enquiries";
 
+const KENTAINERS_ENQUIRY_EMAIL = "info@kentainers.asti-group.com";
+const CHATBOT_SIGNATURE = "Mango's Chatbot\nKentainers Product AI";
+
 function escapeHtml(value: string) {
   return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
 }
 
 export async function sendCustomerEnquiryEmail(customer: CustomerDetails, question: string, result: AgentResult, enquiryId: string) {
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.KPIA_OFFICE_EMAIL;
   const from = process.env.KPIA_FROM_EMAIL;
-  if (!apiKey || !to || !from) throw new Error("Email notification environment variables are not configured");
+  const to = KENTAINERS_ENQUIRY_EMAIL;
+  if (!apiKey || !from) throw new Error("Email notification environment variables are not configured");
 
   const sourceText = (result.sources || []).map((s) => `${s.document}${s.page ? `, p.${s.page}` : ""}`).join(" • ") || "No source recorded";
   const subject = `New Kentainers Chatbot Enquiry ${enquiryId}`;
@@ -24,10 +27,13 @@ export async function sendCustomerEnquiryEmail(customer: CustomerDetails, questi
     "",
     `Chatbot answer: ${result.answer}`,
     `Action: ${result.action || "Not specified"}`,
-    `Sources: ${sourceText}`
+    `Sources: ${sourceText}`,
+    "",
+    "Regards,",
+    CHATBOT_SIGNATURE
   ].join("\n");
 
-  const html = `<h2>New Kentainers Chatbot Enquiry</h2><p><strong>Enquiry ID:</strong> ${escapeHtml(enquiryId)}</p><p><strong>Customer name:</strong> ${escapeHtml(customer.name?.trim() || "Not provided")}</p><p><strong>Customer email:</strong> ${escapeHtml(customer.email?.trim() || "Not provided")}</p><p><strong>Customer phone:</strong> ${escapeHtml(customer.phone?.trim() || "Not provided")}</p><hr/><p><strong>Question</strong></p><p>${escapeHtml(question).replaceAll("\n", "<br/>")}</p><p><strong>Chatbot answer</strong></p><p>${escapeHtml(result.answer).replaceAll("\n", "<br/>")}</p><p><strong>Action:</strong> ${escapeHtml(result.action || "Not specified")}</p><p><strong>Sources:</strong> ${escapeHtml(sourceText)}</p>`;
+  const html = `<h2>New Kentainers Chatbot Enquiry</h2><p><strong>Enquiry ID:</strong> ${escapeHtml(enquiryId)}</p><p><strong>Customer name:</strong> ${escapeHtml(customer.name?.trim() || "Not provided")}</p><p><strong>Customer email:</strong> ${escapeHtml(customer.email?.trim() || "Not provided")}</p><p><strong>Customer phone:</strong> ${escapeHtml(customer.phone?.trim() || "Not provided")}</p><hr/><p><strong>Question</strong></p><p>${escapeHtml(question).replaceAll("\n", "<br/>")}</p><p><strong>Chatbot answer</strong></p><p>${escapeHtml(result.answer).replaceAll("\n", "<br/>")}</p><p><strong>Action:</strong> ${escapeHtml(result.action || "Not specified")}</p><p><strong>Sources:</strong> ${escapeHtml(sourceText)}</p><br/><p>Regards,<br/><strong>Mango's Chatbot</strong><br/>Kentainers Product AI</p>`;
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
