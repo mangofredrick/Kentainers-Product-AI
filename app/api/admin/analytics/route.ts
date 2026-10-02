@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getPool } from "@/lib/db";
+import { ensureCustomerEnquiriesTable } from "@/lib/customer-enquiries";
 
 function authorized(req: Request) {
   const expected = process.env.ADMIN_DASHBOARD_KEY;
@@ -9,6 +10,7 @@ function authorized(req: Request) {
 export async function GET(req: Request) {
   if (!authorized(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
+    await ensureCustomerEnquiriesTable();
     const pool = getPool();
     const [totals, actions, statuses, recent, followUps, daily] = await Promise.all([
       pool.query(`SELECT COUNT(*)::int AS total,
@@ -49,6 +51,7 @@ export async function PATCH(req: Request) {
     if (!body.id || !["open", "contacted", "qualified", "converted", "closed"].includes(body.status)) {
       return NextResponse.json({ error: "Invalid enquiry status" }, { status: 400 });
     }
+    await ensureCustomerEnquiriesTable();
     await getPool().query(`UPDATE customer_enquiries SET status=$1, updated_at=NOW() WHERE id=$2`, [body.status, body.id]);
     return NextResponse.json({ ok: true });
   } catch (error) {
