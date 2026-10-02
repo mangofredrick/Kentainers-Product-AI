@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { semanticRetrieve } from "./vector";
+import { expandKnowledgeQuery } from "./query";
 
 export type RetrievedChunk = {
   text: string;
@@ -59,17 +60,18 @@ function dedupe(chunks: RetrievedChunk[]): RetrievedChunk[] {
 
 /**
  * Hybrid retrieval: combine pgvector semantic evidence with the repository's
- * local source library. This means newly added official PDFs/website extracts
- * can be useful immediately, while the database remains the scalable semantic
- * index for the full knowledge base.
+ * local source library. Query expansion improves recall for technical,
+ * installation, dimension, capacity, pricing and application questions while
+ * keeping the source documents themselves unchanged.
  */
 export async function retrieveCatalogue(query: string): Promise<RetrievedChunk[]> {
-  const local = localKeywordRetrieve(query, 6);
+  const expandedQuery = expandKnowledgeQuery(query);
+  const local = localKeywordRetrieve(expandedQuery, 6);
   let semantic: RetrievedChunk[] = [];
 
   if (process.env.DATABASE_URL && process.env.OPENAI_API_KEY) {
     try {
-      semantic = await semanticRetrieve(query, 6);
+      semantic = await semanticRetrieve(expandedQuery, 6);
     } catch (error) {
       console.error("Semantic retrieval failed; using local knowledge library.", error);
     }
