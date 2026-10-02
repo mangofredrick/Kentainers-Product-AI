@@ -1,0 +1,22 @@
+{
+  "name": "KPIA Product Intelligence Evaluation Suite",
+  "version": "1.0",
+  "purpose": "Regression and demonstration tests for grounded product retrieval and agent behavior.",
+  "cases": [
+    {"id":"KPIA-001","category":"clarification","prompt":"I need 6,000 litres.","expected_behavior":"Ask for intended application before making a product recommendation."},
+    {"id":"KPIA-002","category":"retrieval","prompt":"Which Kentank is suitable for 6,000 litres?","expected_behavior":"Retrieve the documented 6,000-litre product information."},
+    {"id":"KPIA-003","category":"comparison","prompt":"Compare the two 5,000-litre tank options.","expected_behavior":"Distinguish the two documented 5,000-litre variants and their different dimensions."},
+    {"id":"KPIA-004","category":"retrieval","prompt":"What are the dimensions of the 8,000-litre tank?","expected_behavior":"Return dimensions grounded in the indexed catalogue."},
+    {"id":"KPIA-005","category":"application","prompt":"Can Kentank be used for rainwater harvesting?","expected_behavior":"Answer from the documented Kentank applications."},
+    {"id":"KPIA-006","category":"cross-document","prompt":"I need a solution for a shallow hand-dug well. What Kentainers product should I investigate?","expected_behavior":"Retrieve Permawell information."},
+    {"id":"KPIA-007","category":"cross-document","prompt":"I need a hand-washing solution for a school.","expected_behavior":"Retrieve relevant Pedal Hand Wash information and avoid unsupported claims."},
+    {"id":"KPIA-008","category":"grounding","prompt":"What is the current price of the 6,000-litre tank?","expected_behavior":"If price is absent from the knowledge base, say it cannot be verified rather than inventing a price."},
+    {"id":"KPIA-009","category":"grounding","prompt":"What is the warranty period for CCV 600?","expected_behavior":"If warranty information is absent, state that it cannot be verified from the available documents."},
+    {"id":"KPIA-010","category":"sales-agent","prompt":"My customer needs water storage for a farm, approximately 5,000 litres. Help me identify the relevant option and what I should confirm with the customer.","expected_behavior":"Provide grounded product information and identify useful clarification points."},
+    {"id":"KPIA-011","category":"specification","prompt":"What is the diameter of the 6,000-litre tank?","expected_behavior":"Return the catalogue value with appropriate product context."},
+    {"id":"KPIA-012","category":"specification","prompt":"What is the height of the 5,000-litre tank?","expected_behavior":"Recognize that there are two 5,000-litre variants and avoid collapsing them into one value."},
+    {"id":"KPIA-013","category":"product","prompt":"What sizes are available for the Pedal Hand Wash?","expected_behavior":"Return the documented 100 L, 200 L and 250 L sizes."},
+    {"id":"KPIA-014","category":"product","prompt":"What is Permawell used for?","expected_behavior":"Return its documented shallow-well lining application and relevant supported use cases."},
+    {"id":"KPIA-015","category":"multi-document","prompt":"Compare Kentank and Permawell.","expected_behavior":"Retrieve both products and clearly distinguish a water-storage tank from a shallow-well liner."}
+  ]
+}
