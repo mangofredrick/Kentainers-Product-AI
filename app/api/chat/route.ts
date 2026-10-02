@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);
       if (process.env.RESEND_API_KEY && process.env.KPIA_FROM_EMAIL) {
         try {
-          await sendCustomerEnquiryEmail(body.customer, body.message, result, enquiryId);
+          await sendCustomerEnquiryEmail(body.customer, body.message, result, enquiryId, requirements);
         } catch (emailError) {
           console.error("Kentainers office enquiry email error", emailError);
         }
