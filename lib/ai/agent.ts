@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { findProducts, getProductDetails } from "../tools/products";
 import { retrieveCatalogue } from "../rag/retriever";
+import { answerFAQ } from "./faq";
 import type { AgentResult, Product } from "../types";
 
 const SYSTEM = `You are KPIA, the Kentainers Product Intelligence Agent.
@@ -19,7 +20,7 @@ Rules:
 const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   { type: "function", function: { name: "find_products", description: "Find Kentainers products matching a customer requirement.", parameters: { type: "object", properties: { query: { type: "string" }, limit: { type: "integer", minimum: 1, maximum: 10 } }, required: ["query"] } } },
   { type: "function", function: { name: "get_product_details", description: "Retrieve exact structured details for a Kentainers product code or name.", parameters: { type: "object", properties: { identifier: { type: "string" } }, required: ["identifier"] } } },
-  { type: "function", function: { name: "retrieve_catalogue", description: "Retrieve source-backed Kentainers catalogue passages for factual grounding.", parameters: { type: "object", properties: { query: { type: "string" } }, required: ["query"] } } }
+  { type: "function", function: { name: "retrieve_catalogue", description: "Retrieve source-backed Kentainers catalogue passages for factual grounding and page references.", parameters: { type: "object", properties: { query: { type: "string" } }, required: ["query"] } } }
 ];
 
 function getClient(): OpenAI | null {
@@ -30,20 +31,19 @@ function shouldClarify(message: string): string | null {
   const lower = message.toLowerCase();
   const asksForTank = /tank|storage/.test(lower);
   const capacity = lower.match(/\b(\d[\d,]*)\s*(l|litre|litres|liter|liters)\b/);
-  if (asksForTank && capacity && Number(capacity[1].replace(/,/g, "")) === 6000) return "There are multiple Kentainers products associated with 6,000 litres. What is the intended application—water storage, sanitation/septic use, or another purpose?";
+  if (asksForTank && capacity && Number(capacity[1].replace(/,/g, "")) === 6000) return "There are multiple Kentainers products associated with 6,000 litres. What is the intended application—above-ground water storage, underground water storage, or sanitation/septic use?";
   if (asksForTank && !capacity) return "What capacity do you require, and what is the intended application for the tank?";
   return null;
 }
 
 type ToolTrace = { name: string; arguments: string };
-
 type Chunk = { page?: number };
 
 async function localGroundedFallback(userMessage: string): Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
   try {
     const products = findProducts(userMessage);
     const chunks = await retrieveCatalogue(userMessage);
-    const sources = chunks.map(c => ({ document: "Kentainers_Product_Catalogue.pdf", page: c.page }));
+    const sources = chunks.map(c => ({ document: "Kentainers_Product_Knowledge.txt", page: c.page }));
 
     if (products.length) {
       const names = products.slice(0, 6).map(p => {
@@ -51,8 +51,8 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         return `${p.product_code || p.product_name}${capacity}`;
       }).join(", ");
       return {
-        answer: `Based on the available Kentainers catalogue data, these products are relevant to your request: ${names}. Please confirm the intended application and the current commercial details with a Kentainers representative before quoting or ordering.`,
-        sources: sources.length ? sources : products.slice(0, 6).map(p => ({ document: p.source_document || "Kentainers_Product_Catalogue.pdf", page: p.source_page })),
+        answer: `Based on the available Kentainers catalogue data, these products are relevant to your request: ${names}. Please confirm the intended application and the latest commercial details with a Kentainers representative before quoting or ordering.`,
+        sources: sources.length ? sources : products.slice(0, 6).map(p => ({ document: p.source_document || "Kentainers_Product_Knowledge.txt", page: p.source_page })),
         products: products.slice(0, 6),
         action: "search",
         toolCalls: []
@@ -61,7 +61,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
 
     if (sources.length) {
       return {
-        answer: `I found relevant Kentainers catalogue evidence for your request, but the available product index did not identify a specific product confidently. Please provide the required capacity, intended application, location/use case, or product name so I can narrow the recommendation.`,
+        answer: `I found relevant Kentainers knowledge-base evidence for your request, but the product index did not identify a specific product confidently. Please provide the required capacity, intended application, location/use case, or product name so I can narrow the recommendation.`,
         sources,
         action: "clarify",
         toolCalls: []
@@ -86,6 +86,9 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
 }
 
 export async function runAgent(userMessage: string): Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
+  const faq = answerFAQ(userMessage);
+  if (faq) return faq as AgentResult & { toolCalls?: ToolTrace[] };
+
   const clarification = shouldClarify(userMessage);
   if (clarification) return { answer: clarification, sources: [], action: "clarify", toolCalls: [] };
 
@@ -141,7 +144,7 @@ export async function runAgent(userMessage: string): Promise<AgentResult & { too
           result = await retrieveCatalogue(String(args.query || userMessage));
           if (Array.isArray(result)) {
             for (const c of result as Chunk[]) {
-              sources.push({ document: "Kentainers_Product_Catalogue.pdf", page: c.page });
+              sources.push({ document: "Kentainers_Product_Knowledge.txt", page: c.page });
             }
           }
         } else {
