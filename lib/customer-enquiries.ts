@@ -18,7 +18,7 @@ export type CustomerRequirements = {
 
 let initialized = false;
 
-async function ensureTable() {
+export async function ensureCustomerEnquiriesTable() {
   if (initialized) return;
   const pool = getPool();
   await pool.query(`
@@ -85,7 +85,7 @@ export async function saveCustomerEnquiry(
   result: AgentResult,
   requirements: CustomerRequirements = {}
 ) {
-  await ensureTable();
+  await ensureCustomerEnquiriesTable();
   const id = newId();
   const pool = getPool();
   const lead = leadSignals(customer, question, result, requirements);
@@ -119,7 +119,7 @@ export async function saveCustomerEnquiry(
 }
 
 export async function listCustomerEnquiries(limit = 50) {
-  await ensureTable();
+  await ensureCustomerEnquiriesTable();
   const result = await getPool().query(
     `SELECT id, customer_name, customer_email, customer_phone, question, answer, action, status,
             product_interest, capacity, application, location, quantity, timeframe,
