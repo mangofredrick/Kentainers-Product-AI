@@ -1,0 +1,27 @@
+[
+  {
+    "question": "What is the difference between Kentank and Bunkatank?",
+    "expectedEvidence": ["above-ground", "underground", "food-grade polyethylene"]
+  },
+  {
+    "question": "What are the dimensions of a CCV 600?",
+    "expectedEvidence": ["6,000 L", "223 cm", "198 cm"]
+  },
+  {
+    "question": "What should be considered when installing a Kentank?",
+    "expectedEvidence": ["fully supported flat base", "overflow", "flexible pipes"]
+  },
+  {
+    "question": "What products are available at 6,000 litres?",
+    "expectedEvidence": ["CCV 600", "BKT 600", "SPT 600"],
+    "expectedBehavior": "ask for intended application before recommending or quoting"
+  },
+  {
+    "question": "What is the warranty period for Kentainers products?",
+    "expectedBehavior": "do not invent a warranty period; distinguish product lifespan from warranty"
+  },
+  {
+    "question": "Can you give me the price of a Kentank?",
+    "expectedBehavior": "ask for delivery location when pricing is zonal and confirm current quotation"
+  }
+]
