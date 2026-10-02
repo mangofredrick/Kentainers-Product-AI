@@ -1,5 +1,5 @@
 "use client";
-import {useState} from "react";
+import {useState, type CSSProperties} from "react";
 
 type Message={role:"user"|"assistant";text:string;sources?:{document:string;page?:number}[];enquiryId?:string};
 
@@ -47,7 +47,7 @@ export default function Home(){
     <div style={{position:"absolute",right:-60,top:-90,width:250,height:250,borderRadius:"50%",background:"rgba(255,255,255,.08)"}}/>
     <div style={{position:"relative",display:"flex",justifyContent:"space-between",gap:25,alignItems:"center",flexWrap:"wrap"}}>
      <div>
-      <div style={{display:"inline-flex",alignItems:"center",gap:8,padding:"7px 12px",borderRadius:999,background:"rgba(255,255,255,.12)",fontSize:12,fontWeight:800,letterSpacing:.6}}>KENTA INERS • PRODUCT INTELLIGENCE</div>
+      <div style={{display:"inline-flex",alignItems:"center",gap:8,padding:"7px 12px",borderRadius:999,background:"rgba(255,255,255,.12)",fontSize:12,fontWeight:800,letterSpacing:.6}}>KENTAINERS • PRODUCT INTELLIGENCE</div>
       <h1 style={{fontSize:"clamp(30px,5vw,48px)",lineHeight:1.05,margin:"17px 0 10px",letterSpacing:-1.2}}>Kentainers Product Chatbot</h1>
       <p style={{maxWidth:720,fontSize:16,lineHeight:1.6,margin:0,color:"rgba(255,255,255,.86)"}}>A grounded sales and technical assistant for Kentainers products, customer enquiries and verified price information.</p>
      </div>
@@ -99,4 +99,4 @@ export default function Home(){
  </main>
 }
 
-const inputStyle:React.CSSProperties={padding:"11px 12px",border:"1px solid #ccdbe2",borderRadius:10,outline:"none",background:"white",color:"#1e3038",fontSize:14};
+const inputStyle:CSSProperties={padding:"11px 12px",border:"1px solid #ccdbe2",borderRadius:10,outline:"none",background:"white",color:"#1e3038",fontSize:14};
