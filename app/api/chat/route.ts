@@ -39,11 +39,11 @@ export async function POST(req: Request) {
     let enquiryId: string | undefined;
     try {
       enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);
-      if (process.env.RESEND_API_KEY && process.env.KPIA_OFFICE_EMAIL && process.env.KPIA_FROM_EMAIL) {
+      if (process.env.RESEND_API_KEY && process.env.KPIA_FROM_EMAIL) {
         try {
           await sendCustomerEnquiryEmail(body.customer, body.message, result, enquiryId);
         } catch (emailError) {
-          console.error("KPIA enquiry email error", emailError);
+          console.error("Kentainers office enquiry email error", emailError);
         }
       }
     } catch (storageError) {
