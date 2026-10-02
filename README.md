@@ -18,10 +18,14 @@ KPIA is designed for Kentainers sales and product-information users. It answers 
 
 ## Evaluation assets
 
+- 110-question KPIA product intelligence test bank in `docs/KPIA_TEST_BANK.md`
+- 15 focused regression/demo cases in `eval/kpia-test-cases.json`
 - 25 master golden-question records
 - 20 populated golden questions for baseline evaluation
 - 18 agent/tool scenarios
 - 112 structured product catalogue rows
+
+The expanded test bank covers product identification, specifications, comparisons, applications, customer requirement clarification, Pedal Hand Wash, Permawell, multi-document retrieval, and hallucination/grounding checks.
 
 ## Runtime
 
