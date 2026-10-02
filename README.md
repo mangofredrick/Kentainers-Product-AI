@@ -1,31 +1,64 @@
-# Kentainers Product AI — KPIA v17
+# Kentainers Product AI — KPIA v18
 
-An agentic RAG-based AI product assistant for Kentainers, combining catalogue-grounded retrieval, semantic search, and structured product tools to provide reliable product information.
+An agentic RAG-based AI product assistant for Kentainers, combining catalogue-grounded retrieval, semantic search, website knowledge, technical/product documents and structured product tools.
 
 ## Project
 
-KPIA is designed for Kentainers sales and product-information users. It answers product questions using approved Kentainers catalogue evidence, clarifies ambiguous requests, and escalates when the evidence is insufficient.
+KPIA is designed for Kentainers sales and product-information users. It answers product questions using approved Kentainers evidence, clarifies ambiguous requests, and escalates when the evidence is insufficient.
 
-### Core capabilities
+## Knowledge architecture
+
+The chatbot now uses a maintainable knowledge-library approach rather than relying only on individual FAQ entries:
+
+- `data/source/Kentainers_Technical_Product_Library.md` — structured technical and product knowledge
+- `data/source/Kentainers_Website_Catalogue_2026.md` — verified website catalogue/service snapshot
+- `data/source/*.txt|*.md|*.csv` — extensible local knowledge sources
+- PostgreSQL/pgvector — scalable semantic index for the full source library
+- Existing structured catalogue/pricing/FAQ tools — specialist retrieval paths
+
+The local and semantic retrieval layers are combined at runtime, so the chatbot can use new source-library material immediately and use the database for scalable semantic retrieval after indexing.
+
+## Core capabilities
 
 - Catalogue-grounded product information
-- PostgreSQL/pgvector retrieval path
+- Technical/product knowledge retrieval
+- Website catalogue and FAQ knowledge
+- PostgreSQL/pgvector retrieval
 - Structured product search and product-detail tools
 - Agentic tool calling
-- Clarification for ambiguous product requests
-- Guardrails against unsupported price, stock, certification, compatibility and specification claims
-- Evaluation framework for RAG and agent/tool scenarios
+- Clarification for ambiguous requests such as 6,000 L products
+- Price-list and delivery-zone awareness
+- Guardrails against unsupported price, stock, certification, compatibility and engineering claims
+- Source references in the chatbot UI
+- Customer enquiry capture
+- Regression/evaluation framework
+
+## Knowledge-library ingestion
+
+After adding or changing source files under `data/source`, index them with:
+
+```bash
+npm install
+npm run ingest:library
+```
+
+The ingestion process creates embeddings with `text-embedding-3-small` and replaces only the indexed chunks belonging to each source file. Existing PDF/document chunks are preserved.
+
+For the full semantic document ingestion path, use:
+
+```bash
+npm run ingest:pgvector
+```
 
 ## Evaluation assets
 
+- Expanded regression suite in `eval/kpia-test-cases.json`
 - 110-question KPIA product intelligence test bank in `docs/KPIA_TEST_BANK.md`
-- 15 focused regression/demo cases in `eval/kpia-test-cases.json`
-- 25 master golden-question records
-- 20 populated golden questions for baseline evaluation
-- 18 agent/tool scenarios
-- 112 structured product catalogue rows
+- Master golden-question records
+- Agent/tool scenarios
+- Structured product catalogue
 
-The expanded test bank covers product identification, specifications, comparisons, applications, customer requirement clarification, Pedal Hand Wash, Permawell, multi-document retrieval, and hallucination/grounding checks.
+The regression suite now includes product identification, specifications, comparisons, technical installation questions, website/service questions, pricing, delivery zones, agriculture products, material handling, stock/quotation grounding, warranty/lifespan distinctions and hallucination checks.
 
 ## Runtime
 
@@ -36,22 +69,32 @@ OPENAI_API_KEY=...
 DATABASE_URL=...
 ```
 
-Execution sequence:
+## Deployment
 
-```bash
-npm install
-npm run build
-npm run ingest:pgvector
-npm run eval:baseline
-npm run eval:agent
+The repository is connected to the Vercel production deployment. Pushing commits to `main` triggers the configured production build.
+
+Production domain configured previously:
+
+```text
+https://chatbot.kentainers.co.ke/
 ```
+
+The Vercel deployment URL remains available as a fallback.
+
+## Important commercial rule
+
+Published prices are date- and location-sensitive. The chatbot must identify the product/variant and delivery zone, use the newest indexed official price source available, state the effective date where available, and advise confirmation before ordering. It must not invent a price when the source only provides "Request For Quote".
+
+## Important technical rule
+
+The chatbot must not invent engineering values such as pressure ratings, wall thickness, structural loads, buried-depth limits, pump sizing or pipe sizing when those values are not supported by the indexed Kentainers source material.
 
 ## Submission
 
 - **GitHub:** https://github.com/mangofredrick/Kentainers-Product-AI
-- **Production:** https://kentainers-product-ai-3kxb-git-main-mango-1d26.vercel.app/
+- **Production:** https://chatbot.kentainers.co.ke/
 - **Final submission package:** `docs/FINAL_SUBMISSION.md`
 - **Question/test bank:** `docs/KPIA_TEST_BANK.md`
 - **Regression cases:** `eval/kpia-test-cases.json`
 
-The repository contains the final source, evaluation assets and deployment/submission documentation. Runtime accuracy scores are not fabricated; they must be generated by executing the evaluation suite against the configured database/API environment.
+Runtime accuracy scores are not fabricated; they should be generated by executing the evaluation suite against the configured database/API environment.
