@@ -9,6 +9,7 @@
     "lint": "next lint",
     "ingest": "tsx scripts/ingest.ts",
     "ingest:pgvector": "tsx scripts/ingest-pgvector.ts",
+    "ingest:library": "tsx scripts/ingest-library.ts",
     "eval:baseline": "tsx scripts/run-baseline-evaluation.ts",
     "eval:agent": "tsx scripts/run-agent-evaluation.ts"
   },
@@ -25,6 +26,6 @@
     "tsx": "4.19.2",
     "@types/node": "22.10.5",
     "@types/react": "18.3.18",
-    "@types/react-dom": "18.3.5"
+    "@types/react-dom": "18.3.18"
   }
 }
