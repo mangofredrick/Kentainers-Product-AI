@@ -1,0 +1,35 @@
+{
+  "name": "Kentainers Product Knowledge Library",
+  "version": "1.0.0",
+  "policy": {
+    "grounding": "source-only",
+    "commercial": "prices are date- and location-sensitive",
+    "technical": "do not infer unsupported engineering values",
+    "customer_facing_sources": false
+  },
+  "sourceTypes": ["official-product-document", "official-website", "official-faq", "official-price-list"],
+  "sources": [
+    {
+      "path": "data/source/Kentainers_Product_Knowledge.txt",
+      "role": "structured product knowledge"
+    },
+    {
+      "path": "data/source/Kentainers_Technical_Product_Library.md",
+      "role": "technical and product knowledge"
+    },
+    {
+      "path": "data/source/Kentainers_Website_Catalogue_2026.md",
+      "role": "2026 website catalogue snapshot"
+    }
+  ],
+  "plannedCollections": [
+    "water-storage",
+    "sanitation",
+    "agriculture-and-biogas",
+    "material-handling",
+    "technical-installation",
+    "pricing-and-commercial",
+    "customer-service"
+  ],
+  "ingestionRule": "Add new official PDFs or website extracts as separate source files, then index them without changing chatbot logic."
+}
