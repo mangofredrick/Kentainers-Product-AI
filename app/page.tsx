@@ -16,6 +16,8 @@ const technicalQuestions=[
  "What are the key specifications of this product?"
 ];
 
+const brand={navy:"#002F5B",blue:"#0066A1",sky:"#00A3E0",light:"#EAF6FB",pale:"#F6FBFE",ink:"#17324D",muted:"#64798A",line:"#D7E7F0"};
+
 export default function Home(){
  const[input,setInput]=useState("");
  const[customerName,setCustomerName]=useState("");
@@ -25,100 +27,54 @@ export default function Home(){
  const[loading,setLoading]=useState(false);
  const[messages,setMessages]=useState<Message[]>([{role:"assistant",text:"Welcome to the Kentainers Product Chatbot. Enter the customer's details and ask me about a product, price, technical specification or customer requirement."}]);
 
- function newEnquiry(){
-  setCustomerName("");setCustomerEmail("");setCustomerPhone("");setEnquiryId("");setInput("");
-  setMessages([{role:"assistant",text:"New customer enquiry started. Enter the customer's name, email and phone number, then ask your product or technical question."}]);
- }
-
- function useQuestion(question:string){
-  setInput(question);
-  window.setTimeout(()=>document.getElementById("chat-input")?.focus(),0);
- }
-
+ function newEnquiry(){setCustomerName("");setCustomerEmail("");setCustomerPhone("");setEnquiryId("");setInput("");setMessages([{role:"assistant",text:"New customer enquiry started. Enter the customer's name, email and phone number, then ask your product or technical question."}]);}
+ function useQuestion(question:string){setInput(question);window.setTimeout(()=>document.getElementById("chat-input")?.focus(),0);}
  async function send(){
-  const question=input.trim();
-  if(!question||loading)return;
+  const question=input.trim(); if(!question||loading)return;
   const customerContext=`Customer name: ${customerName.trim()||"Not provided"}\nCustomer email: ${customerEmail.trim()||"Not provided"}\nCustomer phone: ${customerPhone.trim()||"Not provided"}`;
-  const message=`${customerContext}\n\nProduct question: ${question}`;
-  setInput("");
-  setMessages(m=>[...m,{role:"user",text:question}]);
-  setLoading(true);
-  try{
-   const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message,customer:{name:customerName,email:customerEmail,phone:customerPhone}})});
-   const data=await res.json();
-   if(data.enquiryId)setEnquiryId(data.enquiryId);
-   setMessages(m=>[...m,{role:"assistant",text:data.answer||"I could not process that request.",enquiryId:data.enquiryId}]);
-  }catch{
-   setMessages(m=>[...m,{role:"assistant",text:"The service is temporarily unavailable. Please try again."}]);
-  }finally{setLoading(false);}
+  setInput("");setMessages(m=>[...m,{role:"user",text:question}]);setLoading(true);
+  try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:`${customerContext}\n\nProduct question: ${question}`,customer:{name:customerName,email:customerEmail,phone:customerPhone}})});const data=await res.json();if(data.enquiryId)setEnquiryId(data.enquiryId);setMessages(m=>[...m,{role:"assistant",text:data.answer||"I could not process that request.",enquiryId:data.enquiryId}]);}
+  catch{setMessages(m=>[...m,{role:"assistant",text:"The service is temporarily unavailable. Please try again."}]);}finally{setLoading(false);}
  }
 
- return <main style={{minHeight:"100vh",background:"linear-gradient(145deg,#eef7fb 0%,#f7fafc 45%,#eaf3f8 100%)",padding:"28px 18px 50px"}}>
+ return <main style={{minHeight:"100vh",background:`linear-gradient(160deg,${brand.light} 0%,#fff 42%,#F2F8FC 100%)`,padding:"20px 14px 46px",fontFamily:"Arial, Helvetica, sans-serif"}}>
   <div style={{maxWidth:1180,margin:"0 auto"}}>
-   <header style={{position:"relative",overflow:"hidden",borderRadius:26,padding:"34px 36px",background:"linear-gradient(135deg,#073b4c 0%,#0b6078 55%,#118ab2 100%)",color:"white",boxShadow:"0 18px 45px rgba(7,59,76,.18)"}}>
-    <div style={{position:"absolute",right:-60,top:-90,width:250,height:250,borderRadius:"50%",background:"rgba(255,255,255,.08)"}}/>
-    <div style={{position:"relative",display:"flex",justifyContent:"space-between",gap:25,alignItems:"center",flexWrap:"wrap"}}>
+   <header style={{position:"relative",overflow:"hidden",borderRadius:24,padding:"30px 32px",background:`linear-gradient(135deg,${brand.navy} 0%,${brand.blue} 62%,${brand.sky} 100%)`,color:"white",boxShadow:"0 18px 45px rgba(0,47,91,.20)"}}>
+    <div style={{position:"absolute",right:-80,top:-110,width:290,height:290,borderRadius:"50%",border:"38px solid rgba(255,255,255,.08)"}}/><div style={{position:"absolute",right:90,bottom:-120,width:220,height:220,borderRadius:"50%",background:"rgba(0,163,224,.16)"}}/>
+    <div style={{position:"relative",display:"flex",justifyContent:"space-between",gap:24,alignItems:"center",flexWrap:"wrap"}}>
      <div>
-      <div style={{display:"inline-flex",alignItems:"center",gap:8,padding:"7px 12px",borderRadius:999,background:"rgba(255,255,255,.12)",fontSize:12,fontWeight:800,letterSpacing:.6}}>KENTAINERS • PRODUCT INTELLIGENCE</div>
-      <h1 style={{fontSize:"clamp(30px,5vw,48px)",lineHeight:1.05,margin:"17px 0 10px",letterSpacing:-1.2}}>Kentainers Product Chatbot</h1>
-      <p style={{maxWidth:720,fontSize:16,lineHeight:1.6,margin:0,color:"rgba(255,255,255,.86)"}}>A grounded sales and technical assistant for Kentainers products, customer enquiries and verified price information.</p>
+      <div style={{display:"inline-flex",alignItems:"center",gap:8,padding:"7px 12px",borderRadius:999,background:"rgba(255,255,255,.13)",border:"1px solid rgba(255,255,255,.18)",fontSize:11,fontWeight:900,letterSpacing:.8}}>KENTAINERS • PRODUCT INTELLIGENCE</div>
+      <h1 style={{fontSize:"clamp(29px,5vw,47px)",lineHeight:1.05,margin:"16px 0 9px",letterSpacing:-1}}>Kentainers Product Chatbot</h1>
+      <p style={{maxWidth:720,fontSize:15.5,lineHeight:1.6,margin:0,color:"rgba(255,255,255,.90)"}}>Your digital assistant for Kentainers products, technical information, customer enquiries and verified price guidance.</p>
      </div>
-     <div style={{minWidth:150,textAlign:"center",padding:"18px 20px",borderRadius:18,background:"rgba(255,255,255,.1)",backdropFilter:"blur(8px)"}}>
-      <div style={{fontSize:28,fontWeight:900}}>AI</div>
-      <div style={{fontSize:12,opacity:.8,marginTop:3}}>Knowledge Grounded</div>
-     </div>
+     <div style={{minWidth:145,textAlign:"center",padding:"16px 18px",borderRadius:18,background:"rgba(255,255,255,.11)",border:"1px solid rgba(255,255,255,.16)",backdropFilter:"blur(8px)"}}><div style={{fontSize:27,fontWeight:900,letterSpacing:1}}>KENTAINERS</div><div style={{fontSize:11,opacity:.82,marginTop:4}}>Knowledge Assistant</div></div>
     </div>
    </header>
 
-   <section style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(230px,1fr))",gap:14,margin:"18px 0"}}>
-    {capabilities.map(c=><div key={c.title} style={{background:"rgba(255,255,255,.9)",border:"1px solid #dce8ee",borderRadius:18,padding:"18px 19px",boxShadow:"0 7px 24px rgba(18,59,76,.06)"}}><div style={{fontSize:12,fontWeight:900,color:"#0b6078",letterSpacing:.7}}>{c.icon}</div><h3 style={{margin:"8px 0 6px",fontSize:16}}>{c.title}</h3><p style={{margin:0,color:"#60717c",fontSize:13,lineHeight:1.5}}>{c.text}</p></div>)}
+   <section style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(230px,1fr))",gap:13,margin:"16px 0"}}>
+    {capabilities.map(c=><div key={c.title} style={{background:"rgba(255,255,255,.94)",border:`1px solid ${brand.line}`,borderRadius:17,padding:"17px 18px",boxShadow:"0 7px 24px rgba(0,47,91,.06)"}}><div style={{fontSize:12,fontWeight:900,color:brand.blue,letterSpacing:.7}}>{c.icon}</div><h3 style={{margin:"8px 0 6px",fontSize:16,color:brand.ink}}>{c.title}</h3><p style={{margin:0,color:brand.muted,fontSize:13,lineHeight:1.5}}>{c.text}</p></div>)}
    </section>
 
-   <section style={{background:"rgba(255,255,255,.92)",border:"1px solid #dbe7ed",borderRadius:20,padding:"18px 20px",marginBottom:18,boxShadow:"0 8px 28px rgba(18,59,76,.06)"}}>
-    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap"}}>
-     <div><div style={{fontWeight:900,fontSize:16}}>Technical Q&A</div><div style={{fontSize:12,color:"#6b7b84",marginTop:3}}>Try a technical question from the knowledge library.</div></div>
-     <div style={{fontSize:11,fontWeight:800,color:"#087f5b",background:"#e8f8f1",padding:"7px 10px",borderRadius:999}}>SOURCE-GROUNDED</div>
-    </div>
-    <div style={{display:"flex",gap:9,flexWrap:"wrap",marginTop:13}}>
-     {technicalQuestions.map(q=><button key={q} onClick={()=>useQuestion(q)} style={chipStyle}>{q}</button>)}
-    </div>
+   <section style={{background:"rgba(255,255,255,.96)",border:`1px solid ${brand.line}`,borderRadius:18,padding:"17px 19px",marginBottom:16,boxShadow:"0 8px 28px rgba(0,47,91,.06)"}}>
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap"}}><div><div style={{fontWeight:900,fontSize:16,color:brand.ink}}>Technical Q&A</div><div style={{fontSize:12,color:brand.muted,marginTop:3}}>Quick questions grounded in the Kentainers knowledge library.</div></div><div style={{fontSize:10,fontWeight:900,color:brand.blue,background:brand.light,padding:"7px 10px",borderRadius:999}}>KENTAINERS KNOWLEDGE</div></div>
+    <div style={{display:"flex",gap:9,flexWrap:"wrap",marginTop:13}}>{technicalQuestions.map(q=><button key={q} onClick={()=>useQuestion(q)} style={chipStyle}>{q}</button>)}</div>
    </section>
 
-   <div style={{background:"rgba(255,255,255,.96)",border:"1px solid #dbe7ed",borderRadius:24,boxShadow:"0 14px 40px rgba(18,59,76,.1)",overflow:"hidden"}}>
-    <section style={{padding:"20px 22px",borderBottom:"1px solid #e5edf1",background:"linear-gradient(180deg,#ffffff,#f8fbfc)"}}>
-     <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:15,flexWrap:"wrap"}}>
-      <div><div style={{fontWeight:900,fontSize:17}}>Customer enquiry</div><div style={{fontSize:12,color:"#6b7b84",marginTop:3}}>Capture contact details before discussing the requirement.</div></div>
-      <div style={{display:"flex",alignItems:"center",gap:9}}>{enquiryId&&<span style={{fontSize:11,fontWeight:800,color:"#087f5b",background:"#e8f8f1",padding:"7px 10px",borderRadius:999}}>Saved • {enquiryId}</span>}<button onClick={newEnquiry} disabled={loading} style={{padding:"9px 13px",border:"1px solid #cbd9e0",borderRadius:10,background:"white",fontWeight:800,color:"#174b5f",cursor:"pointer"}}>New enquiry</button></div>
-     </div>
-     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(210px,1fr))",gap:10,marginTop:16}}>
-      <input value={customerName} onChange={e=>setCustomerName(e.target.value)} placeholder="Customer name" style={inputStyle}/>
-      <input type="email" value={customerEmail} onChange={e=>setCustomerEmail(e.target.value)} placeholder="Customer email" style={inputStyle}/>
-      <input type="tel" value={customerPhone} onChange={e=>setCustomerPhone(e.target.value)} placeholder="Customer phone number" style={inputStyle}/>
-     </div>
+   <div style={{background:"rgba(255,255,255,.98)",border:`1px solid ${brand.line}`,borderRadius:22,boxShadow:"0 14px 40px rgba(0,47,91,.10)",overflow:"hidden"}}>
+    <section style={{padding:"19px 21px",borderBottom:`1px solid ${brand.line}`,background:`linear-gradient(180deg,#fff,${brand.pale})`}}>
+     <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:15,flexWrap:"wrap"}}><div><div style={{fontWeight:900,fontSize:17,color:brand.ink}}>Customer enquiry</div><div style={{fontSize:12,color:brand.muted,marginTop:3}}>Capture customer details before discussing the requirement.</div></div><div style={{display:"flex",alignItems:"center",gap:9}}>{enquiryId&&<span style={{fontSize:10,fontWeight:900,color:brand.blue,background:brand.light,padding:"7px 10px",borderRadius:999}}>SAVED • {enquiryId}</span>}<button onClick={newEnquiry} disabled={loading} style={{padding:"9px 13px",border:`1px solid ${brand.line}`,borderRadius:10,background:"white",fontWeight:800,color:brand.navy,cursor:"pointer"}}>New enquiry</button></div></div>
+     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(210px,1fr))",gap:10,marginTop:15}}><input value={customerName} onChange={e=>setCustomerName(e.target.value)} placeholder="Customer name" style={inputStyle}/><input type="email" value={customerEmail} onChange={e=>setCustomerEmail(e.target.value)} placeholder="Customer email" style={inputStyle}/><input type="tel" value={customerPhone} onChange={e=>setCustomerPhone(e.target.value)} placeholder="Customer phone number" style={inputStyle}/></div>
     </section>
-
-    <section style={{padding:"8px 22px 18px",minHeight:390,maxHeight:560,overflowY:"auto",background:"#fbfdfe"}}>
-     {messages.map((m,i)=><div key={i} style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start",margin:"14px 0"}}>
-      <div style={{maxWidth:"82%",padding:"14px 16px",borderRadius:m.role==="user"?"18px 18px 5px 18px":"18px 18px 18px 5px",background:m.role==="user"?"linear-gradient(135deg,#0b6078,#118ab2)":"#f0f5f7",color:m.role==="user"?"white":"#24353d",boxShadow:"0 4px 12px rgba(0,0,0,.05)"}}>
-       <div style={{fontSize:11,fontWeight:900,opacity:.72,marginBottom:6}}>{m.role==="user"?"YOU":"CHATBOT"}</div>
-       <div style={{whiteSpace:"pre-wrap",lineHeight:1.55,fontSize:14}}>{m.text}</div>
-       {m.enquiryId?<div style={{marginTop:8,fontSize:10,color:"#087f5b",fontWeight:900}}>ENQUIRY SAVED: {m.enquiryId}</div>:null}
-      </div>
-     </div>)}
-     {loading&&<div style={{display:"flex",alignItems:"center",gap:9,color:"#60717c",fontSize:13,padding:"10px 2px"}}><span style={{width:8,height:8,borderRadius:"50%",background:"#118ab2",display:"inline-block"}}/> Chatbot is checking the Kentainers knowledge base…</div>}
+    <section style={{padding:"8px 21px 18px",minHeight:390,maxHeight:560,overflowY:"auto",background:"#FCFEFF"}}>
+     {messages.map((m,i)=><div key={i} style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start",margin:"14px 0"}}><div style={{maxWidth:"82%",padding:"14px 16px",borderRadius:m.role==="user"?"18px 18px 5px 18px":"18px 18px 18px 5px",background:m.role==="user"?`linear-gradient(135deg,${brand.blue},${brand.sky})`:brand.light,color:m.role==="user"?"white":brand.ink,boxShadow:"0 4px 12px rgba(0,47,91,.05)"}}><div style={{fontSize:10,fontWeight:900,opacity:.72,marginBottom:6}}>{m.role==="user"?"YOU":"KENTAINERS CHATBOT"}</div><div style={{whiteSpace:"pre-wrap",lineHeight:1.55,fontSize:14}}>{m.text}</div>{m.enquiryId?<div style={{marginTop:8,fontSize:10,color:brand.blue,fontWeight:900}}>ENQUIRY SAVED: {m.enquiryId}</div>:null}</div></div>)}
+     {loading&&<div style={{display:"flex",alignItems:"center",gap:9,color:brand.muted,fontSize:13,padding:"10px 2px"}}><span style={{width:8,height:8,borderRadius:"50%",background:brand.sky,display:"inline-block"}}/> Kentainers Chatbot is checking the knowledge base…</div>}
     </section>
-
-    <section style={{padding:"16px 22px 22px",borderTop:"1px solid #e4edf1",background:"white"}}>
-     <div style={{display:"flex",gap:10,alignItems:"stretch"}}>
-      <input id="chat-input" value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&send()} placeholder="Ask about a product, price, dimensions, application or technical requirement…" style={{...inputStyle,flex:1,fontSize:14,padding:"14px 15px"}}/>
-      <button onClick={send} disabled={loading||!input.trim()} style={{minWidth:125,padding:"0 18px",border:0,borderRadius:12,background:loading||!input.trim()?"#b8c7ce":"#073b4c",color:"white",fontWeight:900,cursor:loading?"wait":"pointer"}}>{loading?"Checking…":"Ask Chatbot"}</button>
-     </div>
-     <div style={{fontSize:10,color:"#7a8990",marginTop:9}}>Answers are grounded in available Kentainers catalogue, technical library and website evidence. Confirm current commercial and engineering details before final quotation or installation.</div>
-    </section>
+    <section style={{padding:"16px 21px 21px",borderTop:`1px solid ${brand.line}`,background:"white"}}><div style={{display:"flex",gap:10,alignItems:"stretch"}}><input id="chat-input" value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&send()} placeholder="Ask about a product, price, dimensions, application or technical requirement…" style={{...inputStyle,flex:1,fontSize:14,padding:"14px 15px"}}/><button onClick={send} disabled={loading||!input.trim()} style={{minWidth:125,padding:"0 18px",border:0,borderRadius:11,background:loading||!input.trim()?"#B9C8D1":brand.navy,color:"white",fontWeight:900,cursor:loading?"wait":"pointer"}}>{loading?"Checking…":"Ask Chatbot"}</button></div><div style={{fontSize:10,color:"#7A8990",marginTop:9}}>Answers are grounded in available Kentainers catalogue, technical library and website evidence. Confirm current commercial and engineering details before final quotation or installation.</div></section>
    </div>
+   <footer style={{textAlign:"center",padding:"18px 5px 0",fontSize:11,color:brand.muted}}>Kentainers Product Chatbot • Product & Technical Intelligence</footer>
   </div>
  </main>
 }
 
-const inputStyle:CSSProperties={padding:"11px 12px",border:"1px solid #ccdbe2",borderRadius:10,outline:"none",background:"white",color:"#1e3038",fontSize:14};
-const chipStyle:CSSProperties={border:"1px solid #cbdde5",background:"#f6fbfd",color:"#174b5f",borderRadius:999,padding:"9px 12px",fontSize:12,fontWeight:800,cursor:"pointer"};
+const inputStyle:CSSProperties={padding:"11px 12px",border:`1px solid #C8DCE7`,borderRadius:10,outline:"none",background:"white",color:"#17324D",fontSize:14};
+const chipStyle:CSSProperties={border:`1px solid #C8DDE8`,background:"#F7FCFE",color:"#004F7C",borderRadius:999,padding:"9px 12px",fontSize:12,fontWeight:800,cursor:"pointer"};
