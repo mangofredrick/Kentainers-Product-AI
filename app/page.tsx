@@ -80,7 +80,6 @@ export default function Home(){
       <div style={{maxWidth:"82%",padding:"14px 16px",borderRadius:m.role==="user"?"18px 18px 5px 18px":"18px 18px 18px 5px",background:m.role==="user"?"linear-gradient(135deg,#0b6078,#118ab2)":"#f0f5f7",color:m.role==="user"?"white":"#24353d",boxShadow:"0 4px 12px rgba(0,0,0,.05)"}}>
        <div style={{fontSize:11,fontWeight:900,opacity:.72,marginBottom:6}}>{m.role==="user"?"YOU":"CHATBOT"}</div>
        <div style={{whiteSpace:"pre-wrap",lineHeight:1.55,fontSize:14}}>{m.text}</div>
-       {m.sources?.length?<div style={{marginTop:10,paddingTop:9,borderTop:"1px solid rgba(100,120,130,.18)",fontSize:10,color:"#64757d"}}>Source: {m.sources.map((s,j)=><span key={j}>{s.document}{s.page?`, p.${s.page}`:""}{j<m.sources!.length-1?" • ":""}</span>)}</div>:null}
        {m.enquiryId?<div style={{marginTop:8,fontSize:10,color:"#087f5b",fontWeight:900}}>ENQUIRY SAVED: {m.enquiryId}</div>:null}
       </div>
      </div>)}
