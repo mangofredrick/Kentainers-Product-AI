@@ -39,10 +39,10 @@ export default function Home(){
  const[customerEmail,setCustomerEmail]=useState("");
  const[customerPhone,setCustomerPhone]=useState("");
  const[enquiryId,setEnquiryId]=useState("");
- const[showStarterQuestions,setShowStarterQuestions]=useState(false);
+ const[showStarterQuestions,setShowStarterQuestions]=useState(true);
  const[messages,setMessages]=useState<Message[]>([{role:"assistant",text:"Hello. I’m KPIA, the Kentainers Product Intelligence Agent. Enter the customer details, then ask a product question. I’ll use the Kentainers knowledge base to identify relevant options and ask for clarification when the requirement is ambiguous."}]);
  const[loading,setLoading]=useState(false);
- function newEnquiry(){setCustomerName("");setCustomerEmail("");setCustomerPhone("");setEnquiryId("");setInput("");setShowStarterQuestions(false);setMessages([{role:"assistant",text:"New customer enquiry started. Enter the customer's name, email and phone number, then ask a product question."}]);}
+ function newEnquiry(){setCustomerName("");setCustomerEmail("");setCustomerPhone("");setEnquiryId("");setInput("");setShowStarterQuestions(true);setMessages([{role:"assistant",text:"New customer enquiry started. Enter the customer's name, email and phone number, then ask a product question."}]);}
  async function send(text?:string){
   const question=(text??input).trim();
   if(!question||loading)return;
