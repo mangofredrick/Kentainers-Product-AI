@@ -1,8 +1,8 @@
 import React from "react";
 
 export const metadata = {
-  title: "Kentainers Product Intelligence Agent",
-  description: "Grounded Kentainers product selection assistant",
+  title: "Kentainers Product Chatbot",
+  description: "AI-powered Kentainers product selection, pricing and customer enquiry assistant",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
