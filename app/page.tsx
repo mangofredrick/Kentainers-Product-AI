@@ -5,8 +5,15 @@ type Message={role:"user"|"assistant";text:string;sources?:{document:string;page
 
 const capabilities=[
  {icon:"◈",title:"Product Intelligence",text:"Find products by capacity, application, product code and customer requirement."},
- {icon:"▣",title:"Technical Support",text:"Answer verified technical questions and clearly flag information requiring confirmation."},
- {icon:"KSh",title:"Price Guidance",text:"Use the indexed zonal price lists and ask for delivery location when required."}
+ {icon:"▣",title:"Technical Q&A",text:"Ask technical questions and receive answers grounded in the Kentainers knowledge library."},
+ {icon:"KSh",title:"Price Guidance",text:"Use indexed pricing evidence and request delivery location when a price is zonal."}
+];
+
+const technicalQuestions=[
+ "What technical factors should I consider when selecting a tank?",
+ "What is the difference between the available tank applications?",
+ "What installation information is available for this product?",
+ "What are the key specifications of this product?"
 ];
 
 export default function Home(){
@@ -23,6 +30,11 @@ export default function Home(){
   setMessages([{role:"assistant",text:"New customer enquiry started. Enter the customer's name, email and phone number, then ask your product or technical question."}]);
  }
 
+ function useQuestion(question:string){
+  setInput(question);
+  window.setTimeout(()=>document.getElementById("chat-input")?.focus(),0);
+ }
+
  async function send(){
   const question=input.trim();
   if(!question||loading)return;
@@ -35,7 +47,7 @@ export default function Home(){
    const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message,customer:{name:customerName,email:customerEmail,phone:customerPhone}})});
    const data=await res.json();
    if(data.enquiryId)setEnquiryId(data.enquiryId);
-   setMessages(m=>[...m,{role:"assistant",text:data.answer||"I could not process that request.",sources:data.sources,enquiryId:data.enquiryId}]);
+   setMessages(m=>[...m,{role:"assistant",text:data.answer||"I could not process that request.",enquiryId:data.enquiryId}]);
   }catch{
    setMessages(m=>[...m,{role:"assistant",text:"The service is temporarily unavailable. Please try again."}]);
   }finally{setLoading(false);}
@@ -60,6 +72,16 @@ export default function Home(){
 
    <section style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(230px,1fr))",gap:14,margin:"18px 0"}}>
     {capabilities.map(c=><div key={c.title} style={{background:"rgba(255,255,255,.9)",border:"1px solid #dce8ee",borderRadius:18,padding:"18px 19px",boxShadow:"0 7px 24px rgba(18,59,76,.06)"}}><div style={{fontSize:12,fontWeight:900,color:"#0b6078",letterSpacing:.7}}>{c.icon}</div><h3 style={{margin:"8px 0 6px",fontSize:16}}>{c.title}</h3><p style={{margin:0,color:"#60717c",fontSize:13,lineHeight:1.5}}>{c.text}</p></div>)}
+   </section>
+
+   <section style={{background:"rgba(255,255,255,.92)",border:"1px solid #dbe7ed",borderRadius:20,padding:"18px 20px",marginBottom:18,boxShadow:"0 8px 28px rgba(18,59,76,.06)"}}>
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:12,flexWrap:"wrap"}}>
+     <div><div style={{fontWeight:900,fontSize:16}}>Technical Q&A</div><div style={{fontSize:12,color:"#6b7b84",marginTop:3}}>Try a technical question from the knowledge library.</div></div>
+     <div style={{fontSize:11,fontWeight:800,color:"#087f5b",background:"#e8f8f1",padding:"7px 10px",borderRadius:999}}>SOURCE-GROUNDED</div>
+    </div>
+    <div style={{display:"flex",gap:9,flexWrap:"wrap",marginTop:13}}>
+     {technicalQuestions.map(q=><button key={q} onClick={()=>useQuestion(q)} style={chipStyle}>{q}</button>)}
+    </div>
    </section>
 
    <div style={{background:"rgba(255,255,255,.96)",border:"1px solid #dbe7ed",borderRadius:24,boxShadow:"0 14px 40px rgba(18,59,76,.1)",overflow:"hidden"}}>
@@ -88,10 +110,10 @@ export default function Home(){
 
     <section style={{padding:"16px 22px 22px",borderTop:"1px solid #e4edf1",background:"white"}}>
      <div style={{display:"flex",gap:10,alignItems:"stretch"}}>
-      <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&send()} placeholder="Ask about a product, price, dimensions, application or technical requirement…" style={{...inputStyle,flex:1,fontSize:14,padding:"14px 15px"}}/>
+      <input id="chat-input" value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>e.key==="Enter"&&send()} placeholder="Ask about a product, price, dimensions, application or technical requirement…" style={{...inputStyle,flex:1,fontSize:14,padding:"14px 15px"}}/>
       <button onClick={send} disabled={loading||!input.trim()} style={{minWidth:125,padding:"0 18px",border:0,borderRadius:12,background:loading||!input.trim()?"#b8c7ce":"#073b4c",color:"white",fontWeight:900,cursor:loading?"wait":"pointer"}}>{loading?"Checking…":"Ask Chatbot"}</button>
      </div>
-     <div style={{fontSize:10,color:"#7a8990",marginTop:9}}>Answers are grounded in available Kentainers catalogue/website evidence. Confirm current commercial and engineering details before final quotation or installation.</div>
+     <div style={{fontSize:10,color:"#7a8990",marginTop:9}}>Answers are grounded in available Kentainers catalogue, technical library and website evidence. Confirm current commercial and engineering details before final quotation or installation.</div>
     </section>
    </div>
   </div>
@@ -99,3 +121,4 @@ export default function Home(){
 }
 
 const inputStyle:CSSProperties={padding:"11px 12px",border:"1px solid #ccdbe2",borderRadius:10,outline:"none",background:"white",color:"#1e3038",fontSize:14};
+const chipStyle:CSSProperties={border:"1px solid #cbdde5",background:"#f6fbfd",color:"#174b5f",borderRadius:999,padding:"9px 12px",fontSize:12,fontWeight:800,cursor:"pointer"};
