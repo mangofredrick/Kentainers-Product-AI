@@ -67,7 +67,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         return `${p.product_code || p.product_name}${capacity}`;
       }).join(", ");
       return {
-        answer: `Based on the available Kentainers product and technical knowledge, these products are relevant to your request: ${names}. Please confirm the intended application and the latest commercial details with a Kentainers representative before quoting or ordering.`,
+        answer: `Based on the available Kentainers product and technical knowledge, these products are relevant to your request: ${names}. For the most suitable recommendation, please confirm the intended application. For current pricing and availability, please contact Kentainers.`,
         sources: sources.length ? sources : products.slice(0, 6).map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
         products: products.slice(0, 6),
         action: "search",
