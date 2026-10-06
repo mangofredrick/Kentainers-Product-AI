@@ -157,7 +157,10 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
 
     const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
       { role: "system", content: SYSTEM },
-      { role: "user", content: `Customer request:
+      { role: "user", content: `Recent conversation context:
+${conversationContext || "No earlier conversation context was provided."}
+
+Current customer request:
 ${userMessage}
 
 Verified knowledge-library evidence retrieved for this request:
