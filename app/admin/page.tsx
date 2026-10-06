@@ -1,3 +1,4 @@
+// Kentainers KPIA admin dashboard - syntax-clean build
 "use client";
 import { useEffect, useState } from "react";
 
