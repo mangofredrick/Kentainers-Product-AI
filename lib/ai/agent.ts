@@ -66,12 +66,34 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
     const sources = chunks.map(c => ({ document: c.document || "Kentainers knowledge library", page: c.page }));
 
     if (products.length) {
+      const normalizedRequest = userMessage.trim()
+        .replace(/^what is\\s+/i, "")
+        .replace(/^what are\\s+/i, "")
+        .replace(/^tell me about\\s+/i, "")
+        .replace(/[?!.]+$/, "")
+        .trim();
+      const exact = getProductDetails(normalizedRequest);
+
+      if (exact) {
+        const capacity = exact.capacity ? `Capacity: ${exact.capacity}${exact.capacity_unit || ""}. ` : "";
+        const dimensions = exact.dimensions ? `Dimensions: ${exact.dimensions}. ` : "";
+        const material = exact.material ? `Material: ${exact.material}. ` : "";
+        const features = exact.features ? `Key documented features: ${exact.features}. ` : "";
+        return {
+          answer: `According to the available Kentainers product catalogue, ${exact.product_name} (${exact.product_code}) is in the ${exact.category} category. ${capacity}${dimensions}${material}${features}For application-specific or technical details not shown here, I can use the Kentainers knowledge library or escalate for confirmation.`,
+          sources: sources.length ? sources : [{ document: exact.source_document || "Kentainers product catalogue", page: exact.source_page }],
+          products: [exact],
+          action: "details",
+          toolCalls: []
+        };
+      }
+
       const names = products.slice(0, 6).map(p => {
         const capacity = p.capacity ? ` (${p.capacity}${p.capacity_unit || ""})` : "";
         return `${p.product_code || p.product_name}${capacity}`;
       }).join(", ");
       return {
-        answer: `Based on the available Kentainers product and technical knowledge, these products are relevant to your request: ${names}. For the most suitable recommendation, please tell us the intended application—for example, home use, agriculture, commercial use, water storage, sanitation/septic use, or another purpose. For pricing, please provide the product/capacity and delivery town so I can give the applicable price shown in the official Kentainers price list.`,
+        answer: `Based on the available Kentainers product catalogue, these products are relevant to your request: ${names}. If you tell me the intended application or exact product, I can narrow the recommendation. For pricing, provide the product/variant and delivery town so I can use the applicable verified price source.`,
         sources: sources.length ? sources : products.slice(0, 6).map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
         products: products.slice(0, 6),
         action: "search",
@@ -121,6 +143,15 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     };
   }
 
+  if (/(^|\s)6000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /\b(bunkatank|underground)\b/.test(normalized)) {
+    return {
+      answer: "For underground water storage, the documented Kentainers option is BKT 600 (Bunkatank), 6,000 L, approximately 179 cm high × 265 cm diameter. If your 6,000 L requirement is for above-ground water storage or sanitation/septic use, please confirm before selecting a product.",
+      sources: [{ document: "BUNKATANK-4.pdf", page: 1 }],
+      action: "details",
+      toolCalls: []
+    };
+  }
+
   if (/(^|\s)6000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /\b(home|domestic)(\s+(use|water))?\b/.test(normalized)) {
     return {
       answer: "For home/domestic use where the requirement is above-ground water storage, the documented Kentainers option is the CCV 600 (6,000 L), approximately 223 cm high × 198 cm diameter. If you mean domestic water storage, this is the relevant option. If the 6,000 L requirement is for sanitation/septic, underground storage, or another application, please confirm so I can recommend the appropriate product.",
@@ -130,10 +161,10 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     };
   }
 
-  if (/(^|\s)6000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {
+  if (/(^|\s)6000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank|storage|bunkatank|septic)/.test(normalized)) {
     return {
-      answer: "There are multiple Kentainers products associated with 6,000 L. For above-ground water storage, the documented Kentank is CCV 600, approximately 223 cm high × 198 cm diameter. If your requirement is for home use, agriculture, commercial use, underground storage, sanitation/septic use, or another purpose, please confirm the intended application before selecting a product.",
-      sources: [{ document: "KENTANK2.pdf", page: 1 }],
+      answer: "There are multiple Kentainers products associated with 6,000 L, including CCV 600 for above-ground water storage and BKT 600 for underground water storage. The source library also references SPT 600 for septic use. Please confirm the intended application before selecting a product or requesting a price.",
+      sources: [{ document: "Kentainers product library", page: 1 }],
       action: "clarify",
       toolCalls: []
     };
