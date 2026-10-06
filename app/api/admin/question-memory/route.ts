@@ -20,6 +20,6 @@ export async function PATCH(req: Request) {
   if (!Number.isInteger(body.id) || !["verified", "not_supported", "needs_review"].includes(body.status)) {
     return NextResponse.json({ error: "Invalid review request" }, { status: 400 });
   }
-  await markQuestionMemoryReviewed(body.id, body.status, body.reviewReason);
+  await markQuestionMemoryReviewed(body.id, body.status, body.reviewReason, body.approvedAnswer);
   return NextResponse.json({ ok: true });
 }
