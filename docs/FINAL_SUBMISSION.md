@@ -100,6 +100,18 @@ npm run eval:agent
 - Test bank: `docs/KPIA_TEST_BANK.md`
 - Regression cases: `eval/kpia-test-cases.json`
 
-## 10. Final note
 
-This repository is structured as the final submission source package. The remaining runtime evaluation item is intentionally identified rather than presented as completed without evidence. This keeps the submission technically reproducible and avoids claiming test results that have not been measured.
+## 10. Evaluation runner status
+
+The repository now includes executable evaluation runners referenced by package.json:
+
+- scripts/run-baseline-evaluation.ts — executes the focused regression suite and writes eval/results/baseline-latest.json.
+- scripts/run-agent-evaluation.ts — executes the same scenarios using a lightweight 100-point agent-behaviour rubric and writes eval/results/agent-latest.json.
+
+These runners deliberately do not fabricate RAGAS/DeepEval metrics. They provide reproducible behavioural regression evidence; formal RAGAS/DeepEval measurements still require execution in the configured runtime environment.
+
+The current focused regression file contains 30 cases. The repository documentation also references the separate 110-question product intelligence test bank.
+
+## 11. Final note
+
+The latest source update strengthens the production agent's handling of common 5,000 L and 6,000 L tank enquiries and restores the evaluation commands that were previously declared but missing. A successful GitHub push does not by itself prove that the Vercel production deployment has completed, so the live deployment should be checked after Vercel finishes its build. Numerical runtime scores should only be recorded after the runners have actually executed against the configured environment.
