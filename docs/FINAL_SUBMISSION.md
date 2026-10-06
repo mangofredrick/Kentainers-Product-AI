@@ -114,16 +114,21 @@ The current focused regression file contains 30 cases. The repository documentat
 
 ## 11. Final deployment status
 
-The latest source commit on `main` is `28dd967` (`route unavailable prices to customer enquiry follow-up`). This commit adds deterministic handling for unsupported/unlisted price requests so they are routed to the customer enquiry follow-up instead of falling through to an unverified answer.
+The latest source commits on `main` strengthen conversation continuity, grounded generation, customer-contact capture and unresolved-enquiry handling. The current evaluation suite has also been expanded with regression cases for follow-up context and contact capture.
 
 The current source therefore includes:
 - strengthened 5,000 L and 6,000 L tank enquiry handling;
 - broader application clarification options, including home/domestic, agriculture, commercial, water storage and sanitation/septic use;
 - official price-list pricing for supported products and zonal delivery handling;
 - customer-enquiry follow-up when a requested price is not available in the verified price list;
-- restored baseline and agent evaluation runners; and
+- chatbot question memory and verified-answer feedback into retrieval;
+- conversation history passed through the chat route and grounded generation prompt;
+- customer contact capture for unresolved enquiries, requiring name plus email or phone;
+- regression coverage for conversation continuity and contact capture; and
 - updated customer-facing wording.
 
-The latest commits have been pushed to `main`. Vercel deployment status for commit `28dd967` has not been independently verified in this environment, so this submission does not claim that commit is currently live in production.
+The latest commits have been pushed to `main`. Vercel deployment status for the latest source has not been independently verified in this environment, so this submission does not claim that the newest commits are currently live in production.
 
 Live runtime accuracy and formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
+
+Current focused regression file: `eval/kpia-test-cases.json` contains 32 cases. and formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
