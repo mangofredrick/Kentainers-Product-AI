@@ -105,6 +105,26 @@ export async function runAgent(userMessage: string): Promise<AgentResult & { too
   const pricing = answerPricing(userMessage);
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
+  // Deterministic responses for common high-frequency tank queries.
+  // These avoid unnecessary model/runtime dependence for core catalogue facts.
+  const normalized = userMessage.toLowerCase().replace(/,/g, "");
+  if (/\\b5000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /tank|kentank/.test(normalized)) {
+    return {
+      answer: "Kentainers documents two 5,000 L above-ground Kentank variants: CCV 500 Short (approximately 175 cm high × 203 cm diameter) and CCV 500 (approximately 215 cm high × 185 cm diameter). The two variants have different dimensions, so selection should consider the available installation space. Confirm the current commercial quotation before ordering.",
+      sources: [{ document: "KENTANK2.pdf", page: 1 }],
+      action: "details",
+      toolCalls: []
+    };
+  }
+  if (/\\b6000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /tank|kentank|storage/.test(normalized)) {
+    return {
+      answer: "There are multiple Kentainers products associated with 6,000 L. For above-ground water storage, the documented Kentank is CCV 600, approximately 223 cm high × 198 cm diameter. If your requirement is underground water storage or sanitation/septic use, please confirm the intended application before selecting a product.",
+      sources: [{ document: "KENTANK2.pdf", page: 1 }],
+      action: "clarify",
+      toolCalls: []
+    };
+  }
+
   const faq = answerFAQ(userMessage);
   if (faq) return faq as AgentResult & { toolCalls?: ToolTrace[] };
 
