@@ -27,9 +27,9 @@ function absoluteUrl(href: string, base: string): string | null {
 
 function stripHtml(html: string): string {
   return html
-    .replace(/<script[\s\S]*?<\\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\\/style>/gi, " ")
-    .replace(/<noscript[\s\S]*?<\\/noscript>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<noscript[\s\S]*?<\/noscript>/gi, " ")
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/gi, " ")
     .replace(/&amp;/gi, "&")
@@ -40,7 +40,7 @@ function stripHtml(html: string): string {
 }
 
 function titleOf(html: string, fallback: string): string {
-  const m = html.match(/<title[^>]*>([\s\S]*?)<\\/title>/i);
+  const m = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
   return m ? stripHtml(m[1]).slice(0, 240) : fallback;
 }
 
