@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       : "";
     const result = await runAgent(`${customerContext}\n${requirementContext}\n\nCurrent customer message: ${body.message}`, conversationContext);
     if (result.action === "escalate") {
-      const hasContact = Boolean(body.customer.name?.trim() || body.customer.email?.trim() || body.customer.phone?.trim());
+      const hasContact = Boolean(body.customer.name?.trim() && (body.customer.email?.trim() || body.customer.phone?.trim()));
       result.answer = hasContact
         ? "Thank you for your enquiry. We are currently unable to provide a verified response to this question. Your enquiry has been recorded and will be reviewed by the relevant Kentainers team. We will get back to you once the correct information has been confirmed."
         : "Thank you for your enquiry. We are currently unable to provide a verified response to this question. Please provide your name and either your phone number or email address in the customer details above so the relevant Kentainers team can get back to you once the correct information has been confirmed.";
