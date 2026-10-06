@@ -27,20 +27,20 @@ function absoluteUrl(href: string, base: string): string | null {
 
 function stripHtml(html: string): string {
   return html
-    .replace(/<script[\\s\\S]*?<\\/script>/gi, " ")
-    .replace(/<style[\\s\\S]*?<\\/style>/gi, " ")
-    .replace(/<noscript[\\s\\S]*?<\\/noscript>/gi, " ")
+    .replace(/<script[\s\S]*?<\\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\\/style>/gi, " ")
+    .replace(/<noscript[\s\S]*?<\\/noscript>/gi, " ")
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/gi, " ")
     .replace(/&amp;/gi, "&")
     .replace(/&#39;/g, "'")
     .replace(/&quot;/gi, '"')
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
 function titleOf(html: string, fallback: string): string {
-  const m = html.match(/<title[^>]*>([\\s\\S]*?)<\\/title>/i);
+  const m = html.match(/<title[^>]*>([\s\S]*?)<\\/title>/i);
   return m ? stripHtml(m[1]).slice(0, 240) : fallback;
 }
 
@@ -99,7 +99,7 @@ async function main() {
     const html = await fetchText(url);
     const title = titleOf(html, url);
     const text = stripHtml(html);
-    const slug = new URL(url).pathname.replace(/^\\/+|\\/+$/g, "").replace(/[^a-z0-9]+/gi, "-") || "home";
+    const slug = new URL(url).pathname.replace(/^\/+|\/+$/g, "").replace(/[^a-z0-9]+/gi, "-") || "home";
     const file = `${slug}.txt`;
     await fs.writeFile(path.join(OUT, file), `SOURCE_URL: ${url}\\nSOURCE_TITLE: ${title}\\nSOURCE_TYPE: ${classifySource(url)}\\nVERIFIED_AT: ${new Date().toISOString()}\\n\\n${text}\\n`, "utf8");
     manifest.push({ url, title, sourceType: classifySource(url), file: path.posix.join("data/source/official-web", file), verifiedAt: new Date().toISOString() });
