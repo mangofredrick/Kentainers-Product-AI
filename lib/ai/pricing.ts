@@ -1,4 +1,6 @@
 import type { AgentResult } from "../types";
+import priceData from "../../data/pricing/kentank-zonal-2026-04-15.json";
+import { zonalPrice } from "../knowledge/pricing";
 
 type Zone = { name: string; areas: string[] };
 
@@ -25,7 +27,7 @@ function zoneFor(message:string): number | null {
  return null;
 }
 
-export function answerPricing(message:string): AgentResult|null {
+function structuredOfficialAnswer(message: string): AgentResult | null {\n const lower = message.toLowerCase();\n const asksPrice = /(price|cost|how much|quotation|quote|pricelist|price list)/.test(lower);\n if (!asksPrice) return null;\n const zone = zoneFor(message);\n const matched = priceData.rows.find((row) => lower.includes(row.productCode.toLowerCase()));\n const capacityMatch = lower.match(/(\\d[\\d,]*)\\s*(?:l|litre|litres|liter|liters)\\b/);\n const capacity = capacityMatch ? Number(capacityMatch[1].replace(/,/g, "")) : undefined;\n const row = matched || (capacity == null ? undefined : priceData.rows.find((r) => r.capacityLitres === capacity));\n if (!row) return null;\n const result = zonalPrice(priceData.rows, { productCode: row.productCode, zone: zone == null ? undefined : zone + 1 }, priceData.source.url, priceData.source.effectiveDate);\n if (!result.priceKsh || result.zone == null) {\n   return { answer: "I found an official Kentainers price-list entry for " + row.productCode + " (" + row.capacityLitres.toLocaleString("en-KE") + " L), effective 15 April 2026, but I need the delivery town/location before I can return the applicable zonal price. The listed prices include VAT and Kentainers notes that prices may change without notice.", sources: [{ document: priceData.source.title }], action: "clarify" };\n }\n return { answer: "The official Kentainers price list effective 15 April 2026 lists " + row.productCode + " (" + row.capacityLitres.toLocaleString("en-KE") + " L) at KSh " + result.priceKsh.toLocaleString("en-KE") + " in " + zones[result.zone - 1].name + ", inclusive of VAT. Kentainers notes that prices may change without notice, so confirm the current quotation before ordering.", sources: [{ document: priceData.source.title }], action: "details" };\n}\nexport function answerPricing(message:string): AgentResult|null {
  const lower=message.toLowerCase();
  const asksPrice=/(price|cost|how much|quotation|quote|pricelist|price list)/.test(lower);
  if(!asksPrice) return null;
