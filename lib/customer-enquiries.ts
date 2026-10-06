@@ -102,7 +102,7 @@ export async function ensureQuestionMemoryTable() {
 }
 
 function normalizeQuestion(question: string) {
-  return question.trim().toLowerCase().replace(/\\s+/g, " ").slice(0, 4000);
+  return question.trim().toLowerCase().replace(/\s+/g, " ").slice(0, 4000);
 }
 
 function memoryStatus(result: AgentResult) {
@@ -182,7 +182,7 @@ export async function listQuestionMemory(limit = 100, needsReviewOnly = true) {
   await ensureQuestionMemoryTable();
   const result = await getPool().query(
     `SELECT id, question, answer, action, products, sources, product_interest, capacity,
-            application, location, knowledge_status, needs_review, review_reason,
+            application, location, knowledge_status, approved_answer, needs_review, review_reason,
             frequency, first_asked_at, last_asked_at, updated_at
      FROM chatbot_question_memory
      WHERE ($1 = FALSE OR needs_review = TRUE)
