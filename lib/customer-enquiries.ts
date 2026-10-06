@@ -74,6 +74,90 @@ function leadSignals(customer: CustomerDetails, question: string, result: AgentR
   return { score, followUp: score >= 40 || result.action === "escalate", reason: reasons.join("; ") || "general information enquiry" };
 }
 
+export async function ensureQuestionMemoryTable() {
+  const pool = getPool();
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS chatbot_question_memory (
+      id BIGSERIAL PRIMARY KEY,
+      question TEXT NOT NULL,
+      answer TEXT,
+      action TEXT,
+      products JSONB,
+      sources JSONB,
+      product_interest TEXT,
+      capacity TEXT,
+      application TEXT,
+      location TEXT,
+      knowledge_status TEXT NOT NULL DEFAULT 'answered',
+      needs_review BOOLEAN NOT NULL DEFAULT FALSE,
+      review_reason TEXT,
+      frequency INTEGER NOT NULL DEFAULT 1,
+      first_asked_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      last_asked_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+}
+
+function normalizeQuestion(question: string) {
+  return question.trim().toLowerCase().replace(/\\s+/g, " ").slice(0, 4000);
+}
+
+function memoryStatus(result: AgentResult) {
+  if (result.action === "escalate") return { status: "unverified", review: true, reason: "Chatbot could not provide a verified answer." };
+  if (result.action === "clarify") return { status: "needs_clarification", review: true, reason: "Customer question requires additional information or knowledge review." };
+  return { status: "answered", review: false, reason: null };
+}
+
+export async function recordChatbotQuestion(question: string, result: AgentResult, requirements: CustomerRequirements = {}) {
+  if (!question.trim()) return;
+  await ensureQuestionMemoryTable();
+  const normalized = normalizeQuestion(question);
+  const status = memoryStatus(result);
+  const pool = getPool();
+  const existing = await pool.query(
+    `SELECT id FROM chatbot_question_memory WHERE question = $1 LIMIT 1`,
+    [normalized]
+  );
+  if (existing.rowCount) {
+    await pool.query(
+      `UPDATE chatbot_question_memory
+       SET frequency = frequency + 1,
+           last_asked_at = NOW(),
+           answer = $2,
+           action = $3,
+           products = $4::jsonb,
+           sources = $5::jsonb,
+           product_interest = $6,
+           capacity = $7,
+           application = $8,
+           location = $9,
+           knowledge_status = $10,
+           needs_review = $11,
+           review_reason = $12,
+           updated_at = NOW()
+       WHERE id = $1`,
+      [existing.rows[0].id, result.answer, result.action || null,
+       JSON.stringify(result.products || []), JSON.stringify(result.sources || []),
+       requirements.product?.trim() || result.products?.[0]?.product_name || null,
+       requirements.capacity?.trim() || null, requirements.application?.trim() || null,
+       requirements.location?.trim() || null, status.status, status.review, status.reason]
+    );
+  } else {
+    await pool.query(
+      `INSERT INTO chatbot_question_memory
+       (question, answer, action, products, sources, product_interest, capacity, application, location,
+        knowledge_status, needs_review, review_reason)
+       VALUES ($1,$2,$3,$4::jsonb,$5::jsonb,$6,$7,$8,$9,$10,$11,$12)`,
+      [normalized, result.answer, result.action || null,
+       JSON.stringify(result.products || []), JSON.stringify(result.sources || []),
+       requirements.product?.trim() || result.products?.[0]?.product_name || null,
+       requirements.capacity?.trim() || null, requirements.application?.trim() || null,
+       requirements.location?.trim() || null, status.status, status.review, status.reason]
+    );
+  }
+}
+
 export async function saveCustomerEnquiry(customer: CustomerDetails, question: string, result: AgentResult, requirements: CustomerRequirements = {}) {
   await ensureCustomerEnquiriesTable();
   const id = newId();
