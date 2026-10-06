@@ -17,6 +17,7 @@ KPIA is an agentic RAG-based product-information assistant for Kentainers sales 
 ## 3. Core functionality
 
 - Catalogue-grounded product information
+- Expanded structured product catalogue covering the newly supplied Kentainers product PDFs
 - PostgreSQL/pgvector retrieval path
 - Structured product search and product-detail tools
 - Agent/tool calling
@@ -110,7 +111,7 @@ The repository now includes executable evaluation runners referenced by package.
 
 These runners deliberately do not fabricate RAGAS/DeepEval metrics. They provide reproducible behavioural regression evidence; formal RAGAS/DeepEval measurements still require execution in the configured runtime environment.
 
-The current focused regression file contains 30 cases. The repository documentation also references the separate 110-question product intelligence test bank.
+The current focused regression file contains 40 cases. The repository documentation also references the separate 110-question product intelligence test bank.
 
 ## 11. Final deployment status
 
@@ -131,4 +132,8 @@ The latest commits have been pushed to `main`. Vercel deployment status for the 
 
 Live runtime accuracy and formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
 
-Current focused regression file: `eval/kpia-test-cases.json` contains 32 cases. and formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
+Current focused regression file: `eval/kpia-test-cases.json` contains 40 cases, including regression coverage for the uploaded Bunkatank, Loftank, Nestank, KPOT, Drum, Pedal Hand Wash and Permawell product sources. Formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
+
+## 12. Product-source expansion — 6 October 2026
+
+The product knowledge base was expanded from the newly supplied official Kentainers PDFs for Water Tanks, Bunkatank, Loftank, Nestank, KPOT, Drum, Pedal Hand Wash and Permawell. The structured catalogue and RAG source library now include the product facts extracted from these documents. Missing values such as dimensions for the Pedal Hand Wash PDF are left unspecified rather than inferred.
