@@ -44,8 +44,9 @@ async function main() {
     const sourceUrl = content.match(/^SOURCE_URL:\s*(.+)$/m)?.[1]?.trim() || null;
     const sourceTitle = content.match(/^SOURCE_TITLE:\s*(.+)$/m)?.[1]?.trim() || file;
     const sourceType = content.match(/^SOURCE_TYPE:\s*(.+)$/m)?.[1]?.trim() || "local";
+    const authority = sourceUrl && /^https?:\/\/([a-z0-9-]+\.)?kentainers\.co\.ke(?:\/|$)/i.test(sourceUrl) ? "kentainers.co.ke" : null;
     const verifiedAt = content.match(/^VERIFIED_AT:\s*(.+)$/m)?.[1]?.trim() || null;
-    if (sourceUrl && !/^https?:\/\/([a-z0-9-]+\.)?kentainers\.co\.ke(?:\/|$)/i.test(sourceUrl)) {
+    if (sourceUrl && !authority) {
       throw new Error("Rejected non-official source URL in " + file + ": " + sourceUrl);
     }
     const chunks = chunkText(content);
