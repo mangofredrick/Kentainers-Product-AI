@@ -55,8 +55,11 @@ function evidenceBlock(chunks: Chunk[]): string {
   if (!chunks.length) return "No verified knowledge-library evidence was retrieved for this request.";
   return chunks.slice(0, 8).map((c, i) => {
     const source = `${c.document || "Kentainers knowledge library"}${c.page ? `, page ${c.page}` : ""}`;
-    return `[Evidence ${i + 1} | ${source}]\n${c.text || ""}`;
-  }).join("\n\n");
+    return `[Evidence ${i + 1} | ${source}]
+${c.text || ""}`;
+  }).join("
+
+");
 }
 
 async function localGroundedFallback(userMessage: string): Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
@@ -112,7 +115,7 @@ export async function runAgent(userMessage: string): Promise<AgentResult & { too
   // Deterministic responses for common high-frequency tank queries.
   // These avoid unnecessary model/runtime dependence for core catalogue facts.
   const normalized = userMessage.toLowerCase().replace(/,/g, "");
-  if (/\b5000\\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /tank|kentank/.test(normalized)) {
+  if (/\b5000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /tank|kentank/.test(normalized)) {
     return {
       answer: "Kentainers documents two 5,000 L above-ground Kentank variants: CCV 500 Short (approximately 175 cm high × 203 cm diameter) and CCV 500 (approximately 215 cm high × 185 cm diameter). The two variants have different dimensions, so selection should consider the available installation space. Confirm the current commercial quotation before ordering.",
       sources: [{ document: "KENTANK2.pdf", page: 1 }],
@@ -120,7 +123,15 @@ export async function runAgent(userMessage: string): Promise<AgentResult & { too
       toolCalls: []
     };
   }
-  if (/\b6000\\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /\b(home|domestic)\\s*(use|water)?\b/.test(normalized)) {\n    return {\n      answer: "For home/domestic use where the requirement is above-ground water storage, the documented Kentainers option is the CCV 600 (6,000 L), approximately 223 cm high × 198 cm diameter. If you mean domestic water storage, this is the relevant option. If the 6,000 L requirement is for sanitation/septic, underground storage, or another application, please confirm so I can recommend the appropriate product.",\n      sources: [{ document: "KENTANK2.pdf", page: 1 }],\n      action: "details",\n      toolCalls: []\n    };\n  }\n  if (/\b6000\\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /tank|kentank|storage/.test(normalized)) {
+  if (/\b6000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /\b(home|domestic)\s*(use|water)?\b/.test(normalized)) {
+    return {
+      answer: "For home/domestic use where the requirement is above-ground water storage, the documented Kentainers option is the CCV 600 (6,000 L), approximately 223 cm high × 198 cm diameter. If you mean domestic water storage, this is the relevant option. If the 6,000 L requirement is for sanitation/septic, underground storage, or another application, please confirm so I can recommend the appropriate product.",
+      sources: [{ document: "KENTANK2.pdf", page: 1 }],
+      action: "details",
+      toolCalls: []
+    };
+  }
+  if (/\b6000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /tank|kentank|storage/.test(normalized)) {
     return {
       answer: "There are multiple Kentainers products associated with 6,000 L. For above-ground water storage, the documented Kentank is CCV 600, approximately 223 cm high × 198 cm diameter. If your requirement is for home use, agriculture, commercial use, underground storage, sanitation/septic use, or another purpose, please confirm the intended application before selecting a product.",
       sources: [{ document: "KENTANK2.pdf", page: 1 }],
@@ -147,7 +158,13 @@ export async function runAgent(userMessage: string): Promise<AgentResult & { too
 
     const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
       { role: "system", content: SYSTEM },
-      { role: "user", content: `Customer request:\n${userMessage}\n\nVerified knowledge-library evidence retrieved for this request:\n${evidence}\n\nAnswer the customer using only supported evidence. If the evidence does not support a requested technical value, say so rather than guessing.` }
+      { role: "user", content: `Customer request:
+${userMessage}
+
+Verified knowledge-library evidence retrieved for this request:
+${evidence}
+
+Answer the customer using only supported evidence. If the evidence does not support a requested technical value, say so rather than guessing.` }
     ];
     const toolCalls: ToolTrace[] = [];
     const products: Product[] = [];
