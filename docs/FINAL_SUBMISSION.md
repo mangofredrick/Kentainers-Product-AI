@@ -6,7 +6,7 @@
 
 **Repository:** https://github.com/mangofredrick/Kentainers-Product-AI
 
-**Production URL:** https://kentainers-product-ai-3kxb-git-main-mango-1d26.vercel.app/
+**Historical deployment URL:** https://kentainers-product-ai-3kxb-git-main-mango-1d26.vercel.app/
 
 **Default branch:** `main`
 
@@ -49,9 +49,9 @@ The test bank covers:
 10. Hallucination/grounding resistance
 11. Sales-assistant scenarios
 
-## 5. Deployment evidence
+## 5. Historical deployment evidence
 
-The production deployment was observed in Vercel with status **Ready / Production** after resolving the build failures involving the missing `@/lib/ai/agent` source path and the missing TypeScript declaration for `pg`.
+A prior Vercel deployment was observed with status **Ready / Production** after resolving build failures involving the missing `@/lib/ai/agent` source path and the missing TypeScript declaration for `pg`. This is historical deployment evidence; the current `main` branch has not been independently verified live from this environment.
 
 The live application UI was subsequently opened and successfully rendered the **Kentainers Product Intelligence Agent** interface.
 
@@ -88,8 +88,9 @@ npm run eval:agent
 - [x] Main branch contains the application source
 - [x] Evaluation test bank included
 - [x] Regression/demo cases included
-- [x] Production deployment created
-- [x] Production deployment reached Ready / Production status (latest verified deployment commit: `1a39e5b`)
+- [x] Historical production deployment created
+- [x] Historical deployment reached Ready / Production status
+- [ ] Current `main` deployment independently verified as live
 - [x] Live UI opened successfully
 - [ ] Full runtime/RAG evaluation completed with recorded metrics
 - [ ] Final screenshots/evidence package attached where required by the facilitator
@@ -97,19 +98,19 @@ npm run eval:agent
 ## 9. Submission links
 
 - GitHub: https://github.com/mangofredrick/Kentainers-Product-AI
-- Live application: https://kentainers-product-ai-3kxb-git-main-mango-1d26.vercel.app/
+- Historical live application URL: https://kentainers-product-ai-3kxb-git-main-mango-1d26.vercel.app/
 - Test bank: `docs/KPIA_TEST_BANK.md`
 - Regression cases: `eval/kpia-test-cases.json`
 
 
-## 10. Evaluation runner status
+## 10. Evaluation runner and catalogue validation status
 
 The repository now includes executable evaluation runners referenced by package.json:
 
 - scripts/run-baseline-evaluation.ts — executes the focused regression suite and writes eval/results/baseline-latest.json.
 - scripts/run-agent-evaluation.ts — executes the same scenarios using a lightweight 100-point agent-behaviour rubric and writes eval/results/agent-latest.json.
 
-These runners deliberately do not fabricate RAGAS/DeepEval metrics. They provide reproducible behavioural regression evidence; formal RAGAS/DeepEval measurements still require execution in the configured runtime environment.
+These runners deliberately do not fabricate RAGAS/DeepEval metrics. They provide reproducible behavioural regression evidence; formal RAGAS/DeepEval measurements still require execution in the configured runtime environment. A static product-catalogue validator is also available as `npm run validate:catalogue` to check required fields, duplicate IDs/codes, numeric capacities and source references.
 
 The current focused regression file contains 40 cases. The repository documentation also references the separate 110-question product intelligence test bank.
 
