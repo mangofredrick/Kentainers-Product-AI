@@ -88,7 +88,7 @@ npm run eval:agent
 - [x] Evaluation test bank included
 - [x] Regression/demo cases included
 - [x] Production deployment created
-- [x] Production deployment reached Ready / Production status (latest verified commit: `1a39e5b`)
+- [x] Production deployment reached Ready / Production status (latest verified deployment commit: `1a39e5b`)
 - [x] Live UI opened successfully
 - [ ] Full runtime/RAG evaluation completed with recorded metrics
 - [ ] Final screenshots/evidence package attached where required by the facilitator
@@ -114,12 +114,16 @@ The current focused regression file contains 30 cases. The repository documentat
 
 ## 11. Final deployment status
 
-The latest production source commit is `1a39e5b` (`refine customer-facing fallback wording`). Vercel shows this commit as **Ready / Production** on the `main` branch.
+The latest source commit on `main` is `28dd967` (`route unavailable prices to customer enquiry follow-up`). This commit adds deterministic handling for unsupported/unlisted price requests so they are routed to the customer enquiry follow-up instead of falling through to an unverified answer.
 
-The current production source therefore includes:
+The current source therefore includes:
 - strengthened 5,000 L and 6,000 L tank enquiry handling;
-- restored baseline and agent evaluation runners;
-- updated final-submission documentation; and
-- refined customer-facing fallback wording.
+- broader application clarification options, including home/domestic, agriculture, commercial, water storage and sanitation/septic use;
+- official price-list pricing for supported products and zonal delivery handling;
+- customer-enquiry follow-up when a requested price is not available in the verified price list;
+- restored baseline and agent evaluation runners; and
+- updated customer-facing wording.
+
+The latest commits have been pushed to `main`. Vercel deployment status for commit `28dd967` has not been independently verified in this environment, so this submission does not claim that commit is currently live in production.
 
 Live runtime accuracy and formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
