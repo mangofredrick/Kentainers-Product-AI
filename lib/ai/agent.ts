@@ -112,7 +112,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   // Deterministic responses for common high-frequency tank queries.
   const normalized = `${conversationContext}\n${userMessage}`.toLowerCase().replace(/,/g, "");
 
-  if (/(^|\\s)5000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /(tank|kentank)/.test(normalized)) {
+  if (/(^|\s)5000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank)/.test(normalized)) {
     return {
       answer: "Kentainers documents two 5,000 L above-ground Kentank variants: CCV 500 Short (approximately 175 cm high × 203 cm diameter) and CCV 500 (approximately 215 cm high × 185 cm diameter). The two variants have different dimensions, so selection should consider the available installation space. Confirm the current commercial quotation before ordering.",
       sources: [{ document: "KENTANK2.pdf", page: 1 }],
@@ -121,7 +121,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     };
   }
 
-  if (/(^|\\s)6000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /\\b(home|domestic)(\\s+(use|water))?\\b/.test(normalized)) {
+  if (/(^|\s)6000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /\b(home|domestic)(\s+(use|water))?\b/.test(normalized)) {
     return {
       answer: "For home/domestic use where the requirement is above-ground water storage, the documented Kentainers option is the CCV 600 (6,000 L), approximately 223 cm high × 198 cm diameter. If you mean domestic water storage, this is the relevant option. If the 6,000 L requirement is for sanitation/septic, underground storage, or another application, please confirm so I can recommend the appropriate product.",
       sources: [{ document: "KENTANK2.pdf", page: 1 }],
@@ -130,7 +130,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     };
   }
 
-  if (/(^|\\s)6000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {
+  if (/(^|\s)6000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {
     return {
       answer: "There are multiple Kentainers products associated with 6,000 L. For above-ground water storage, the documented Kentank is CCV 600, approximately 223 cm high × 198 cm diameter. If your requirement is for home use, agriculture, commercial use, underground storage, sanitation/septic use, or another purpose, please confirm the intended application before selecting a product.",
       sources: [{ document: "KENTANK2.pdf", page: 1 }],
