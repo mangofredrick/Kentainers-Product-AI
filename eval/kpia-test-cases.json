@@ -1,6 +1,6 @@
 {
   "name": "KPIA Product Intelligence Evaluation Suite",
-  "version": "2.0",
+  "version": "2.1",
   "purpose": "Regression tests for grounded product, technical, website and pricing retrieval.",
   "cases": [
     {
@@ -194,6 +194,54 @@
       "category": "contact-capture",
       "prompt": "Ask an unresolved technical question without providing customer contact details.",
       "expected_behavior": "State that a verified response is unavailable and request customer name plus either email or phone before Kentainers follow-up."
+    },
+    {
+      "id": "KPIA-033",
+      "category": "product",
+      "prompt": "What Bunkatank sizes are available?",
+      "expected_behavior": "Return the documented BKT 200, BKT 250, BKT 300 and BKT 600 capacities and distinguish Bunkatank as underground water storage."
+    },
+    {
+      "id": "KPIA-034",
+      "category": "comparison",
+      "prompt": "What is the difference between a 6,000 L Kentank and a 6,000 L Bunkatank?",
+      "expected_behavior": "Distinguish CCV 600 as above-ground water storage from BKT 600 as underground water storage and return only documented dimensions."
+    },
+    {
+      "id": "KPIA-035",
+      "category": "product",
+      "prompt": "What sizes does Loftank come in?",
+      "expected_behavior": "Return LR 23, LR 46 and LR 100 with their documented capacities and rectangular dimensions."
+    },
+    {
+      "id": "KPIA-036",
+      "category": "product",
+      "prompt": "What sizes are available for Nestank?",
+      "expected_behavior": "Return NST 50 and NST 100 with their documented capacities and dimensions."
+    },
+    {
+      "id": "KPIA-037",
+      "category": "product",
+      "prompt": "What is Permawell?",
+      "expected_behavior": "Identify Permawell as a double-walled shallow well liner and describe only its documented application and features."
+    },
+    {
+      "id": "KPIA-038",
+      "category": "product",
+      "prompt": "What capacities are available for Pedal Hand Wash?",
+      "expected_behavior": "Use the supplied Pedal Hand Wash PDF and return 100 L, 200 L and 250 L; do not invent dimensions or additional sizes."
+    },
+    {
+      "id": "KPIA-039",
+      "category": "product",
+      "prompt": "What are the Drum sizes?",
+      "expected_behavior": "Return DRUM 10 at 100 L and DRUM 20 at 200 L with the documented dimensions and double-layered description."
+    },
+    {
+      "id": "KPIA-040",
+      "category": "catalogue",
+      "prompt": "Show me Kentank sizes from the smallest to the largest.",
+      "expected_behavior": "Use the supplied Water Tanks PDF and identify the listed CCV variants from CCV 10 through CCV 2400 without inventing omitted details."
     }
   ]
 }
