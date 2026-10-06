@@ -176,6 +176,34 @@ export async function saveCustomerEnquiry(customer: CustomerDetails, question: s
   return id;
 }
 
+export async function listQuestionMemory(limit = 100, needsReviewOnly = true) {
+  await ensureQuestionMemoryTable();
+  const result = await getPool().query(
+    `SELECT id, question, answer, action, products, sources, product_interest, capacity,
+            application, location, knowledge_status, needs_review, review_reason,
+            frequency, first_asked_at, last_asked_at, updated_at
+     FROM chatbot_question_memory
+     WHERE ($1 = FALSE OR needs_review = TRUE)
+     ORDER BY frequency DESC, last_asked_at DESC
+     LIMIT $2`,
+    [needsReviewOnly, Math.min(Math.max(limit, 1), 200)]
+  );
+  return result.rows;
+}
+
+export async function markQuestionMemoryReviewed(id: number, status: "verified" | "not_supported" | "needs_review", reviewReason?: string) {
+  await ensureQuestionMemoryTable();
+  await getPool().query(
+    `UPDATE chatbot_question_memory
+     SET knowledge_status = $2,
+         needs_review = $3,
+         review_reason = $4,
+         updated_at = NOW()
+     WHERE id = $1`,
+    [id, status, status !== "verified" && status !== "not_supported", reviewReason || null]
+  );
+}
+
 export async function listCustomerEnquiries(limit = 50) {
   await ensureCustomerEnquiriesTable();
   const result = await getPool().query(
