@@ -33,7 +33,7 @@ function structuredOfficialAnswer(message: string): AgentResult | null {
  if (!asksPrice) return null;
  const zone = zoneFor(message);
  const matched = priceData.rows.find((row) => lower.includes(row.productCode.toLowerCase()));
- const capacityMatch = lower.match(/(\\d[\\d,]*)\\s*(?:l|litre|litres|liter|liters)\\b/);
+ const capacityMatch = lower.match(/(\d[\d,]*)\s*(?:l|litre|litres|liter|liters)\b/);
  const capacity = capacityMatch ? Number(capacityMatch[1].replace(/,/g, "")) : undefined;
  const row = matched || (capacity == null ? undefined : priceData.rows.find((r) => r.capacityLitres === capacity));
  if (!row) return null;
