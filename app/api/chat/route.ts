@@ -20,7 +20,8 @@ const RequestSchema = z.object({
     email: z.string().max(320).optional().default(""),
     phone: z.string().max(50).optional().default("")
   }).optional().default({ name: "", email: "", phone: "" }),
-  requirements: RequirementsSchema
+  requirements: RequirementsSchema,
+  history: z.array(z.object({ role: z.enum(["user", "assistant"]), text: z.string().max(4000) })).max(20).optional().default([])
 });
 
 export async function POST(req: Request) {
@@ -35,7 +36,7 @@ export async function POST(req: Request) {
       `Timeframe: ${requirements.timeframe || "Not provided"}`
     ].join("\n");
     const customerContext = `Customer name: ${body.customer.name || "Not provided"}\nCustomer email: ${body.customer.email || "Not provided"}\nCustomer phone: ${body.customer.phone || "Not provided"}`;
-    const result = await runAgent(`${customerContext}\n${requirementContext}\n\nProduct question: ${body.message}`);
+    const conversationContext = body.history.length\n      ? `\n\nRecent conversation:\n${body.history.map((m) => `${m.role === "user" ? "Customer" : "Chatbot"}: ${m.text}`).join("\n")}`\n      : "";\n    const result = await runAgent(`${customerContext}\n${requirementContext}${conversationContext}\n\nCurrent customer message: ${body.message}`);
     let enquiryId: string | undefined;
     try {
       enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);
