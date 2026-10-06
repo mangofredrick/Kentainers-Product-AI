@@ -1,0 +1,37 @@
+{
+  "source": {
+    "url": "https://kentainers.co.ke/wp-content/uploads/2026/04/ZONAL-KENTANK-PRICELIST-15.04.2026.pdf",
+    "title": "ZONAL KENTANK PRICELIST 15.04.2026",
+    "effectiveDate": "2026-04-15",
+    "authority": "kentainers.co.ke",
+    "verifiedAt": "2026-10-06"
+  },
+  "pricingModel": "zonal",
+  "zones": [
+    {"zone":1,"minKm":0,"maxKm":50},
+    {"zone":2,"minKm":51,"maxKm":100},
+    {"zone":3,"minKm":101,"maxKm":150},
+    {"zone":4,"minKm":151,"maxKm":250},
+    {"zone":5,"minKm":251,"maxKm":350},
+    {"zone":6,"minKm":351,"maxKm":450},
+    {"zone":7,"minKm":451,"maxKm":550},
+    {"zone":8,"minKm":551,"maxKm":650}
+  ],
+  "rows": [
+    {"productCode":"CCV 25","capacityLitres":250,"heightCm":83,"diameterCm":69,"pricesKsh":[3845,3890,3980,4071,4161,4342,4433,4523]},
+    {"productCode":"CCV 46","capacityLitres":460,"heightCm":80,"diameterCm":96,"pricesKsh":[6191,6264,6409,6555,6701,6992,7138,7283]},
+    {"productCode":"CCV 50","capacityLitres":500,"heightCm":103,"diameterCm":86,"pricesKsh":[6647,6725,6881,7038,7194,7507,7663,7820]},
+    {"productCode":"CCV 100","capacityLitres":1000,"heightCm":127,"diameterCm":107,"pricesKsh":[11078,11208,11469,11730,11990,12512,12772,13033]},
+    {"productCode":"CCV 101","capacityLitres":1101,"heightCm":175,"diameterCm":93,"pricesKsh":[12551,12699,12994,13289,13585,14175,14470,14766]},
+    {"productCode":"CCV 150","capacityLitres":1500,"heightCm":142,"diameterCm":124,"pricesKsh":[16487,16681,17069,17457,17845,18621,19008,19396]},
+    {"productCode":"CCV 200","capacityLitres":2000,"heightCm":161,"diameterCm":135,"pricesKsh":[21374,21626,22129,22632,23135,24140,24643,25146]},
+    {"productCode":"CCV 230","capacityLitres":2300,"heightCm":165,"diameterCm":144,"pricesKsh":[22287,22549,23073,23598,24122,25171,25695,26220]},
+    {"productCode":"CCV 231","capacityLitres":2310,"heightCm":125,"diameterCm":170,"pricesKsh":[23045,23316,23858,24400,24942,26027,26569,27111]},
+    {"productCode":"CCV 250","capacityLitres":2500,"heightCm":169,"diameterCm":148,"pricesKsh":[23489,23766,24318,24871,25424,26529,27082,27635]},
+    {"productCode":"CCV 300","capacityLitres":3000,"heightCm":180,"diameterCm":157,"pricesKsh":[29585,29933,30629,31326,32022,33414,34110,34806]},
+    {"productCode":"CCV 350","capacityLitres":3500,"heightCm":187,"diameterCm":165,"pricesKsh":[36232,36658,37511,38363,39216,40921,41773,42626]},
+    {"productCode":"K POT 60","capacityLitres":60,"heightCm":59,"diameterCm":49.3,"pricesKsh":[2248,2275,2328,2381,2433,2539,2592,2645]},
+    {"productCode":"DR 10","capacityLitres":100,"heightCm":62,"diameterCm":48,"pricesKsh":[2216,2242,2294,2346,2398,2502,2554,2607]},
+    {"productCode":"DR 20","capacityLitres":200,"heightCm":77,"diameterCm":58,"pricesKsh":[3063,3099,3171,3243,3315,3459,3531,3603]}
+  ]
+}
