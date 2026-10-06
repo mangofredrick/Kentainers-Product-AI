@@ -81,7 +81,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
 
     if (sources.length) {
       return {
-        answer: `I found relevant Kentainers evidence in the product/technical knowledge library, but the product index did not identify a specific product confidently. Please provide the required capacity, intended application, location/use case, or product name so I can narrow the answer.`,
+        answer: `Thank you for your enquiry. We are currently unable to provide a verified response to this question. Your enquiry has been recorded and will be reviewed by the relevant Kentainers team. We will get back to you once the correct information has been confirmed.`,
         sources,
         action: "clarify",
         toolCalls: []
@@ -89,7 +89,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
     }
 
     return {
-      answer: "I could not find verified Kentainers information that supports this request. Please provide more product requirements or confirm the query with a Kentainers product/technical representative.",
+      answer: "Thank you for your enquiry. We are currently unable to provide a verified response to this question. Your enquiry has been recorded and will be reviewed by the relevant Kentainers team. We will get back to you once the correct information has been confirmed.",
       sources: [],
       action: "escalate",
       toolCalls: []
@@ -97,7 +97,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
   } catch (error) {
     console.error("Kentainers local knowledge fallback failed", error);
     return {
-      answer: "I could not complete a verified Kentainers knowledge search for this request. Please provide more product requirements or confirm the query with a Kentainers product/technical representative.",
+      answer: "Thank you for your enquiry. We are currently unable to provide a verified response to this question. Your enquiry has been recorded and will be reviewed by the relevant Kentainers team. We will get back to you once the correct information has been confirmed.",
       sources: [],
       action: "escalate",
       toolCalls: []
