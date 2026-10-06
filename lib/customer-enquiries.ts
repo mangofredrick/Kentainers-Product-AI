@@ -89,6 +89,7 @@ export async function ensureQuestionMemoryTable() {
       application TEXT,
       location TEXT,
       knowledge_status TEXT NOT NULL DEFAULT 'answered',
+      approved_answer TEXT,
       needs_review BOOLEAN NOT NULL DEFAULT FALSE,
       review_reason TEXT,
       frequency INTEGER NOT NULL DEFAULT 1,
@@ -97,6 +98,7 @@ export async function ensureQuestionMemoryTable() {
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+  await pool.query(`ALTER TABLE chatbot_question_memory ADD COLUMN IF NOT EXISTS approved_answer TEXT`);
 }
 
 function normalizeQuestion(question: string) {
@@ -191,16 +193,17 @@ export async function listQuestionMemory(limit = 100, needsReviewOnly = true) {
   return result.rows;
 }
 
-export async function markQuestionMemoryReviewed(id: number, status: "verified" | "not_supported" | "needs_review", reviewReason?: string) {
+export async function markQuestionMemoryReviewed(id: number, status: "verified" | "not_supported" | "needs_review", reviewReason?: string, approvedAnswer?: string) {
   await ensureQuestionMemoryTable();
   await getPool().query(
     `UPDATE chatbot_question_memory
      SET knowledge_status = $2,
          needs_review = $3,
          review_reason = $4,
+         approved_answer = $5,
          updated_at = NOW()
      WHERE id = $1`,
-    [id, status, status !== "verified" && status !== "not_supported", reviewReason || null]
+    [id, status, status !== "verified" && status !== "not_supported", reviewReason || null, status === "verified" ? (approvedAnswer || null) : null]
   );
 }
 
