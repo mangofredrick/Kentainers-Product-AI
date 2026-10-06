@@ -88,7 +88,7 @@ npm run eval:agent
 - [x] Evaluation test bank included
 - [x] Regression/demo cases included
 - [x] Production deployment created
-- [x] Production deployment reached Ready / Production status
+- [x] Production deployment reached Ready / Production status (latest verified commit: `1a39e5b`)
 - [x] Live UI opened successfully
 - [ ] Full runtime/RAG evaluation completed with recorded metrics
 - [ ] Final screenshots/evidence package attached where required by the facilitator
@@ -112,6 +112,14 @@ These runners deliberately do not fabricate RAGAS/DeepEval metrics. They provide
 
 The current focused regression file contains 30 cases. The repository documentation also references the separate 110-question product intelligence test bank.
 
-## 11. Final note
+## 11. Final deployment status
 
-The latest source update strengthens the production agent's handling of common 5,000 L and 6,000 L tank enquiries and restores the evaluation commands that were previously declared but missing. A successful GitHub push does not by itself prove that the Vercel production deployment has completed, so the live deployment should be checked after Vercel finishes its build. Numerical runtime scores should only be recorded after the runners have actually executed against the configured environment.
+The latest production source commit is `1a39e5b` (`refine customer-facing fallback wording`). Vercel shows this commit as **Ready / Production** on the `main` branch.
+
+The current production source therefore includes:
+- strengthened 5,000 L and 6,000 L tank enquiry handling;
+- restored baseline and agent evaluation runners;
+- updated final-submission documentation; and
+- refined customer-facing fallback wording.
+
+Live runtime accuracy and formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
