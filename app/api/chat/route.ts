@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { runAgent } from "@/lib/ai/agent";
-import { saveCustomerEnquiry, type CustomerRequirements } from "@/lib/customer-enquiries";
+import { saveCustomerEnquiry, recordChatbotQuestion, type CustomerRequirements } from "@/lib/customer-enquiries";
 import { sendCustomerEnquiryEmail } from "@/lib/customer-email";
 
 const RequirementsSchema = z.object({
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     const conversationContext = body.history.length\n      ? `\n\nRecent conversation:\n${body.history.map((m) => `${m.role === "user" ? "Customer" : "Chatbot"}: ${m.text}`).join("\n")}`\n      : "";\n    const result = await runAgent(`${customerContext}\n${requirementContext}${conversationContext}\n\nCurrent customer message: ${body.message}`);
     let enquiryId: string | undefined;
     try {
-      enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);
+      enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);\n      await recordChatbotQuestion(body.message, result, requirements);
       if (process.env.RESEND_API_KEY && process.env.KPIA_FROM_EMAIL) {
         try {
           await sendCustomerEnquiryEmail(body.customer, body.message, result, enquiryId, requirements);
