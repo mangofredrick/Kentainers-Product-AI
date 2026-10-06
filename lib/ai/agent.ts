@@ -67,7 +67,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         return `${p.product_code || p.product_name}${capacity}`;
       }).join(", ");
       return {
-        answer: `Based on the available Kentainers product and technical knowledge, these products are relevant to your request: ${names}. For the most suitable recommendation, please tell us the intended application—for example, home use, agriculture, commercial use, water storage, sanitation/septic use, or another purpose. For current pricing and availability, please contact Kentainers.`,
+        answer: `Based on the available Kentainers product and technical knowledge, these products are relevant to your request: ${names}. For the most suitable recommendation, please tell us the intended application—for example, home use, agriculture, commercial use, water storage, sanitation/septic use, or another purpose. For pricing, please provide the product/capacity and delivery town so I can give the applicable price shown in the official Kentainers price list.`,
         sources: sources.length ? sources : products.slice(0, 6).map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
         products: products.slice(0, 6),
         action: "search",
