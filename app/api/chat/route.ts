@@ -36,10 +36,14 @@ export async function POST(req: Request) {
       `Timeframe: ${requirements.timeframe || "Not provided"}`
     ].join("\n");
     const customerContext = `Customer name: ${body.customer.name || "Not provided"}\nCustomer email: ${body.customer.email || "Not provided"}\nCustomer phone: ${body.customer.phone || "Not provided"}`;
-    const conversationContext = body.history.length\n      ? `\n\nRecent conversation:\n${body.history.map((m) => `${m.role === "user" ? "Customer" : "Chatbot"}: ${m.text}`).join("\n")}`\n      : "";\n    const result = await runAgent(`${customerContext}\n${requirementContext}${conversationContext}\n\nCurrent customer message: ${body.message}`);
+    const conversationContext = body.history.length
+      ? `\n\nRecent conversation:\n${body.history.map((m) => `${m.role === "user" ? "Customer" : "Chatbot"}: ${m.text}`).join("\n")}`
+      : "";
+    const result = await runAgent(`${customerContext}\n${requirementContext}${conversationContext}\n\nCurrent customer message: ${body.message}`);
     let enquiryId: string | undefined;
     try {
-      enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);\n      await recordChatbotQuestion(body.message, result, requirements);
+      enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);
+      await recordChatbotQuestion(body.message, result, requirements);
       if (process.env.RESEND_API_KEY && process.env.KPIA_FROM_EMAIL) {
         try {
           await sendCustomerEnquiryEmail(body.customer, body.message, result, enquiryId, requirements);
