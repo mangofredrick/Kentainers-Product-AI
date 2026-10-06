@@ -17,7 +17,7 @@ async function walk(dir: string): Promise<string[]> {
 
 async function main() {
   const files = await walk(root);
-  const manifests = files.filter(f => /manifest\.json$/i.test(f));
+  const manifests = files.filter(f => /manifest\.json$/i.test(f) || /official-sources\.json$/i.test(f));
   let checked = 0;
   let failures = 0;
 
