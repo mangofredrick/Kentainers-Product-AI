@@ -16,9 +16,10 @@ export async function sendCustomerEnquiryEmail(customer: CustomerDetails, questi
 
   const sourceText = (result.sources || []).map((s) => `${s.document}${s.page ? `, p.${s.page}` : ""}`).join(" • ") || "No source recorded";
   const commercialText = [requirements.product, requirements.capacity, requirements.application, requirements.location, requirements.quantity, requirements.timeframe].filter(Boolean).join(" • ") || "Not provided";
-  const subject = `New Kentainers Chatbot Enquiry ${enquiryId}`;
+  const isEscalated = result.action === "escalate";
+  const subject = `${isEscalated ? "[FOLLOW-UP REQUIRED] " : ""}New Kentainers Chatbot Enquiry ${enquiryId}`;
   const text = [
-    "New customer enquiry received from the Kentainers Product Chatbot.",
+    isEscalated ? "FOLLOW-UP REQUIRED: The chatbot could not provide a verified answer and Kentainers review is required." : "New customer enquiry received from the Kentainers Product Chatbot.",
     `Enquiry ID: ${enquiryId}`,
     `Customer name: ${customer.name?.trim() || "Not provided"}`,
     `Customer email: ${customer.email?.trim() || "Not provided"}`,
