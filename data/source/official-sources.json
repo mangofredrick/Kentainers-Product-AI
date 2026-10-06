@@ -1,0 +1,37 @@
+{
+  "authority": "kentainers.co.ke",
+  "verifiedAt": "2026-10-06",
+  "sources": [
+    {
+      "url": "https://kentainers.co.ke/",
+      "title": "Kentainers Limited",
+      "sourceType": "page"
+    },
+    {
+      "url": "https://kentainers.co.ke/shop/",
+      "title": "Shop",
+      "sourceType": "page"
+    },
+    {
+      "url": "https://kentainers.co.ke/faqs/",
+      "title": "FAQs",
+      "sourceType": "page"
+    },
+    {
+      "url": "https://kentainers.co.ke/contact-us/",
+      "title": "Contact us",
+      "sourceType": "page"
+    },
+    {
+      "url": "https://kentainers.co.ke/product/grain-silo/",
+      "title": "Grain Silo",
+      "sourceType": "page"
+    },
+    {
+      "url": "https://kentainers.co.ke/wp-content/uploads/2026/04/ZONAL-KENTANK-PRICELIST-15.04.2026.pdf",
+      "title": "ZONAL KENTANK PRICELIST 15.04.2026",
+      "sourceType": "pricing",
+      "effectiveDate": "2026-04-15"
+    }
+  ]
+}

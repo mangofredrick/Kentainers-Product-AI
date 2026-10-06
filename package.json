@@ -10,6 +10,8 @@
     "ingest": "tsx scripts/ingest.ts",
     "ingest:pgvector": "tsx scripts/ingest-pgvector.ts",
     "ingest:library": "tsx scripts/ingest-library.ts",
+    "crawl:official": "tsx scripts/crawl-kentainers.ts",
+    "verify:knowledge": "tsx scripts/verify-knowledge.ts",
     "eval:baseline": "tsx scripts/run-baseline-evaluation.ts",
     "eval:agent": "tsx scripts/run-agent-evaluation.ts"
   },

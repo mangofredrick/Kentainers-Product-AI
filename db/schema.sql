@@ -7,9 +7,18 @@ CREATE TABLE IF NOT EXISTS document_chunks (
   source_page INTEGER,
   chunk_index INTEGER NOT NULL,
   content TEXT NOT NULL,
+  source_url TEXT,
+  source_title TEXT,
+  source_type TEXT,
+  verified_at TIMESTAMPTZ,
   embedding vector(1536) NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE document_chunks ADD COLUMN IF NOT EXISTS source_url TEXT;
+ALTER TABLE document_chunks ADD COLUMN IF NOT EXISTS source_title TEXT;
+ALTER TABLE document_chunks ADD COLUMN IF NOT EXISTS source_type TEXT;
+ALTER TABLE document_chunks ADD COLUMN IF NOT EXISTS verified_at TIMESTAMPTZ;
 
 CREATE INDEX IF NOT EXISTS document_chunks_embedding_idx
 ON document_chunks
