@@ -7,6 +7,10 @@ CREATE TABLE IF NOT EXISTS document_chunks (
   source_page INTEGER,
   chunk_index INTEGER NOT NULL,
   content TEXT NOT NULL,
+  source_url TEXT,
+  source_title TEXT,
+  source_type TEXT,
+  verified_at TIMESTAMPTZ,
   embedding vector(1536) NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
