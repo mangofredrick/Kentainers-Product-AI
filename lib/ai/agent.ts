@@ -105,12 +105,12 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
   }
 }
 
-export async function runAgent(userMessage: string): Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
+export async function runAgent(userMessage: string, conversationContext = ""): Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
   const pricing = answerPricing(userMessage);
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
   // Deterministic responses for common high-frequency tank queries.
-  const normalized = userMessage.toLowerCase().replace(/,/g, "");
+  const normalized = `${conversationContext}\n${userMessage}`.toLowerCase().replace(/,/g, "");
 
   if (/(^|\\s)5000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /(tank|kentank)/.test(normalized)) {
     return {
