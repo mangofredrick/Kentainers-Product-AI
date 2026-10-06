@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     const conversationContext = body.history.length
       ? `\n\nRecent conversation:\n${body.history.map((m) => `${m.role === "user" ? "Customer" : "Chatbot"}: ${m.text}`).join("\n")}`
       : "";
-    const result = await runAgent(`${customerContext}\n${requirementContext}${conversationContext}\n\nCurrent customer message: ${body.message}`);
+    const result = await runAgent(`${customerContext}\n${requirementContext}\n\nCurrent customer message: ${body.message}`, conversationContext);
     let enquiryId: string | undefined;
     try {
       enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);
