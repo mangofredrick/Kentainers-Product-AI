@@ -39,7 +39,7 @@ function shouldClarify(message: string): string | null {
   const lower = message.toLowerCase();
   const asksForTank = /tank|storage/.test(lower);
   const capacity = lower.match(/\b(\d[\d,]*)\s*(l|litre|litres|liter|liters)\b/);
-  if (asksForTank && capacity && Number(capacity[1].replace(/,/g, "")) === 6000) return "There are multiple Kentainers products associated with 6,000 litres. What is the intended application—above-ground water storage, underground water storage, or sanitation/septic use?";
+  if (asksForTank && capacity && Number(capacity[1].replace(/,/g, "")) === 6000) return "There are multiple Kentainers products associated with 6,000 litres. What is the intended application—for example, home use, agriculture, commercial use, water storage, sanitation/septic use, or another purpose?";
   if (asksForTank && !capacity) return "What capacity do you require, and what is the intended application for the tank?";
   return null;
 }
@@ -67,7 +67,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         return `${p.product_code || p.product_name}${capacity}`;
       }).join(", ");
       return {
-        answer: `Based on the available Kentainers product and technical knowledge, these products are relevant to your request: ${names}. For the most suitable recommendation, please confirm the intended application. For current pricing and availability, please contact Kentainers.`,
+        answer: `Based on the available Kentainers product and technical knowledge, these products are relevant to your request: ${names}. For the most suitable recommendation, please tell us the intended application—for example, home use, agriculture, commercial use, water storage, sanitation/septic use, or another purpose. For current pricing and availability, please contact Kentainers.`,
         sources: sources.length ? sources : products.slice(0, 6).map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
         products: products.slice(0, 6),
         action: "search",
@@ -118,7 +118,7 @@ export async function runAgent(userMessage: string): Promise<AgentResult & { too
   }
   if (/\\b6000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /tank|kentank|storage/.test(normalized)) {
     return {
-      answer: "There are multiple Kentainers products associated with 6,000 L. For above-ground water storage, the documented Kentank is CCV 600, approximately 223 cm high × 198 cm diameter. If your requirement is underground water storage or sanitation/septic use, please confirm the intended application before selecting a product.",
+      answer: "There are multiple Kentainers products associated with 6,000 L. For above-ground water storage, the documented Kentank is CCV 600, approximately 223 cm high × 198 cm diameter. If your requirement is for home use, agriculture, commercial use, underground storage, sanitation/septic use, or another purpose, please confirm the intended application before selecting a product.",
       sources: [{ document: "KENTANK2.pdf", page: 1 }],
       action: "clarify",
       toolCalls: []
