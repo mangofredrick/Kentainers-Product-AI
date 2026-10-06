@@ -65,7 +65,7 @@ export function answerPricing(message:string): AgentResult|null {
  if(isGrain){
    return {answer:"The official Kentainers Grain Silo product page currently lists the 500 L Grain Silo at KSh 11,307. The page states that the displayed price includes shipping to the selected zone. For a final quotation, confirm the customer's delivery location and current availability with Kentainers.",sources:[{document:"Kentainers Grain Silo product page"}],action:"details"};
  }
- if(/price\s*list|pricelist/.test(lower)) return {answer:"Kentainers publishes zonal price lists with VAT-inclusive prices. The latest official zonal Kentank price list I found is effective 15 April 2026 and covers eight delivery zones. Prices can change without notice. Ask me for a specific product and delivery location and I can identify the documented price.",sources:[{document:"ZONAL-KENTANK-PRICELIST-15.04.2026.pdf"}],action:"details"};
+ if(/price\s*list|pricelist/.test(lower)) return {answer:"Kentainers publishes zonal price lists with VAT-inclusive prices for multiple products. The official zonal Kentank price list in the knowledge base is effective 15 April 2026 and covers eight delivery zones. Ask for any listed product by product code or capacity and provide the delivery town/location, and I can return the documented price for that zone.",sources:[{document:"ZONAL-KENTANK-PRICELIST-15.04.2026.pdf"}],action:"details"};
  return null;
 }
 
