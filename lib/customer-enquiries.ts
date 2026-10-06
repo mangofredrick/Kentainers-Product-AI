@@ -207,6 +207,23 @@ export async function markQuestionMemoryReviewed(id: number, status: "verified" 
   );
 }
 
+export async function listFollowUpEnquiries(limit = 50) {
+  await ensureCustomerEnquiriesTable();
+  const result = await getPool().query(
+    `SELECT id, customer_name, customer_email, customer_phone, question, answer, action, status,
+            product_interest, capacity, application, location, quantity, timeframe,
+            lead_score, follow_up_required, follow_up_reason, sales_owner, sales_notes,
+            next_follow_up_at, converted_at, updated_by, created_at, updated_at
+     FROM customer_enquiries
+     WHERE follow_up_required = TRUE
+       AND status NOT IN ('closed', 'converted')
+     ORDER BY lead_score DESC, created_at DESC
+     LIMIT $1`,
+    [Math.min(Math.max(limit, 1), 100)]
+  );
+  return result.rows;
+}
+
 export async function listCustomerEnquiries(limit = 50) {
   await ensureCustomerEnquiriesTable();
   const result = await getPool().query(
