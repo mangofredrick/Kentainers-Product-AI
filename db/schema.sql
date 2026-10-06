@@ -15,6 +15,11 @@ CREATE TABLE IF NOT EXISTS document_chunks (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+ALTER TABLE document_chunks ADD COLUMN IF NOT EXISTS source_url TEXT;
+ALTER TABLE document_chunks ADD COLUMN IF NOT EXISTS source_title TEXT;
+ALTER TABLE document_chunks ADD COLUMN IF NOT EXISTS source_type TEXT;
+ALTER TABLE document_chunks ADD COLUMN IF NOT EXISTS verified_at TIMESTAMPTZ;
+
 CREATE INDEX IF NOT EXISTS document_chunks_embedding_idx
 ON document_chunks
 USING ivfflat (embedding vector_cosine_ops)
