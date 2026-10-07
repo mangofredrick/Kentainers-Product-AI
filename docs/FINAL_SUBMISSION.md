@@ -112,7 +112,7 @@ The repository now includes executable evaluation runners referenced by package.
 
 These runners deliberately do not fabricate RAGAS/DeepEval metrics. They provide reproducible behavioural regression evidence; formal RAGAS/DeepEval measurements still require execution in the configured runtime environment. A static product-catalogue validator is also available as `npm run validate:catalogue` to check required fields, duplicate IDs/codes, numeric capacities and source references.
 
-The current focused regression file contains 76 customer-facing cases. The repository also contains the broader product intelligence test bank.
+The current focused regression file contains 116 customer-facing cases. The repository also contains the broader product intelligence test bank.
 
 ## 11. Final deployment status
 
@@ -133,7 +133,7 @@ The latest commits have been pushed to `main`. Vercel deployment status for the 
 
 Live runtime accuracy and formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
 
-Current focused regression file: `eval/kpia-test-cases.json` contains 76 customer-facing cases, including the expanded brochure products and cross-product recommendation, clarification, grounding and conversation-continuity scenarios. Formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
+Current focused regression file: `eval/kpia-test-cases.json` contains 116 customer-facing cases, including the expanded brochure products and cross-product recommendation, clarification, grounding and conversation-continuity scenarios. Formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
 
 ## 12. Product-source expansion — 6 October 2026
 
@@ -153,3 +153,17 @@ Customer-facing regression coverage is stored at:
 The suite deliberately separates questions by customer need. For example, traffic-control requirements and construction-site water-storage requirements are tested as separate questions rather than being combined into one multi-product prompt.
 
 Source conflicts are not silently reconciled. Where website and brochure evidence differ, the agent should identify the source context and avoid presenting conflicting values as a single verified fact.
+
+
+## 14. Customer conversation and sales Q&A expansion — 7 October 2026
+
+The focused regression suite now contains 116 customer-facing scenarios. The additional cases test natural sales conversations rather than catalogue-only lookups, including product introductions, product-specific follow-up questions, purchase enquiries, quotation information, application clarification, product comparisons and quantity-selection questions.
+
+The agent prompt also explicitly requires:
+- accepting a customer's selected product rather than asking them to choose again;
+- treating the customer's stated use as conversation context rather than limiting the product to that use;
+- naturally mentioning other known product uses where helpful;
+- avoiding internal references to PDFs, RAG, retrieval or knowledge-library mechanics;
+- avoiding catalogue-style phrases such as "relevant product" and "based on the available catalogue";
+- asking only the next useful sales question; and
+- keeping product-specific conversations focused on the named product.
