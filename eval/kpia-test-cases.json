@@ -1,7 +1,7 @@
 {
   "name": "KPIA Product Intelligence Customer Q&A Evaluation Suite",
-  "version": "3.2",
-  "purpose": "Regression tests for grounded customer product questions, recommendations, technical guidance, website information and pricing across the expanded Kentainers brochure and official catalogue knowledge base.",
+  "version": "3.3",
+  "purpose": "Regression tests for grounded customer product questions, recommendations, technical guidance, website information and pricing across the expanded Kentainers brochure and official catalogue knowledge base, including the latest 2026-10-07 brochure additions.",
   "cases": [
     {
       "id": "KPIA-001",
@@ -814,6 +814,181 @@
       "prompt": "I want to buy this product. What details do you need from me?",
       "expected_behavior": "Ask only the minimum purchase-enquiry details needed.",
       "expected_answer": "Collect product/variant, quantity, delivery town and customer contact when follow-up is required."
+    },
+    {
+      "id": "KPIA-117",
+      "category": "product",
+      "prompt": "What sizes are available for Qdesk?",
+      "expected_behavior": "Identify the two documented Qdesk size groups and their floor-to-seat heights.",
+      "expected_answer": "Small is for up to Grade 5 at 15 inches; Medium is from Class 6 to University at 17 inches."
+    },
+    {
+      "id": "KPIA-118",
+      "category": "product",
+      "prompt": "What is the Rolling Drum capacity?",
+      "expected_behavior": "Return the documented capacity and dimensions.",
+      "expected_answer": "Rolling Drum is 30 L, 35 cm high and 42 cm diameter."
+    },
+    {
+      "id": "KPIA-119",
+      "category": "application",
+      "prompt": "What is the Rolling Drum used for?",
+      "expected_behavior": "Return the brochure-stated application without inventing additional uses.",
+      "expected_answer": "It is documented as ideal for fetching water in rural environments."
+    },
+    {
+      "id": "KPIA-120",
+      "category": "product",
+      "prompt": "What Sliver Can sizes are available?",
+      "expected_behavior": "Return the capacities listed in the latest Sliver Can brochure.",
+      "expected_answer": "SC04 40 L, SC05 50 L, SC06 60 L, SC08 80 L, SC15 150 L, SC15-WRIGLAY 150 L, SC24 240 L, SC25 250 L, SC30 300 L and SC50 500 L."
+    },
+    {
+      "id": "KPIA-121",
+      "category": "application",
+      "prompt": "What can I use Sliver Cans for?",
+      "expected_behavior": "Return the brochure-stated storage applications.",
+      "expected_answer": "Kitchen storage, mobile tool kits, computer parts storage, archiving files and off-season clothing storage are documented applications."
+    },
+    {
+      "id": "KPIA-122",
+      "category": "feature",
+      "prompt": "Can Sliver Cans be stacked?",
+      "expected_behavior": "Return the documented space-saving feature.",
+      "expected_answer": "Yes. The brochure says the boxes can Stack and Nest."
+    },
+    {
+      "id": "KPIA-123",
+      "category": "product",
+      "prompt": "What is the NS7 tray capacity?",
+      "expected_behavior": "Return the documented capacity and dimensions.",
+      "expected_answer": "NS7 is 70 L and measures 60 × 45 × 23 cm."
+    },
+    {
+      "id": "KPIA-124",
+      "category": "product",
+      "prompt": "What is the NS4 tray capacity?",
+      "expected_behavior": "Return the documented capacity and dimensions.",
+      "expected_answer": "NS4 is 40 L and measures 60 × 38 × 30 cm."
+    },
+    {
+      "id": "KPIA-125",
+      "category": "product",
+      "prompt": "What is KT14?",
+      "expected_behavior": "Identify the product and return its documented capacity and dimensions.",
+      "expected_answer": "KT14 is a nestable tray with 140 L capacity and dimensions of 146 × 43 × 30 cm."
+    },
+    {
+      "id": "KPIA-126",
+      "category": "product",
+      "prompt": "Do you have a 100 litre fodder tray?",
+      "expected_behavior": "Identify LB10 and its documented dimensions.",
+      "expected_answer": "Yes. LB10 is the Fodder Tray at 100 L and 70 × 47 × 30 cm."
+    },
+    {
+      "id": "KPIA-127",
+      "category": "application",
+      "prompt": "Where can the nestable trays be used?",
+      "expected_behavior": "Return the brochure-stated applications.",
+      "expected_answer": "They are documented for food industries, schools, clinics, farms and other industries."
+    },
+    {
+      "id": "KPIA-128",
+      "category": "product",
+      "prompt": "Tell me about EkoSlab.",
+      "expected_behavior": "Focus on EkoSlab and return only verified brochure information.",
+      "expected_answer": "EkoSlab is a rotationally moulded toilet slab for ecological sanitation, documented for problematic or unstable soil; its listed dimensions are 100 × 100 × 35 cm."
+    },
+    {
+      "id": "KPIA-129",
+      "category": "product",
+      "prompt": "What is MobiSlab?",
+      "expected_behavior": "Identify MobiSlab and its documented dimensions.",
+      "expected_answer": "MobiSlab is a sanitation slab; the thick variant is documented at 120 × 80 cm, with the brochure excerpt not providing a complete height value."
+    },
+    {
+      "id": "KPIA-130",
+      "category": "product",
+      "prompt": "What is EkoPlate?",
+      "expected_behavior": "Return its documented purpose and specification.",
+      "expected_answer": "EkoPlate is a twin-chamber urine-diverting rotationally moulded toilet plate for ecological sanitation; the brochure lists 95 cm and 25 cm dimensions in its specification table."
+    },
+    {
+      "id": "KPIA-131",
+      "category": "product",
+      "prompt": "What SaniSlab options are available?",
+      "expected_behavior": "Distinguish the documented SaniSlab variants rather than collapsing them.",
+      "expected_answer": "The brochure includes Butterfly Design, BL, KH and UD variants, with different applications/specifications."
+    },
+    {
+      "id": "KPIA-132",
+      "category": "product",
+      "prompt": "What is SaniSlab KH?",
+      "expected_behavior": "Return the documented product type and dimensions.",
+      "expected_answer": "SaniSlab KH is an injection-moulded keyhole squatting slab for indoor toilet construction, 80 × 60 cm with 250 mm height."
+    },
+    {
+      "id": "KPIA-133",
+      "category": "product",
+      "prompt": "What is WonderLoo?",
+      "expected_behavior": "Focus only on WonderLoo and describe its verified function.",
+      "expected_answer": "WonderLoo is a self-supporting toilet pedestal based on separating, diverting and disposing of urine and faeces."
+    },
+    {
+      "id": "KPIA-134",
+      "category": "application",
+      "prompt": "Who can use WonderLoo?",
+      "expected_behavior": "Return the brochure-stated user groups without adding unsupported claims.",
+      "expected_answer": "The brochure identifies use by households and says it is ideal for elderly people, physically challenged users, expectant ladies, children and the sick."
+    },
+    {
+      "id": "KPIA-135",
+      "category": "application",
+      "prompt": "Can WonderLoo be used on a construction site?",
+      "expected_behavior": "Answer from the brochure's listed applications.",
+      "expected_answer": "Yes. Construction sites are among the brochure-listed applications."
+    },
+    {
+      "id": "KPIA-136",
+      "category": "technical",
+      "prompt": "What base should I prepare before installing a tank?",
+      "expected_behavior": "Return the documented installation requirements.",
+      "expected_answer": "Use a fully supported flat base with no gaps, larger than the tank diameter, and free of stones or sharp objects."
+    },
+    {
+      "id": "KPIA-137",
+      "category": "technical",
+      "prompt": "Can I make the tank hole with a hot metal rod?",
+      "expected_behavior": "Apply the manufacturer's installation warning.",
+      "expected_answer": "No. The installation guidance specifically warns against using a hot metal rod or knife; use the specified drilling method."
+    },
+    {
+      "id": "KPIA-138",
+      "category": "technical",
+      "prompt": "How should interconnected tanks be connected?",
+      "expected_behavior": "Return the documented installation guidance.",
+      "expected_answer": "Use plastic fittings and flexible pipes when interconnecting tanks, with rubber washers between the tank and back nut."
+    },
+    {
+      "id": "KPIA-139",
+      "category": "technical",
+      "prompt": "What should I do with the tank overflow?",
+      "expected_behavior": "Return the documented installation guidance.",
+      "expected_answer": "Provide an overflow and drain it away from the tank base."
+    },
+    {
+      "id": "KPIA-140",
+      "category": "grounding",
+      "prompt": "Does the brochure give a complete dimension for every sanitation slab?",
+      "expected_behavior": "Prevent hallucinated missing specifications.",
+      "expected_answer": "No. Some brochure entries do not provide a complete set of dimensions, so missing values should be reported as not specified."
+    },
+    {
+      "id": "KPIA-141",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need school furniture. Turn 2: for Class 6 students.",
+      "expected_behavior": "Use the second-turn context to identify the relevant Qdesk size.",
+      "expected_answer": "Recommend Qdesk Medium, documented for Class 6 to University with a 17-inch floor-to-seat height."
     }
   ]
 }
