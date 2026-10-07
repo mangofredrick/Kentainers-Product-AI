@@ -102,13 +102,36 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
       const specificIntent = namedProductIntent(userMessage);
 
       const intentMatches = specificIntent
-        ? products.filter(p =>
-            (p.product_name || "").toLowerCase().includes(specificIntent.toLowerCase()) ||
-            (p.product_code || "").toLowerCase().includes(specificIntent.toLowerCase()) ||
-            (p.category || "").toLowerCase() === specificIntent.toLowerCase()
-          )
+        ? findProducts(specificIntent, 10)
         : [];
-      const selected = intentMatches[0] || (specificIntent ? findProducts(specificIntent, 10)[0] : products[0]);
+
+      // If the customer names a product family without choosing a variant,
+      // present the available variants and ask only for the missing choice.
+      // If a capacity/code is supplied, continue to the specific variant.
+      const capacityMatch = userMessage.match(/\b(\d[\d,]*)\s*(l|litre|litres|liter|liters)\b/i);
+      const requestedCapacity = capacityMatch ? Number(capacityMatch[1].replace(/,/g, "")) : null;
+      const capacitySelected = requestedCapacity !== null
+        ? intentMatches.find(p => Number(p.capacity || "") === requestedCapacity)
+        : undefined;
+
+      if (specificIntent && !capacitySelected && intentMatches.length > 1) {
+        const variants = intentMatches
+          .map(p => {
+            const capacity = p.capacity ? " – " + p.capacity + (p.capacity_unit || "") : "";
+            return p.product_name + " (" + p.product_code + ")" + capacity;
+          })
+          .join("; ");
+
+        return {
+          answer: "We have several Kentainers options in the " + specificIntent + " range: " + variants + ". Which option or capacity would you like?",
+          sources: sources.length ? sources : intentMatches.map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
+          products: intentMatches,
+          action: "details",
+          toolCalls: []
+        };
+      }
+
+      const selected = capacitySelected || intentMatches[0] || (specificIntent ? findProducts(specificIntent, 10)[0] : products[0]);
 
       if (selected) {
         if (specificIntent === "Bins") {
