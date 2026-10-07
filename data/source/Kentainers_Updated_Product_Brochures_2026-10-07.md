@@ -998,3 +998,884 @@ Compared to traditional pit latrines, MOBILET is by far the best, least expensiv
 solution for traditional, fully and partially ecological sanitation wherever pit toilets are suitable. It comprises of 
 two major parts, a slab and a hut. Our unique patented slab toilet is our most popular and affordable product. 
 Available in single or multi-stands, Mobilet toilets fold flat for easy transport and can be installed using a few sim-
+ple tools. It can also be used with a keyhole design slab over a pit, or as a urine diversion system. Once the pit is 
+full, the toilet can be moved to a new site and the old pit filled, removing a serious safety risk. The Mobilet is best 
+suited for institutional use, like schools, clinics or hospitals, or in refugee and IDP camps.
+• Mobile and re-usable from pit to pit
+• 20 years’ expected lifespan
+• Modular for 2 - 6 or more stances
+• Lightweight - easy to transport and install
+• Standard product
+• Clean and hygienic-made from plastic
+• No more abandoned latrines - saves money
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS
+CODE LENGTH WIDTH HEIGHT
+MOBILET 100 100 230
+• For Schools, Clinics, IDP, Refugee and 
+Army Camps and other Institutions, 
+Farms, Homes and Construction Sites.
+CATEGORY:S3
+Toilet and Toilet Blocks
+
+---
+
+## Pallets Brochure.pdf
+
+### Page 1
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+• Easy transportation and storage
+• Ready/Easy to Install
+• Cost effective
+• No liftting equipment required
+• Light weight and easy to move
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Made from food contact grade U.V stabilized-
+polyethylene
+• Long lasting
+• Pallet with through holes
+• For static heavy loads and also for
+• Dynamic movement of heavy loads
+• Four-way entry
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+PT 120 x 
+100 120 100 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Four Way Entry
+
+### Page 2
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Made from food contact grade U.V stabilized-
+polyethylene
+• Long lasting
+• For static heavy loads and also for
+• Dynamic movement of heavy loads
+• Two-way and four-way entry
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+PT 120 X 
+80 120 80 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Two Way Entry
+
+### Page 3
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Made from food contact grade U.V stabilized-
+polyethylene
+• Long lasting
+• Pallet with through holes
+• For static heavy loads and also for
+• Dynamic movement of heavy loads
+• Two-way and four-way entry
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+PT 120 x 
+100 120 100 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Two Way Entry
+
+### Page 4
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Made from food contact grade U.V stabilized-
+polyethylene
+• Long lasting
+• For static heavy loads and also for
+• dynamic movement of heavy loads
+• Two-way and four-way entry
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+PT 120 x 
+100 120 100 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Four Way Entry
+
+### Page 5
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Reversible pallets
+• For static heavy loads and also for dynamic 
+movement of heavy loads
+• For long term static storage 
+• in cold rooms and wet areas
+• In refrigerated trucks and in areas requiring air 
+circulation
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+KENPALLET 130 110 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Four Way Entry
+
+### Page 6
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Reversible pallets
+• For static heavy loads and also for dynamic 
+movement of heavy loads
+• For long term static storage 
+• in cold rooms and wet areas
+• In refrigerated trucks and in areas requiring air 
+circulation
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+PT 120 x 
+100 BL 120 100 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Four Way Entry
+
+### Page 7
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Reversible pallets
+• For static heavy loads and also for dynamic 
+movement of heavy loads
+• For long term static storage 
+• in cold rooms and wet areas
+• In refrigerated trucks and in areas requiring 
+air circulation
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+PT 110 x 
+110 110 110 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Four Way Entry
+
+### Page 8
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Reversible pallets
+• For static heavy loads and also for dynamic 
+movement of heavy loads
+• For long term static storage 
+• in cold rooms and wet areas
+• In refrigerated trucks and in areas requiring 
+air circulation
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+PT 100 x 
+100 BL 100 100 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Four Way Entry
+
+### Page 9
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Reversible pallets
+• For static heavy loads and also for dynamic 
+movement of heavy loads
+• For long term static storage 
+• in cold rooms and wet areas
+• In refrigerated trucks and in areas requiring 
+air circulation
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+PT 120 X 
+100 - BL - 
+PLAIN
+120 100 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Two Way Entry
+
+### Page 10
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+DuraPall Pallets
+DuraPall brand two way entry, four way, entry and reversible pallets are made from food grade PE U.V stabilized 
+polyethylene material and are available in a variety of colours and sizes. These palllets are a cost effective solution 
+suitable for Fish, meat, food, and other food chemicals and pharmaceutical industries
+• Reversible pallets
+• For static heavy loads and also for dynamic 
+movement of heavy loads
+• For long term static storage 
+• in cold rooms and wet areas
+• In refrigerated trucks and in areas requiring 
+air circulation
+Features
+Applications
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS WEIIGHT KG
+CODE LENGTH WIDTH HEIGHT STATIC DYNAMIC
+PT 120 X 
+100 120 100 15 2 tons 1 ton
+PT 120 X 
+120 120 150 15 2 tons 1 ton
+• For beverage, sugar, flour, food, meat, 
+fish, factories and warehouses, cold 
+rooms and wet areas, refrigerated trucks, 
+and in areas requiring air circulation.
+CATEGORY:M1
+Two Way Entry
+
+---
+
+## Qdesk Brochure.pdf
+
+### Page 1
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+SPECIFICATIONS
+PRODUCT FLOOR TO SEAT HEIGHT
+Small (upto Grade 5) 15 INCHES
+Medium (From Class 6 to 
+University) 17 INCHES
+QDESK
+Qdesk®, is an award winning, patented one-piece polyethylene school desk - a first of its kind anywhere in the 
+world. It complies with international standards for school desks. It has soft contoured lines. It provides students 
+the ideal sitting and writing support and maximum comfort for more than 6 hours per day,180 days a year. 
+Qdesk® substitutes wood by polyethylene, contributes to forest preservation. It is also fully recyclable at the end 
+of its useful life
+• Made of food contact polyethylene
+• Tough and long lasting
+• Available in different sizes and colours
+• Award winning design
+• Soft contoured lines
+• One-piece moulding - no joints, nails, 
+      screws or bolts
+• No edges or sharp corners
+Features
+Applications
+• For Schools, Universities and other Insti-
+tutions.
+CATEGORY:O1
+School desk for all schools and universities
+
+---
+
+## Road Barrier Brochure.pdf
+
+### Page 1
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+TuffBarrier
+TuffBarrier, an extremely robust and stable barricade system, is designed to meet the demands of providing a 
+safe traffic delinator, a safe access for pedestrians through road or construction works and event traffic control. It 
+has a broad base to ensure that it is stable in windy conditions when filled with water and sand.
+• Easy transportation and storage
+• Ready/Easy to Install
+• Reflective colour
+• Cost effective
+• No liftting equipment required
+• Light weight and easy to move
+• Interlocking system
+Features
+Applications
+• Ideal for Construction sites, Road works, 
+Hazard areas, Sporting events, Parking 
+lots, Controlling of crowds etc.
+CATEGORY:M13
+Road Barrier
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS
+CODE LENGTH WIDTH HEIGHT
+TuffBarrier 117 60 74
+
+---
+
+## Rolling Drum Brochure.pdf
+
+### Page 1
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+Rolling Drum
+The drum is made from UV stabilized linear low-density polyethylene and is designed to cope with the rough sur-
+faces found in rural areas. The steel handle is fitted with special polymer end-caps to reduce friction and wear and 
+prolong the life of the pivot cavities in the drum.These steel handle allows the roller to be pushed or pulled over 
+difficult and very rough terrain.
+• Reduced strain
+• Made of food contact polyethylene
+• Tough and long lasting
+• Easy to handle and clean
+• Available in different colours
+• Time savings
+Features
+Applications
+SPECIFICATIONS
+PRODUCT CAPACITIES DIMENSIONS CMS
+CODE LTRS GAL HEIGHT DIA
+Rolling 
+Drum 30 8 35 42
+• Ideal for fetching water in rural enviro-
+ments
+CATEGORY:M15
+Water Drum
+
+---
+
+## Traffic con Brochure.pdf
+
+### Page 1
+
+AQUASAN
+www.aquasantec.com
+Embakasi Rd., Off Airport North Road, Nairobi,
+Tel: +254 20 251 9098, +254 20 2519099
+Mobile: 0722 206 378, +254 707 490 699, 
+Email: info@kentainers.co.ke 
+www.kentainers.co.ke
+Jinja Rd., Bweyogere Namanve, Kampala
+Tel: +256-393-262015/6,
++256 414 235470/348973
+Mobile: +256 776 766571, +256 751766571
+Email: info@crestanks.co.ug,
+www.crestanks.co.ug
+Prime Economic Zone, Plot No. G3, Munini,
+Masoro GasaboDistrict, Kigali
+Tel: +250788306833 / +250788380855
+E-mail: sales@aquasanrw.com |
+www.aquasanrw.com
+Plot No. 825721/1 Kigali Rd, 
+Chinika Industrial Area,Lusaka,
+Tel: +260 211 289 601
+Email: info@afritank.co.zm
+Website: www.afritank.co.zm
+Behind Panorama Plaza, Opp.
+Care Plus, New Airport Rd., Tongpiny, Juba
++211 9244 22 660, +211 92 9999 497
+Email: info@aquasanjuba.com
+www.aquasanjuba.com
+LIMITED, ZAMBIA
+LIMITED, S.SUDAN
+LIMITED, RWANDA
+LIMITED, UGANDA
+LIMITED, KENYA
+Traffic Con
+Our traffic con are extremely robust and stable barricade system, designed to meet the demands of providing a 
+safe traffic delinator, a safe access for pedestrians through road or construction works and event traffic control. It 
+has a broad base to ensure that it is stable in windy conditions when filled with water and sand.
+• Easy transportation and storage
+• Ready/Easy to Install
+• Reflective colour
+• Cost effective
+• No liftting equipment required
+• Light weight and easy to move
+Features
+Applications
+• Ideal for Construction sites, Road works, 
+Hazard areas, Sporting events, Parking 
+lots, Controlling of crowds etc.
+CATEGORY:M12
+Road Barrier
+SPECIFICATIONS
+PRODUCT DIMENSIONS CMS
+CODE LENGTH WIDTH HEIGHT
+Traffic con 41 41 66
