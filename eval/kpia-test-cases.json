@@ -1,7 +1,7 @@
 {
   "name": "KPIA Product Intelligence Customer Q&A Evaluation Suite",
-  "version": "3.3",
-  "purpose": "Regression tests for grounded customer product questions, recommendations, technical guidance, website information and pricing across the expanded Kentainers brochure and official catalogue knowledge base, including the latest 2026-10-07 brochure additions.",
+  "version": "3.4",
+  "purpose": "Expanded regression tests for grounded customer product questions, natural sales conversations, recommendations, technical guidance, website information and pricing across the Kentainers brochure and official catalogue knowledge base.",
   "cases": [
     {
       "id": "KPIA-001",
@@ -989,6 +989,559 @@
       "prompt": "Turn 1: I need school furniture. Turn 2: for Class 6 students.",
       "expected_behavior": "Use the second-turn context to identify the relevant Qdesk size.",
       "expected_answer": "Recommend Qdesk Medium, documented for Class 6 to University with a 17-inch floor-to-seat height."
+    },
+    {
+      "id": "KPIA-142",
+      "category": "product",
+      "prompt": "Tell me about the 30 L KPOT.",
+      "expected_behavior": "Give a natural introduction focused on KPOT 3.",
+      "expected_answer": "KPOT 3 is the documented 30 L KPOT option; give verified product details and ask what the customer needs next."
+    },
+    {
+      "id": "KPIA-143",
+      "category": "product",
+      "prompt": "What is KPOT 6?",
+      "expected_behavior": "Identify the product and capacity.",
+      "expected_answer": "KPOT 6 is the documented 60 L option."
+    },
+    {
+      "id": "KPIA-144",
+      "category": "comparison",
+      "prompt": "What is the difference between KPOT 3 and KPOT 6?",
+      "expected_behavior": "Compare only the documented capacities.",
+      "expected_answer": "KPOT 3 is 30 L while KPOT 6 is 60 L."
+    },
+    {
+      "id": "KPIA-145",
+      "category": "product",
+      "prompt": "What sizes are available for Bunkatank?",
+      "expected_behavior": "Return all documented Bunkatank capacities.",
+      "expected_answer": "BKT 200 is 2,000 L, BKT 250 is 2,500 L, BKT 300 is 3,000 L and BKT 600 is 6,000 L."
+    },
+    {
+      "id": "KPIA-146",
+      "category": "application",
+      "prompt": "Is Bunkatank for underground storage?",
+      "expected_behavior": "Return the documented application.",
+      "expected_answer": "Yes. Bunkatank is documented as an underground water-storage solution."
+    },
+    {
+      "id": "KPIA-147",
+      "category": "product",
+      "prompt": "Tell me about Bunkatank 600.",
+      "expected_behavior": "Focus on BKT 600.",
+      "expected_answer": "BKT 600 is the 6,000 L Bunkatank option for underground water storage; provide only verified features."
+    },
+    {
+      "id": "KPIA-148",
+      "category": "comparison",
+      "prompt": "I need 6,000 L. Should I get Kentank or Bunkatank?",
+      "expected_behavior": "Clarify the installation/application distinction.",
+      "expected_answer": "For above-ground water storage, CCV 600 is the documented Kentank option; for underground storage, BKT 600 is the documented Bunkatank option."
+    },
+    {
+      "id": "KPIA-149",
+      "category": "product",
+      "prompt": "What Loftank sizes are available?",
+      "expected_behavior": "Return all documented Loftank capacities.",
+      "expected_answer": "LR 23 is 230 L, LR 46 is 460 L and LR 100 is 920 L."
+    },
+    {
+      "id": "KPIA-150",
+      "category": "application",
+      "prompt": "Where can Loftank be used?",
+      "expected_behavior": "Describe the product without restricting it to one use.",
+      "expected_answer": "Loftank is a water-storage range; describe its verified capacity and construction details, then ask about the customer's installation or use."
+    },
+    {
+      "id": "KPIA-151",
+      "category": "feature",
+      "prompt": "How long is Loftank expected to last?",
+      "expected_behavior": "Distinguish lifespan from warranty.",
+      "expected_answer": "The brochure states an expected lifespan of more than 30 years; this should not be presented as a warranty."
+    },
+    {
+      "id": "KPIA-152",
+      "category": "product",
+      "prompt": "What Nestank sizes do you have?",
+      "expected_behavior": "Return documented variants.",
+      "expected_answer": "NST 50 is 500 L and NST 100 is 1,000 L."
+    },
+    {
+      "id": "KPIA-153",
+      "category": "comparison",
+      "prompt": "Compare NST 50 and NST 100.",
+      "expected_behavior": "Compare capacities only unless more verified details are available.",
+      "expected_answer": "NST 50 is 500 L while NST 100 is 1,000 L."
+    },
+    {
+      "id": "KPIA-154",
+      "category": "product",
+      "prompt": "What sizes does Pedal Hand Wash come in?",
+      "expected_behavior": "Return documented capacities.",
+      "expected_answer": "The documented range includes 100 L, 200 L and 250 L options."
+    },
+    {
+      "id": "KPIA-155",
+      "category": "application",
+      "prompt": "I need a handwashing unit for a school. What do you recommend?",
+      "expected_behavior": "Use the customer's application as context and identify the product without claiming exclusivity.",
+      "expected_answer": "Pedal Hand Wash is a suitable product to investigate; ask about required capacity and number of users before narrowing the option."
+    },
+    {
+      "id": "KPIA-156",
+      "category": "feature",
+      "prompt": "What comes with Pedal Hand Wash 100 L?",
+      "expected_behavior": "Return verified included components.",
+      "expected_answer": "The 100 L unit is supplied with a tap, basin, pipe and 20 L collection bucket."
+    },
+    {
+      "id": "KPIA-157",
+      "category": "feature",
+      "prompt": "Does Pedal Hand Wash require hand contact to operate?",
+      "expected_behavior": "Return the brochure-stated hygiene feature.",
+      "expected_answer": "The product is described as providing handwashing without hand contact."
+    },
+    {
+      "id": "KPIA-158",
+      "category": "product",
+      "prompt": "What is Permawell?",
+      "expected_behavior": "Give a concise natural introduction.",
+      "expected_answer": "Permawell is the documented shallow-well liner solution; provide verified product details and ask about the well/application."
+    },
+    {
+      "id": "KPIA-159",
+      "category": "application",
+      "prompt": "I have a shallow hand-dug well. What should I look at?",
+      "expected_behavior": "Identify the documented product.",
+      "expected_answer": "Permawell is the product to investigate for the documented shallow-well application."
+    },
+    {
+      "id": "KPIA-160",
+      "category": "product",
+      "prompt": "Tell me about BlueFlame.",
+      "expected_behavior": "Introduce the product naturally.",
+      "expected_answer": "BlueFlame BioslurriGaz is an above-ground, compact biogas solution designed for easy installation and operation; provide the verified model details where relevant."
+    },
+    {
+      "id": "KPIA-161",
+      "category": "product",
+      "prompt": "What BlueFlame models are available?",
+      "expected_behavior": "Return documented models and capacities.",
+      "expected_answer": "The brochure documents LFM 6200 and SHM 3300, with the listed digester and gasholder capacities."
+    },
+    {
+      "id": "KPIA-162",
+      "category": "specification",
+      "prompt": "What are the LFM 6200 capacities?",
+      "expected_behavior": "Return exact documented capacities.",
+      "expected_answer": "LFM 6200 has a 3.2 m³ digester and a 3.0 m³ gasholder."
+    },
+    {
+      "id": "KPIA-163",
+      "category": "specification",
+      "prompt": "What are the SHM 3300 capacities?",
+      "expected_behavior": "Return exact documented capacities.",
+      "expected_answer": "SHM 3300 has a 1.8 m³ digester and a 1.5 m³ gasholder."
+    },
+    {
+      "id": "KPIA-164",
+      "category": "feature",
+      "prompt": "Does BlueFlame need a pit?",
+      "expected_behavior": "Return the brochure-stated feature.",
+      "expected_answer": "The brochure describes the system as above-ground and says no pit is required."
+    },
+    {
+      "id": "KPIA-165",
+      "category": "feature",
+      "prompt": "How long does BlueFlame take to install?",
+      "expected_behavior": "Return the documented installation claim.",
+      "expected_answer": "The brochure says the above-ground system can be installed in about two hours."
+    },
+    {
+      "id": "KPIA-166",
+      "category": "feature",
+      "prompt": "What comes with the BlueFlame system?",
+      "expected_behavior": "Return documented supplied equipment.",
+      "expected_answer": "The brochure states that it is supplied with a double-burner biogas stove and 15 m gas pipe."
+    },
+    {
+      "id": "KPIA-167",
+      "category": "product",
+      "prompt": "What cattle trough sizes are available?",
+      "expected_behavior": "Return documented capacities.",
+      "expected_answer": "KT14 is 140 L, CF50 is 500 L and CF80 is 800 L."
+    },
+    {
+      "id": "KPIA-168",
+      "category": "specification",
+      "prompt": "What are the dimensions of the CF50 cattle trough?",
+      "expected_behavior": "Return exact dimensions.",
+      "expected_answer": "CF50 is 500 L and measures 120 × 90 × 47 cm."
+    },
+    {
+      "id": "KPIA-169",
+      "category": "application",
+      "prompt": "I need a trough for livestock. What do you have?",
+      "expected_behavior": "Recommend the documented cattle trough range and ask about herd size/capacity.",
+      "expected_answer": "Kentainers has documented cattle trough options including 140 L, 500 L and 800 L; ask about the number of animals and required capacity."
+    },
+    {
+      "id": "KPIA-170",
+      "category": "product",
+      "prompt": "What cooler box sizes are available?",
+      "expected_behavior": "Return documented capacities.",
+      "expected_answer": "The cooler-box brochure documents 660 L and 1,000 L options."
+    },
+    {
+      "id": "KPIA-171",
+      "category": "feature",
+      "prompt": "How are the cooler boxes constructed?",
+      "expected_behavior": "Return verified construction features.",
+      "expected_answer": "They are food-contact polyethylene, insulated with a double wall and foam filling, with temperature-control capability."
+    },
+    {
+      "id": "KPIA-172",
+      "category": "application",
+      "prompt": "What can the cooler boxes be used for?",
+      "expected_behavior": "Avoid inventing specific industries not supported by the source.",
+      "expected_answer": "Describe them as insulated storage/cooling boxes and use only verified food-contact and temperature-control information."
+    },
+    {
+      "id": "KPIA-173",
+      "category": "product",
+      "prompt": "What fish tank size is documented?",
+      "expected_behavior": "Return the brochure-stated Fish Tank specification.",
+      "expected_answer": "The Fish Tank brochure documents CV220 at 2,200 L, with height 188 cm and diameter 74 cm."
+    },
+    {
+      "id": "KPIA-174",
+      "category": "specification",
+      "prompt": "What are the dimensions of the CV220 fish tank?",
+      "expected_behavior": "Return exact dimensions.",
+      "expected_answer": "CV220 is 2,200 L, 188 cm high and 74 cm in diameter."
+    },
+    {
+      "id": "KPIA-175",
+      "category": "product",
+      "prompt": "What is GranSilo?",
+      "expected_behavior": "Introduce the product naturally.",
+      "expected_answer": "GranSilo is a 500 L hermetic grain silo using a food-contact polymer and is documented for grain storage."
+    },
+    {
+      "id": "KPIA-176",
+      "category": "specification",
+      "prompt": "How big is GranSilo?",
+      "expected_behavior": "Return exact dimensions.",
+      "expected_answer": "GranSilo is 500 L, 123 cm high, with the brochure listing 74/64 cm diameter dimensions."
+    },
+    {
+      "id": "KPIA-177",
+      "category": "feature",
+      "prompt": "Is GranSilo hermetic?",
+      "expected_behavior": "Return the documented feature.",
+      "expected_answer": "Yes. GranSilo is described as hermetic."
+    },
+    {
+      "id": "KPIA-178",
+      "category": "feature",
+      "prompt": "What lifespan is stated for GranSilo?",
+      "expected_behavior": "Distinguish expected lifespan from warranty.",
+      "expected_answer": "The brochure states an expected lifespan of 30 years indoors; that is not a warranty term."
+    },
+    {
+      "id": "KPIA-179",
+      "category": "product",
+      "prompt": "Tell me about LifeLine Gutters.",
+      "expected_behavior": "Introduce the range and verified design.",
+      "expected_answer": "LifeLine Gutters use a reinforced rectangular design intended to improve rainwater harvesting; the brochure lists UV-stabilized food-contact polyethylene."
+    },
+    {
+      "id": "KPIA-180",
+      "category": "specification",
+      "prompt": "What LifeLine Gutter sizes are listed?",
+      "expected_behavior": "Return the two documented profiles.",
+      "expected_answer": "LifeLine 5.8 is listed at 20 × 11 cm, and another LifeLine 5.8 profile is listed at 10 × 11.5 cm."
+    },
+    {
+      "id": "KPIA-181",
+      "category": "application",
+      "prompt": "Can LifeLine Gutters be used for rainwater harvesting?",
+      "expected_behavior": "Return documented application.",
+      "expected_answer": "Yes. The brochure specifically describes the gutter design as enabling effective rainwater harvesting."
+    },
+    {
+      "id": "KPIA-182",
+      "category": "product",
+      "prompt": "What is Mobilet?",
+      "expected_behavior": "Introduce the product naturally.",
+      "expected_answer": "Mobilet is a modular sanitation solution consisting of a slab and hut, designed to be folded flat and moved from pit to pit."
+    },
+    {
+      "id": "KPIA-183",
+      "category": "feature",
+      "prompt": "How many stances can Mobilet have?",
+      "expected_behavior": "Return the documented range.",
+      "expected_answer": "Mobilet can be configured from 2 to 6 or more stances."
+    },
+    {
+      "id": "KPIA-184",
+      "category": "specification",
+      "prompt": "What are Mobilet dimensions?",
+      "expected_behavior": "Return exact documented dimensions.",
+      "expected_answer": "Mobilet is documented at 100 × 100 × 230 cm."
+    },
+    {
+      "id": "KPIA-185",
+      "category": "feature",
+      "prompt": "Can Mobilet be moved from one pit to another?",
+      "expected_behavior": "Return the documented feature.",
+      "expected_answer": "Yes. The brochure describes Mobilet as movable from pit to pit."
+    },
+    {
+      "id": "KPIA-186",
+      "category": "feature",
+      "prompt": "What is the expected lifespan of Mobilet?",
+      "expected_behavior": "Distinguish lifespan from warranty.",
+      "expected_answer": "The brochure states an expected lifespan of 20 years; it should not be presented as a warranty."
+    },
+    {
+      "id": "KPIA-187",
+      "category": "product",
+      "prompt": "What pallet sizes are documented?",
+      "expected_behavior": "Return the brochure-listed pallet variants.",
+      "expected_answer": "The brochure documents PT 120×80, PT 120×100 and PT 100×100 BL pallet variants."
+    },
+    {
+      "id": "KPIA-188",
+      "category": "specification",
+      "prompt": "What is the load rating of the PT 120×80 pallet?",
+      "expected_behavior": "Return exact documented loads.",
+      "expected_answer": "PT 120×80 is documented with 2 t static load and 1 t dynamic load."
+    },
+    {
+      "id": "KPIA-189",
+      "category": "specification",
+      "prompt": "What is the load rating of the PT 120×100 pallet?",
+      "expected_behavior": "Return exact documented loads.",
+      "expected_answer": "PT 120×100 is documented with 2 t static load and 1 t dynamic load."
+    },
+    {
+      "id": "KPIA-190",
+      "category": "feature",
+      "prompt": "Are the pallets food contact and UV stabilized?",
+      "expected_behavior": "Return documented material features.",
+      "expected_answer": "The brochure describes the pallets as food-contact and UV-stabilized polyethylene."
+    },
+    {
+      "id": "KPIA-191",
+      "category": "product",
+      "prompt": "What is TuffBarrier?",
+      "expected_behavior": "Introduce it naturally.",
+      "expected_answer": "TuffBarrier is a robust, stable road barrier designed for traffic delineation, pedestrian access and event traffic control."
+    },
+    {
+      "id": "KPIA-192",
+      "category": "specification",
+      "prompt": "What size is TuffBarrier?",
+      "expected_behavior": "Return exact dimensions.",
+      "expected_answer": "TuffBarrier measures 117 × 60 × 74 cm."
+    },
+    {
+      "id": "KPIA-193",
+      "category": "feature",
+      "prompt": "Can TuffBarrier be filled?",
+      "expected_behavior": "Return the documented stabilizing method.",
+      "expected_answer": "Its broad base can be filled with water or sand to improve stability, including in windy conditions."
+    },
+    {
+      "id": "KPIA-194",
+      "category": "product",
+      "prompt": "What is a Traffic Con used for?",
+      "expected_behavior": "Return documented applications.",
+      "expected_answer": "Traffic Con is used for road works, construction sites, hazard areas, sporting events, parking lots and crowd control."
+    },
+    {
+      "id": "KPIA-195",
+      "category": "specification",
+      "prompt": "What size is the Traffic Con?",
+      "expected_behavior": "Return exact dimensions.",
+      "expected_answer": "Traffic Con measures 41 × 41 × 66 cm."
+    },
+    {
+      "id": "KPIA-196",
+      "category": "comparison",
+      "prompt": "What is the difference between Traffic Con and TuffBarrier?",
+      "expected_behavior": "Compare documented functions and dimensions without inventing performance claims.",
+      "expected_answer": "Both support traffic control; TuffBarrier is a broad-base/interlocking road barrier at 117 × 60 × 74 cm, while Traffic Con is 41 × 41 × 66 cm and is listed for road, construction, hazard, sports, parking and crowd-control applications."
+    },
+    {
+      "id": "KPIA-197",
+      "category": "product",
+      "prompt": "What sizes do the bins come in?",
+      "expected_behavior": "Return documented bin capacities.",
+      "expected_answer": "DM5 is 50 L, DM7 is 70 L and DM10 is 100 L."
+    },
+    {
+      "id": "KPIA-198",
+      "category": "feature",
+      "prompt": "What are Kentainers bins made from?",
+      "expected_behavior": "Return documented material properties.",
+      "expected_answer": "The bins use food-grade polyethylene and are described as inert to acids, alkalis, chemicals and oils, with sunlight stabilization."
+    },
+    {
+      "id": "KPIA-199",
+      "category": "product",
+      "prompt": "What bucket sizes are available?",
+      "expected_behavior": "Return documented capacities.",
+      "expected_answer": "The brochure lists CC1 10 L, CC2 20 L, CC3 30 L, SC04 40 L and SC05 50 L buckets."
+    },
+    {
+      "id": "KPIA-200",
+      "category": "comparison",
+      "prompt": "Which is larger, CC2 or CC5 bucket?",
+      "expected_behavior": "Avoid inventing a CC5 code if unsupported.",
+      "expected_answer": "Do not assume a CC5 bucket exists; the documented codes include CC1, CC2, CC3, SC04 and SC05."
+    },
+    {
+      "id": "KPIA-201",
+      "category": "product",
+      "prompt": "What is the 50 L bucket code?",
+      "expected_behavior": "Identify the documented code.",
+      "expected_answer": "The 50 L bucket is documented as SC05."
+    },
+    {
+      "id": "KPIA-202",
+      "category": "product",
+      "prompt": "What is the 40 L bucket code?",
+      "expected_behavior": "Identify the documented code.",
+      "expected_answer": "The 40 L bucket is documented as SC04."
+    },
+    {
+      "id": "KPIA-203",
+      "category": "sales",
+      "prompt": "I need traffic control for a construction site.",
+      "expected_behavior": "Recommend the relevant traffic-control products and ask a useful next question.",
+      "expected_answer": "TuffBarrier and Traffic Con are documented traffic-control options for construction sites; ask whether the customer needs barriers, cones or both."
+    },
+    {
+      "id": "KPIA-204",
+      "category": "sales",
+      "prompt": "I need water storage for a construction site.",
+      "expected_behavior": "Do not merge this with traffic-control intent.",
+      "expected_answer": "Ask about required capacity and whether the water needs to be stored above ground or underground, then identify the appropriate water-storage range."
+    },
+    {
+      "id": "KPIA-205",
+      "category": "sales",
+      "prompt": "I need something for school handwashing and also school desks.",
+      "expected_behavior": "Handle multiple product needs naturally without confusing them.",
+      "expected_answer": "Pedal Hand Wash can address the handwashing requirement and Qdesk the school furniture requirement; handle each requirement separately and ask the next useful question."
+    },
+    {
+      "id": "KPIA-206",
+      "category": "sales",
+      "prompt": "I need livestock troughs for a farm. What size should I choose?",
+      "expected_behavior": "Do not choose without the herd/use information.",
+      "expected_answer": "Explain the documented 140 L, 500 L and 800 L options and ask about the number of animals and intended feeding/watering setup."
+    },
+    {
+      "id": "KPIA-207",
+      "category": "sales",
+      "prompt": "I need grain storage for my farm.",
+      "expected_behavior": "Identify GranSilo and ask about quantity.",
+      "expected_answer": "GranSilo is the documented grain-storage option at 500 L; ask how much grain the customer wants to store."
+    },
+    {
+      "id": "KPIA-208",
+      "category": "sales",
+      "prompt": "I need a sanitation solution for a construction site.",
+      "expected_behavior": "Offer relevant documented sanitation products without claiming exclusivity.",
+      "expected_answer": "The documented sanitation range includes Mobilet, WonderLoo and sanitation slabs; ask about the number of users and site conditions."
+    },
+    {
+      "id": "KPIA-209",
+      "category": "sales",
+      "prompt": "I need a sanitation solution for elderly users at home.",
+      "expected_behavior": "Use source-stated suitability.",
+      "expected_answer": "WonderLoo is specifically described as suitable for elderly and physically challenged users; ask about the installation setting and requirements."
+    },
+    {
+      "id": "KPIA-210",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need 500 L. Turn 2: It is for grain.",
+      "expected_behavior": "Use the second turn to identify the relevant product.",
+      "expected_answer": "GranSilo is the documented 500 L grain-storage option."
+    },
+    {
+      "id": "KPIA-211",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need 70 L. Turn 2: I want a tray.",
+      "expected_behavior": "Use the second turn to identify the relevant tray.",
+      "expected_answer": "NS7 is the documented 70 L nestable tray."
+    },
+    {
+      "id": "KPIA-212",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need 140 L for livestock. Turn 2: It is for feeding cattle.",
+      "expected_behavior": "Use context to identify the product.",
+      "expected_answer": "KT14 is the documented 140 L cattle trough option."
+    },
+    {
+      "id": "KPIA-213",
+      "category": "grounding",
+      "prompt": "Does TuffBarrier have an interlocking system?",
+      "expected_behavior": "Return only documented feature information.",
+      "expected_answer": "Yes. The brochure lists an interlocking system as a feature."
+    },
+    {
+      "id": "KPIA-214",
+      "category": "grounding",
+      "prompt": "Does Traffic Con have an interlocking system?",
+      "expected_behavior": "Do not transfer TuffBarrier features to Traffic Con.",
+      "expected_answer": "Do not claim an interlocking system for Traffic Con unless its own source verifies it."
+    },
+    {
+      "id": "KPIA-215",
+      "category": "grounding",
+      "prompt": "Does Qdesk have screws and bolts?",
+      "expected_behavior": "Return the documented construction feature.",
+      "expected_answer": "No. Qdesk is described as one-piece moulded with no joints, nails, screws or bolts."
+    },
+    {
+      "id": "KPIA-216",
+      "category": "grounding",
+      "prompt": "Can Qdesk be recycled?",
+      "expected_behavior": "Return the documented claim.",
+      "expected_answer": "Yes. The brochure states that Qdesk is fully recyclable at the end of its useful life."
+    },
+    {
+      "id": "KPIA-217",
+      "category": "grounding",
+      "prompt": "Is Qdesk available in different colours?",
+      "expected_behavior": "Return documented feature.",
+      "expected_answer": "Yes. The brochure states that Qdesk is available in different sizes and colours."
+    },
+    {
+      "id": "KPIA-218",
+      "category": "grounding",
+      "prompt": "Is Mobilet only for one person?",
+      "expected_behavior": "Avoid unsupported limitation.",
+      "expected_answer": "Do not claim that Mobilet is limited to one person; the brochure describes configurations of 2–6 or more stances."
+    },
+    {
+      "id": "KPIA-219",
+      "category": "grounding",
+      "prompt": "Can I call a 20-year expected lifespan a 20-year warranty?",
+      "expected_behavior": "Apply grounding rule.",
+      "expected_answer": "No. Expected lifespan and warranty are different; a warranty requires separate verified documentation."
+    },
+    {
+      "id": "KPIA-220",
+      "category": "grounding",
+      "prompt": "Do you have live stock of GranSilo today?",
+      "expected_behavior": "Do not invent real-time inventory.",
+      "expected_answer": "Live stock is not verified by the product knowledge base; direct the customer to sales for current stock confirmation."
     }
   ]
 }
