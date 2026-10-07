@@ -5,6 +5,37 @@ import { answerFAQ } from "./faq";
 import { answerPricing } from "./pricing";
 import type { AgentResult, Product } from "../types";
 
+
+// A named product query should remain focused on that product. Broader requirement
+// queries may return multiple products when the customer has not identified one.
+function namedProductIntent(message: string): string | null {
+  const patterns: Array<[RegExp, string]> = [
+    [/\\bpermawell\\b/i, "Permawell"],
+    [/\\bpedal\\s+hand\\s*wash\\b|\\bhand[- ]washing\\b|\\bhand[- ]wash\\b/i, "Pedal Hand Wash"],
+    [/\\bblueflame\\b|\\bbioslurri\\s*gaz\\b|\\bbiodigester\\b/i, "BlueFlame"],
+    [/\\bbunkatank\\b/i, "Bunkatank"],
+    [/\\bloftank\\b/i, "Loftank"],
+    [/\\bnestank\\b/i, "Nestank"],
+    [/\\bkpot\\b/i, "KPOT"],
+    [/\\bkentank\\b/i, "Kentank"],
+    [/\\bgran\\s*silo\\b|\\bgrainsilo\\b/i, "Grain Silo"],
+    [/\\bfish\\s+tank\\b/i, "Fish Tank"],
+    [/\\bfish\\s+tub\\b/i, "Fish Tub"],
+    [/\\bcattle\\s+trough\\b/i, "Cattle Trough"],
+    [/\\bcooler\\s+box\\b/i, "Cooler Box"],
+    [/\\blifeline\\s+gutter\\b/i, "LifeLine Gutters"],
+    [/\\bmobilet\\b/i, "Mobilet"],
+    [/\\bqdesk\\b/i, "Qdesk"],
+    [/\\btuffbarrier\\b/i, "TuffBarrier"],
+    [/\\btraffic\\s+con\\b/i, "Traffic Con"],
+    [/\\brolling\\s+drum\\b/i, "Rolling Drum"],
+    [/\\bkenpallet\\b|\\bdurapall\\b/i, "DuraPall Pallet"],
+    [/\\bbucket\\b/i, "Bucket"],
+    [/\\bbin\\b|\\bdustbin\\b/i, "Bins"],
+  ];
+  return patterns.find(([pattern]) => pattern.test(message))?.[1] || null;
+}
+
 const SYSTEM = `You are the Kentainers Product Chatbot, a customer-facing product and technical knowledge assistant.
 Use only verified Kentainers catalogue, technical/product library, pricing data, and official website evidence supplied through tools or retrieved knowledge.
 
