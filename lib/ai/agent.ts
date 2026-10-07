@@ -149,7 +149,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
               (p.capacity ? " – " + p.capacity + (p.capacity_unit || "") : "")
             ).join("; ");
             return {
-              answer: "Yes. We have several Kentainers dust bins: " + variants + ". Which capacity would you like?",
+              answer: "Yes, we have Kentainers dust bins in the following variants: " + variants + ". Which capacity would you like?",
               sources: sources.length ? sources : binProducts.map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
               products: binProducts,
               action: "details",
