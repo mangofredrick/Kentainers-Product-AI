@@ -153,9 +153,21 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
             };
           }
         }
-        const capacity = selected.capacity ? "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". " : "";
-        const dimensions = selected.dimensions ? "Dimensions: " + selected.dimensions + ". " : "";
-        const features = selected.features ? "Key documented features: " + selected.features + ". " : "";
+        let capacity = "";
+        if (selected.capacity) {
+          capacity = "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". ";
+        }
+
+        let dimensions = "";
+        if (selected.dimensions) {
+          dimensions = "Dimensions: " + selected.dimensions + ". ";
+        }
+
+        let features = "";
+        if (selected.features) {
+          features = "Key documented features: " + selected.features + ". ";
+        }
+
         const productLabel = selected.product_name || selected.product_code || specificIntent || "this product";
         return {
           answer: productLabel + ". " + capacity + dimensions + features + " What would you like to know about it—pricing, availability, or suitability for your application?",
