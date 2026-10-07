@@ -121,14 +121,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
 
       // For a specific customer product request, return the best matching product
       // instead of exposing a broad list of loosely related catalogue matches.
-      const specificIntent =
-        /\\b(permawell)\\b/i.test(userMessage) ? "Permawell" :
-        /\\b(pedal\\s+hand\\s*wash|hand[- ]washing|hand[- ]wash)\\b/i.test(userMessage) ? "Pedal Hand Wash" :
-        /\\b(loftank)\\b/i.test(userMessage) ? "Loftank" :
-        /\\b(nestank)\\b/i.test(userMessage) ? "Nestank" :
-        /\\b(bunkatank)\\b/i.test(userMessage) ? "Bunkatank" :
-        /\\b(kentank)\\b/i.test(userMessage) ? "Kentank" :
-        null;
+      const specificIntent = namedProductIntent(userMessage);
 
       const selected = specificIntent
         ? products.find(p => (p.product_name || "").toLowerCase().includes(specificIntent.toLowerCase()) || (p.product_code || "").toLowerCase().includes(specificIntent.toLowerCase()))
