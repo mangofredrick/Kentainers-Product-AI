@@ -1,4 +1,5 @@
 // Kentainers KPIA admin dashboard - syntax-clean build
+// Deployment marker: use current main source, not legacy deployment commits.
 "use client";
 import { useEffect, useState } from "react";
 
