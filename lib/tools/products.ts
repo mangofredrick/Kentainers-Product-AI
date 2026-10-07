@@ -79,7 +79,9 @@ const aliases: Record<string, string[]> = {
   kpot: ["kpot", "water pot", "portable water storage"],
   drum: ["drum", "drums"],
   "pedal hand wash": ["pedal hand wash", "hand wash", "handwashing", "hand washing"],
-  permawell: ["permawell", "shallow well liner", "well liner"]
+  permawell: ["permawell", "shallow well liner", "well liner"],
+  bins: ["bin", "bins", "dust bin", "dustbin", "waste bin"],
+  bucket: ["bucket", "buckets"]
 };
 
 function aliasTerms(query: string): string[] {
