@@ -116,10 +116,10 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
       const exact = getProductDetails(normalizedRequest);
 
       if (exact) {
-        const capacity = exact.capacity ? `Capacity: ${exact.capacity}${exact.capacity_unit || ""}. ` : "";
-        const dimensions = exact.dimensions ? `Dimensions: ${exact.dimensions}. ` : "";
-        const material = exact.material ? `Material: ${exact.material}. ` : "";
-        const features = exact.features ? `Key documented features: ${exact.features}. ` : "";
+        const capacity = exact.capacity ? "Capacity: " + exact.capacity + (exact.capacity_unit || "") + ". " : "";
+        const dimensions = exact.dimensions ? "Dimensions: " + exact.dimensions + ". " : "";
+        const material = exact.material ? "Material: " + exact.material + ". " : "";
+        const features = exact.features ? "Key documented features: " + exact.features + ". " : "";
         return {
           answer: `According to the available Kentainers product catalogue, ${exact.product_name} (${exact.product_code}) is in the ${exact.category} category. ${capacity}${dimensions}${material}${features}For application-specific or technical details not shown here, I can use the Kentainers knowledge library or escalate for confirmation.`,
           sources: sources.length ? sources : [{ document: exact.source_document || "Kentainers product catalogue", page: exact.source_page }],
@@ -138,12 +138,12 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         : products[0];
 
       if (selected) {
-        const capacity = selected.capacity ? `Capacity: ${selected.capacity}${selected.capacity_unit || ""}. ` : "";
-        const dimensions = selected.dimensions ? `Dimensions: ${selected.dimensions}. ` : "";
-        const features = selected.features ? `Key documented features: ${selected.features}. ` : "";
+        const capacity = selected.capacity ? "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". " : "";
+        const dimensions = selected.dimensions ? "Dimensions: " + selected.dimensions + ". " : "";
+        const features = selected.features ? "Key documented features: " + selected.features + ". " : "";
         const productLabel = selected.product_name || selected.product_code || specificIntent || "this product";
         return {
-          answer: `${productLabel} ${capacity}${dimensions}${features}`.trim(),
+          answer: (productLabel + " " + capacity + dimensions + features).trim(),
           sources: sources.length ? sources : [{ document: selected.source_document || "Kentainers product catalogue", page: selected.source_page }],
           products: [selected],
           action: "details",
@@ -190,7 +190,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
   // Deterministic responses for common high-frequency tank queries.
-  const normalized = `${conversationContext}\n${userMessage}`.toLowerCase().replace(/,/g, "");
+  const normalized = (conversationContext + "\n" + userMessage).toLowerCase().replace(/,/g, "");
 
   if (/(^|\s)5000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank)/.test(normalized)) {
     return {
@@ -303,7 +303,7 @@ Answer the customer using only supported evidence. If the evidence does not supp
             for (const c of result as Chunk[]) sources.push({ document: c.document || "Kentainers knowledge library", page: c.page });
           }
         } else {
-          result = { error: `Unknown tool: ${call.function.name}` };
+          result = { error: "Unknown tool: " + call.function.name };
         }
 
         messages.push({ role: "tool", tool_call_id: call.id, content: JSON.stringify(result) });
