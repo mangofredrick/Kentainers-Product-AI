@@ -101,9 +101,14 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
       // instead of exposing a broad list of loosely related catalogue matches.
       const specificIntent = namedProductIntent(userMessage);
 
-      const selected = specificIntent
-        ? products.find(p => (p.product_name || "").toLowerCase().includes(specificIntent.toLowerCase()) || (p.product_code || "").toLowerCase().includes(specificIntent.toLowerCase()))
-        : products[0];
+      const intentMatches = specificIntent
+        ? products.filter(p =>
+            (p.product_name || "").toLowerCase().includes(specificIntent.toLowerCase()) ||
+            (p.product_code || "").toLowerCase().includes(specificIntent.toLowerCase()) ||
+            (p.category || "").toLowerCase() === specificIntent.toLowerCase()
+          )
+        : [];
+      const selected = intentMatches[0] || (specificIntent ? findProducts(specificIntent, 10)[0] : products[0]);
 
       if (selected) {
         const capacity = selected.capacity ? "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". " : "";
