@@ -72,16 +72,36 @@ function normalize(text: string): string {
 }
 
 const aliases: Record<string, string[]> = {
-  kentank: ["kentank", "water tank", "above ground tank"],
-  bunkatank: ["bunkatank", "underground tank", "underground water tank"],
+  kentank: ["kentank", "water tank", "above ground tank", "storage tank"],
+  bunkatank: ["bunkatank", "underground tank", "underground water tank", "underground storage"],
   loftank: ["loftank", "rectangular tank", "rectangular water tank"],
-  nestank: ["nestank", "nestable tank"],
+  nestank: ["nestank", "nestable tank", "nestable water tank"],
   kpot: ["kpot", "water pot", "portable water storage"],
-  drum: ["drum", "drums"],
-  "pedal hand wash": ["pedal hand wash", "hand wash", "handwashing", "hand washing"],
+  drum: ["drum", "drums", "water drum", "rolling drum"],
+  "pedal hand wash": ["pedal hand wash", "hand wash", "handwashing", "hand washing", "handwashing station"],
   permawell: ["permawell", "shallow well liner", "well liner"],
-  bins: ["bin", "bins", "dust bin", "dustbin", "waste bin"],
-  bucket: ["bucket", "buckets"]
+  bins: ["bin", "bins", "dust bin", "dustbin", "waste bin", "waste bins"],
+  bucket: ["bucket", "buckets"],
+  blueflame: ["blueflame", "blue flame", "bioslurrigaz", "biodigester", "biogas digester"],
+  "cattle trough": ["cattle trough", "cattle troughs", "livestock trough", "feeding trough", "drinking trough"],
+  "cooler box": ["cooler box", "cooler boxes", "insulated cooler", "cooler"],
+  "fish tank": ["fish tank", "fish tanks", "fish farming tank", "fish farming tanks"],
+  "flower bucket": ["flower bucket", "flower buckets"],
+  gransilo: ["gransilo", "grain silo", "grain storage silo", "hermetic grain silo"],
+  "lifeline gutter": ["lifeline gutter", "lifeline gutters", "rainwater gutter", "rainwater harvesting gutter"],
+  mobilet: ["mobilet", "mobile toilet", "mobile toilet block"],
+  "hand hole": ["hand hole", "handhole", "cable chamber", "telecommunication chamber"],
+  pallet: ["pallet", "pallets", "durapall", "durapall pallet"],
+  qdesk: ["qdesk", "school desk", "student desk"],
+  "sliver can": ["sliver can", "sliver cans", "inmotion tote", "inmotion tote box", "tote box"],
+  tray: ["tray", "trays", "nestable tray", "stackable tray", "fodder tray"],
+  "tuffbarrier": ["tuffbarrier", "tuff barrier", "road barrier", "road barricade"],
+  "traffic con": ["traffic con", "traffic cone", "traffic cones"],
+  "e koslab": ["ekoslab", "eko slab"],
+  "mobislab": ["mobislab", "mobi slab"],
+  "ekoplate": ["ekoplate", "eko plate"],
+  "sanislab": ["sanislab", "sani slab"],
+  wonderloo: ["wonderloo", "wonder loo", "toilet pedestal"]
 };
 
 function aliasTerms(query: string): string[] {
