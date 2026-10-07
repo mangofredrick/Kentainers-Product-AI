@@ -95,7 +95,7 @@ type Chunk = { text?: string; page?: number; document?: string; score?: number }
 function evidenceBlock(chunks: Chunk[]): string {
   if (!chunks.length) return "No verified knowledge-library evidence was retrieved for this request.";
   return chunks.slice(0, 8).map((c, i) => {
-    const source = `${c.document || "Kentainers knowledge library"}${c.page ? `, page ${c.page}` : ""}`;
+    const source = (c.document || "Kentainers knowledge library") + (c.page ? ", page " + c.page : "");
     return `[Evidence ${i + 1} | ${source}]\n${c.text || ""}`;
   }).join("\n\n");
 }
