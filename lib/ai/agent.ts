@@ -111,7 +111,26 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
       const selected = intentMatches[0] || (specificIntent ? findProducts(specificIntent, 10)[0] : products[0]);
 
       if (selected) {
-        const capacity = selected.capacity ? "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". " : "";
+        if (specificIntent === "Bins") {
+          const binProducts = products.filter(p =>
+            (p.product_name || "").toLowerCase().includes("dust bin") ||
+            (p.category || "").toLowerCase() === "bins"
+          );
+          if (binProducts.length) {
+            const variants = binProducts.map(p =>
+              p.product_name + " (" + p.product_code + ")" +
+              (p.capacity ? " – " + p.capacity + (p.capacity_unit || "") : "")
+            ).join("; ");
+            return {
+              answer: "We have the following Kentainers dust bins: " + variants + ". Which capacity would you like?",
+              sources: sources.length ? sources : binProducts.map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
+              products: binProducts,
+              action: "details",
+              toolCalls: []
+            };
+          }
+        }
+        const capacity = selected.capacity ? "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". "
         const dimensions = selected.dimensions ? "Dimensions: " + selected.dimensions + ". " : "";
         const features = selected.features ? "Key documented features: " + selected.features + ". " : "";
         const productLabel = selected.product_name || selected.product_code || specificIntent || "this product";
