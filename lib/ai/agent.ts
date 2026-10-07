@@ -111,7 +111,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         const features = selected.features ? "Key documented features: " + selected.features + ". " : "";
         const productLabel = selected.product_name || selected.product_code || specificIntent || "this product";
         return {
-          answer: (productLabel + " " + capacity + dimensions + features).trim(),
+          answer: productLabel + ". " + capacity + dimensions + features + " What would you like to know about it—pricing, availability, or suitability for your application?",
           sources: sources.length ? sources : [{ document: selected.source_document || "Kentainers product catalogue", page: selected.source_page }],
           products: [selected],
           action: "details",
