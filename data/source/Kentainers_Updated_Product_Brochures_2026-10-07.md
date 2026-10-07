@@ -1879,3 +1879,26 @@ SPECIFICATIONS
 PRODUCT DIMENSIONS CMS
 CODE LENGTH WIDTH HEIGHT
 Traffic con 41 41 66
+
+## Newly added brochures and guidance — 2026-10-07
+
+### Qdesk
+Qdesk is a one-piece polyethylene school desk for schools, universities and institutions. The brochure gives two floor-to-seat heights: Small, up to Grade 5, 15 inches; Medium, Class 6 to University, 17 inches. It is described as food-contact polyethylene, tough and long lasting, available in different sizes and colours, one-piece moulded with no joints, nails, screws or bolts, and with no edges or sharp corners.
+
+### Rolling Drum
+The Rolling Drum is a 30 L water drum designed for fetching water in rural environments. The brochure specifies 35 cm height and 42 cm diameter. It uses UV-stabilized linear low-density polyethylene and a steel handle with polymer end-caps. Features include reduced strain, easy handling and cleaning, toughness, long life and time savings.
+
+### Sliver Cans / Inmotion tote boxes
+The brochure lists SC04 40 L, SC05 50 L, SC06 60 L, SC08 80 L, SC15 150 L, SC15-WRIGLAY 150 L, SC24 240 L, SC25 250 L, SC30 300 L and SC50 500 L. They are food-contact grade UV-stabilized polyethylene, long lasting, cost effective, strong and light weight, and intended to save space through stacking and nesting. Applications include kitchen storage, mobile tool kits, computer parts storage, archiving files and off-season clothing storage.
+
+### Trays
+The new tray brochure adds NS4 (old) 40 L, NS7 70 L, NS6 60 L, KT5 50 L, NS9, KT14 140 L, BF3 and LB10 100 L. The brochure describes the trays as food-contact grade UV-stabilized polyethylene, long lasting, nestable/stackable, cost effective, strong and light weight, with applications in food industries, schools, clinics, farms and other industries. Fodder Tray LB10 is separately identified.
+
+### Ecological sanitation slabs
+The Slabs brochure adds EkoSlab, MobiSlab, EkoPlate, SaniSlab variants, MobiSlab with Pedestal and Washroom Slab. The range is presented for affordable and sustainable sanitation across homes, schools, clinics, IDP/refugee/army camps, institutions, farms and construction sites. The brochure repeatedly highlights easy installation, privacy and dignity, low/virtually no running cost and separation of urine and faeces for the ecological sanitation designs. Where the brochure does not provide a complete dimension set, the catalogue records that limitation rather than inventing a value.
+
+### WonderLoo
+WonderLoo is a self-supporting toilet pedestal based on the “Don't Mix” principle, separating, diverting and disposing of urine and faeces. The brochure describes it as easy to install for indoor household use and suitable for elderly people, physically challenged users, expectant ladies, children and the sick. It also lists schools, clinics, IDP/refugee/army camps, institutions, farms, homes and construction sites as applications.
+
+### Above-ground tank installation guidance
+The installation brochure requires tanks to sit on a fully supported flat base with no gaps, with the base larger than the tank diameter. Inlet and outlet holes should be drilled only at specified locations using a drill machine; an overflow should be provided and drained away from the base; plastic fittings and flexible pipes should be used when interconnecting tanks; and rubber washers should be used between the tank and back nut. It specifically warns against drilling with a hot metal rod or knife, leaving stones or sharp objects on the base, and raising 10,000 L-and-above tanks more than 20 ft above ground.
