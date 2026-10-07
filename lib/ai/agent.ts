@@ -153,20 +153,17 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
             };
           }
         }
-        let capacity = "";
-        if (selected.capacity) {
-          capacity = "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". ";
-        }
+        const capacity = selected.capacity
+          ? "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". "
+          : "";
 
-        let dimensions = "";
-        if (selected.dimensions) {
-          dimensions = "Dimensions: " + selected.dimensions + ". ";
-        }
+        const dimensions = selected.dimensions
+          ? "Dimensions: " + selected.dimensions + ". "
+          : "";
 
-        let features = "";
-        if (selected.features) {
-          features = "Key documented features: " + selected.features + ". ";
-        }
+        const features = selected.features
+          ? "Key documented features: " + selected.features + ". "
+          : "";
 
         const productLabel = selected.product_name || selected.product_code || specificIntent || "this product";
         return {
