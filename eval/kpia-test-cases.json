@@ -1,83 +1,539 @@
 {
   "name": "KPIA Product Intelligence Customer Q&A Evaluation Suite",
-  "version": "3.0",
+  "version": "3.1",
   "purpose": "Regression tests for grounded customer product questions, recommendations, technical guidance, website information and pricing across the expanded Kentainers brochure and official catalogue knowledge base.",
   "cases": [
-    {"id":"KPIA-001","category":"clarification","prompt":"I need 6,000 litres.","expected_behavior":"Ask for intended application because 6,000 L appears in multiple documented product types.","expected_answer":"Ask whether the customer needs an above-ground water tank, underground water storage, or another application before selecting a product."},
-    {"id":"KPIA-002","category":"retrieval","prompt":"Which Kentank is suitable for 6,000 litres?","expected_behavior":"Identify CCV 600 as the documented 6,000 L above-ground Kentank.","expected_answer":"CCV 600 is the documented 6,000 L above-ground Kentank."},
-    {"id":"KPIA-003","category":"comparison","prompt":"Compare the two 5,000-litre Kentank options.","expected_behavior":"Distinguish CCV 500 Short from CCV 500 and provide their documented dimensions.","expected_answer":"Distinguish CCV 500 Short and CCV 500 using only their documented dimensions and product descriptions."},
-    {"id":"KPIA-004","category":"retrieval","prompt":"What are the dimensions of the 8,000-litre Kentank?","expected_behavior":"Return the documented CCV 800 dimensions with product context.","expected_answer":"Return the documented CCV 800 dimensions from the Water Tanks source."},
-    {"id":"KPIA-005","category":"application","prompt":"Can Kentank be used for rainwater harvesting?","expected_behavior":"Answer from the documented Kentank applications.","expected_answer":"Yes, where rainwater harvesting is listed as a documented application; avoid adding unsupported installation claims."},
-    {"id":"KPIA-006","category":"cross-document","prompt":"I need a solution for a shallow hand-dug well. What Kentainers product should I investigate?","expected_behavior":"Retrieve Permawell information if present in the indexed source library; otherwise state that the available source set does not verify it.","expected_answer":"Investigate Permawell as the documented shallow-well liner solution; provide only verified features."},
-    {"id":"KPIA-007","category":"application","prompt":"I need a hand-washing solution for a school.","expected_behavior":"Retrieve relevant Pedal Hand Wash information and avoid unsupported claims.","expected_answer":"Recommend the documented Pedal Hand Wash range and ask about required capacity if needed."},
-    {"id":"KPIA-008","category":"pricing","prompt":"How much is a 5,000 litre Kentank in Nairobi?","expected_behavior":"Use the current indexed official price source when available, distinguish the two 5,000 L variants, identify the applicable zone/effective date and warn that prices may change.","expected_answer":"Use only the current verified official price source; do not invent a price if no current price evidence is indexed."},
-    {"id":"KPIA-009","category":"pricing","prompt":"How much is a 6,000 litre Kentank in Kisumu?","expected_behavior":"Ask or infer the intended above-ground/underground application from the wording before quoting; use the applicable official zonal price source and date.","expected_answer":"Clarify the product/application first, then use the applicable verified zonal price."},
-    {"id":"KPIA-010","category":"grounding","prompt":"What is the warranty period for CCV 600?","expected_behavior":"Do not turn the documented expected lifespan into a warranty; state that a warranty term requires a separate verified warranty source.","expected_answer":"The indexed product documentation does not verify a warranty period; expected lifespan must not be presented as a warranty."},
-    {"id":"KPIA-011","category":"specification","prompt":"What is the diameter of the 6,000-litre above-ground tank?","expected_behavior":"Return the documented CCV 600 diameter with product context.","expected_answer":"Return the documented CCV 600 diameter and identify it as the above-ground 6,000 L Kentank."},
-    {"id":"KPIA-012","category":"specification","prompt":"What is the height of the 5,000-litre tank?","expected_behavior":"Recognize that there are two 5,000-litre variants and provide both documented heights.","expected_answer":"Explain that both CCV 500 Short and CCV 500 must be distinguished before giving the corresponding documented heights."},
-    {"id":"KPIA-013","category":"product","prompt":"What sizes are available for Kpot?","expected_behavior":"Return the documented 30 L and 60 L variants.","expected_answer":"KPOT 3 is 30 L and KPOT 6 is 60 L."},
-    {"id":"KPIA-014","category":"product","prompt":"What is Permawell used for?","expected_behavior":"Return its documented shallow-well application if the source is present; otherwise clearly state that it is not currently verified.","expected_answer":"Permawell is documented for shallow-well use; do not add unsupported performance claims."},
-    {"id":"KPIA-015","category":"multi-document","prompt":"Compare Kentank and Bunkatank.","expected_behavior":"Distinguish above-ground and underground water storage and cite relevant documented characteristics.","expected_answer":"Kentank is the above-ground water-storage range; Bunkatank is documented as underground water storage."},
-    {"id":"KPIA-016","category":"technical","prompt":"How should I prepare the base before installing a Kentank?","expected_behavior":"Use manufacturer installation guidance: fully supported flat base, no gaps, larger than tank diameter, and no stones/sharp objects.","expected_answer":"Use a fully supported flat base, larger than the tank diameter, free of gaps, stones and sharp objects."},
-    {"id":"KPIA-017","category":"technical","prompt":"Can I drill the tank using a hot metal rod?","expected_behavior":"State that the installation guidance warns against drilling with a hot metal rod or knife.","expected_answer":"No. Follow the manufacturer installation instructions and use the specified drilling method rather than a hot metal rod or knife."},
-    {"id":"KPIA-018","category":"grounding","prompt":"What is the pressure rating of CCV 600?","expected_behavior":"Do not invent a pressure rating; state that the indexed documentation does not verify one.","expected_answer":"The indexed Kentainers documentation does not verify a pressure rating for CCV 600."},
-    {"id":"KPIA-019","category":"website","prompt":"Where is the Nairobi Kentainers factory?","expected_behavior":"Return the official Nairobi location from the website source.","expected_answer":"Use the current official website location information; do not invent a different branch address."},
-    {"id":"KPIA-020","category":"website","prompt":"What are Kentainers opening hours on Saturday?","expected_behavior":"Return the official FAQ Saturday hours of 8:30 am to 1:30 pm.","expected_answer":"Saturday: 8:30 am to 1:30 pm."},
-    {"id":"KPIA-021","category":"website","prompt":"Do you install tanks?","expected_behavior":"State that the official FAQ says installation services are offered at a cost.","expected_answer":"The official FAQ states that installation services are available at a cost."},
-    {"id":"KPIA-022","category":"website","prompt":"Which categories of products does Kentainers sell?","expected_behavior":"Return the website categories: Water Storage, Sanitation & Waste, Agriculture & Biogas, Material Handling, and Furniture & QDesk.","expected_answer":"Water Storage; Sanitation & Waste; Agriculture & Biogas; Material Handling; Furniture & QDesk."},
-    {"id":"KPIA-023","category":"product","prompt":"What sizes are available for the Nestable Stackable Tray?","expected_behavior":"Return the sizes documented on the official website source, including Heavy Duty and lid variants where applicable.","expected_answer":"Return the currently verified website variants: 20 L, 30 L, 40 L, 40 L Heavy Duty, 50 L, 60 L, 70 L, 80 L, 120 L, 180 L, 250 L/Lid, 300 L and 500 L."},
-    {"id":"KPIA-024","category":"material-handling","prompt":"What load can the Kenpallet 130 carry?","expected_behavior":"Return the website-stated static and dynamic loads and distinguish them clearly.","expected_answer":"Kenpallet 130 is documented at 3 tonnes static load and 2 tonnes dynamic load."},
-    {"id":"KPIA-025","category":"agriculture","prompt":"Do you have a grain silo?","expected_behavior":"Identify Grain Silo as an Agriculture & Biogas product and return only documented capacity/details.","expected_answer":"Yes. GranSilo is documented as a 500 L hermetic grain silo."},
-    {"id":"KPIA-026","category":"agriculture","prompt":"What sizes does the Fish Tub come in?","expected_behavior":"Return the currently verified website variants and flag any conflict with brochure/PDF evidence rather than silently reconciling it.","expected_answer":"Use the source-specific evidence: the current website lists 600 L and 800 L, while the supplied Fish/insulated-tub brochure evidence must be treated separately where it documents other capacities."},
-    {"id":"KPIA-027","category":"grounding","prompt":"Do you have stock of CCV 600 in Nairobi today?","expected_behavior":"Do not claim live stock unless a live inventory source is connected.","expected_answer":"Live stock is not verified by the knowledge base; offer to direct the customer to sales for confirmation."},
-    {"id":"KPIA-028","category":"pricing","prompt":"Give me the price of a 500 litre Grain Silo.","expected_behavior":"Use an official current price source if indexed; otherwise state that a verified price is unavailable.","expected_answer":"Give only a currently verified official price; otherwise say a verified price is unavailable."},
-    {"id":"KPIA-029","category":"pricing","prompt":"What price should I use for a customer in Kisumu?","expected_behavior":"Ask for the exact product/variant and use the applicable official zonal pricing source.","expected_answer":"Ask for the product and variant, then apply the correct verified zone price."},
-    {"id":"KPIA-030","category":"grounding","prompt":"Is the 30-year lifespan a warranty?","expected_behavior":"Explain that expected lifespan and warranty are different.","expected_answer":"No. An expected lifespan is not a warranty term; warranty requires separate verified documentation."},
-    {"id":"KPIA-031","category":"conversation-continuity","prompt":"Turn 1: I need 6,000 litres. Turn 2: home use.","expected_behavior":"Use the second-turn home-use context to identify the documented CCV 600.","expected_answer":"For a domestic/home above-ground 6,000 L requirement, identify CCV 600, while noting that underground use would point to BKT 600."},
-    {"id":"KPIA-032","category":"contact-capture","prompt":"Ask an unresolved technical question without providing customer contact details.","expected_behavior":"State that a verified response is unavailable and request customer name plus either email or phone before Kentainers follow-up.","expected_answer":"Request the customer's name and either email address or phone number for follow-up."},
-    {"id":"KPIA-033","category":"product","prompt":"What Bunkatank sizes are available?","expected_behavior":"Return BKT 200, BKT 250, BKT 300 and BKT 600.","expected_answer":"BKT 200, BKT 250, BKT 300 and BKT 600."},
-    {"id":"KPIA-034","category":"comparison","prompt":"What is the difference between a 6,000 L Kentank and a 6,000 L Bunkatank?","expected_behavior":"Distinguish CCV 600 as above-ground storage from BKT 600 as underground storage.","expected_answer":"CCV 600 is the documented above-ground 6,000 L Kentank; BKT 600 is the documented underground 6,000 L Bunkatank."},
-    {"id":"KPIA-035","category":"product","prompt":"What sizes does Loftank come in?","expected_behavior":"Return LR 23, LR 46 and LR 100 with documented capacities.","expected_answer":"LR 23: 230 L; LR 46: 460 L; LR 100: 920 L."},
-    {"id":"KPIA-036","category":"product","prompt":"What sizes are available for Nestank?","expected_behavior":"Return NST 50 and NST 100 with documented capacities.","expected_answer":"Return the documented NST 50 and NST 100 variants and their verified capacities."},
-    {"id":"KPIA-037","category":"product","prompt":"What is Permawell?","expected_behavior":"Identify Permawell as a double-walled shallow well liner and describe only documented application/features.","expected_answer":"Permawell is the documented shallow-well liner solution; use only verified brochure/source details."},
-    {"id":"KPIA-038","category":"product","prompt":"What capacities are available for Pedal Hand Wash?","expected_behavior":"Use the supplied Pedal Hand Wash source and return 100 L, 200 L and 250 L.","expected_answer":"100 L, 200 L and 250 L."},
-    {"id":"KPIA-039","category":"product","prompt":"What are the Drum sizes?","expected_behavior":"Return DRUM 10 at 100 L and DRUM 20 at 200 L.","expected_answer":"DRUM 10: 100 L; DRUM 20: 200 L."},
-    {"id":"KPIA-040","category":"catalogue","prompt":"Show me Kentank sizes from the smallest to the largest.","expected_behavior":"Use the supplied Water Tanks PDF and identify the listed CCV variants without inventing omitted details.","expected_answer":"Return the verified Kentank variants from the supplied Water Tanks catalogue in ascending capacity order."},
-
-    {"id":"KPIA-041","category":"product","prompt":"What sizes of dustbins do you have?","expected_behavior":"Retrieve the updated Bins brochure and distinguish the documented DM5, DM7 and DM10 sizes.","expected_answer":"DM5: 50 L; DM7: 70 L; DM10: 100 L."},
-    {"id":"KPIA-042","category":"application","prompt":"I want a home biogas and fertilizer solution using animal waste. What do you recommend?","expected_behavior":"Identify BlueFlame BioslurriGaz Biodigester and explain its documented use without inventing output rates.","expected_answer":"BlueFlame BioslurriGaz Biodigester is designed to use animal dung and agricultural crop residue to produce bioslurry and biogas."},
-    {"id":"KPIA-043","category":"product","prompt":"What BlueFlame biodigester sizes are documented?","expected_behavior":"Return the LFM and SHM variants and their documented digester/gasholder volumes.","expected_answer":"LFM: 3.2 m³ digester and 3.0 m³ gasholder; SHM: 1.8 m³ digester and 1.5 m³ gasholder."},
-    {"id":"KPIA-044","category":"product","prompt":"What cattle trough sizes are available?","expected_behavior":"Return KT14, CF50 and CF80 with documented capacities.","expected_answer":"KT14: 140 L; CF50: 500 L; CF80: 800 L."},
-    {"id":"KPIA-045","category":"specification","prompt":"What are the dimensions of the CF50 cattle trough?","expected_behavior":"Return the brochure dimensions with units and product context.","expected_answer":"CF50 is documented as 500 L with dimensions 120 × 90 × 47 cm."},
-    {"id":"KPIA-046","category":"product","prompt":"Do you have insulated cooler boxes for fish or meat?","expected_behavior":"Identify Cooler Boxes and explain the documented food-contact and insulation application.","expected_answer":"Yes. The insulated Cooler Box is documented for fish and meat processing and is made from food-contact polyethylene with a double-wall foam-filled construction."},
-    {"id":"KPIA-047","category":"product","prompt":"What capacities are documented for the cooler boxes?","expected_behavior":"Return only the documented capacities.","expected_answer":"The supplied Cooler Box brochure documents 660 L and 1,000 L."},
-    {"id":"KPIA-048","category":"agriculture","prompt":"Do you have a fish farming tank?","expected_behavior":"Identify Fish Tank and return its documented CV220 specification.","expected_answer":"Yes. The Fish Tank brochure documents CV220 at 2,200 L, with height 188 cm and diameter 74 cm."},
-    {"id":"KPIA-049","category":"product","prompt":"What flower bucket sizes are available?","expected_behavior":"Return the documented FB05 and FB20 capacities.","expected_answer":"FB05: 50 L; FB20: 200 L."},
-    {"id":"KPIA-050","category":"rainwater","prompt":"I need a gutter for rainwater harvesting. What does Kentainers have?","expected_behavior":"Identify LifeLine Gutters and return only documented profile/specification information.","expected_answer":"LifeLine Gutters are documented reinforced rectangular gutters for rainwater harvesting, with food-contact-grade UV-stabilized polyethylene."},
-    {"id":"KPIA-051","category":"product","prompt":"What sizes are documented for LifeLine Gutters?","expected_behavior":"Return the two documented LifeLine dimensions.","expected_answer":"The brochure documents LifeLine 5.8 × 20 × 11 cm and LifeLine 5.8 × 10 × 11.5 cm under length, width and height."},
-    {"id":"KPIA-052","category":"technical","prompt":"What is the Kentainers hand hole used for?","expected_behavior":"Identify Hand Hole as a PE cable chamber for telecommunications and explain its documented depth/use limitations.","expected_answer":"It is a flat-bottom chamber for access, installation, cleaning and inspection of electrical/telecommunication cable systems, documented for a maximum depth of up to 1 m from ground level."},
-    {"id":"KPIA-053","category":"sanitation","prompt":"What is Mobilet?","expected_behavior":"Identify Mobilet as a mobile/reusable sanitation solution and describe documented applications.","expected_answer":"Mobilet is a modular plastic toilet solution that can be moved from pit to pit and is documented for schools, clinics, hospitals, refugee and IDP camps and other institutions."},
-    {"id":"KPIA-054","category":"material-handling","prompt":"Which pallets do you have for warehouses and cold rooms?","expected_behavior":"Identify DuraPall pallets and distinguish documented two-way, four-way and reversible variants.","expected_answer":"DuraPall pallets are documented for warehouses, cold rooms, wet areas, refrigerated trucks and areas requiring air circulation; variants include two-way, four-way and reversible pallets."},
-    {"id":"KPIA-055","category":"material-handling","prompt":"What are the documented loads for the PT 120 x 100 pallet?","expected_behavior":"Return static and dynamic loads exactly as documented.","expected_answer":"PT 120 × 100 is documented at 2 tonnes static and 1 tonne dynamic."},
-    {"id":"KPIA-056","category":"education","prompt":"What is Qdesk?","expected_behavior":"Identify Qdesk as the patented one-piece polyethylene school desk and provide documented user-size information.","expected_answer":"Qdesk is a one-piece polyethylene school desk. The brochure documents Small at 15 inches floor-to-seat height and Medium at 17 inches."},
-    {"id":"KPIA-057","category":"product","prompt":"What is the TuffBarrier used for?","expected_behavior":"Identify it as a road/construction barrier and return its documented dimensions and applications.","expected_answer":"TuffBarrier is a robust barricade system for construction sites, road works, hazard areas, sporting events, parking and crowd control; documented dimensions are 117 × 60 × 74 cm."},
-    {"id":"KPIA-058","category":"product","prompt":"Do you have traffic cones/barriers?","expected_behavior":"Identify the Traffic Con product and distinguish it from TuffBarrier.","expected_answer":"Yes. The Traffic Con brochure documents a Road Barrier product called Traffic Con with dimensions 41 × 41 × 66 cm; it should not be conflated with TuffBarrier."},
-    {"id":"KPIA-059","category":"product","prompt":"What is the Rolling Drum used for?","expected_behavior":"Identify the water drum and its documented rural-use application.","expected_answer":"The Rolling Drum is designed for fetching water in rural environments; the brochure documents 30 L capacity and dimensions of 35 × 42 cm for height and diameter."},
-    {"id":"KPIA-060","category":"product","prompt":"What bucket sizes are available?","expected_behavior":"Return the documented multi-purpose bucket codes and capacities.","expected_answer":"CC1: 10 L; CC2: 20 L; CC3: 30 L; SC04: 40 L; SC05: 50 L."},
-    {"id":"KPIA-061","category":"application","prompt":"I need products for a school: water storage, hand washing and desks. What can you suggest?","expected_behavior":"Cross-sell only documented products relevant to the stated application.","expected_answer":"Relevant documented products include Kentank for water storage, Pedal Hand Wash for hand washing, and Qdesk for school desks. Ask for capacity/quantity requirements before selecting variants."},
-    {"id":"KPIA-062","category":"application","prompt":"I run a farm and need water storage, cattle feeding and grain storage.","expected_behavior":"Recommend only documented products matching each need.","expected_answer":"Use Kentank/Loftank or another verified water-storage product for water, Cattle Troughs for livestock feeding, and GranSilo for hermetic grain storage."},
-    {"id":"KPIA-063","category":"application","prompt":"I need products for a construction site to control traffic and store water.","expected_behavior":"Identify relevant documented products without inventing a package price.","expected_answer":"TuffBarrier or Traffic Con can address traffic control, while Kentank can address documented water storage; ask for quantities and capacities."},
-    {"id":"KPIA-064","category":"comparison","prompt":"What is the difference between a Fish Tank and a Cooler Box?","expected_behavior":"Distinguish the products by documented purpose and construction.","expected_answer":"Fish Tank is documented for small-scale fish farming and storage/containment; Cooler Box is insulated and documented for fish/meat processing and temperature control."},
-    {"id":"KPIA-065","category":"recommendation","prompt":"I need a product for rural water collection where the terrain is rough.","expected_behavior":"Identify Rolling Drum based on its documented application and rough-terrain design.","expected_answer":"Rolling Drum is the relevant documented product for fetching water in rural environments and is designed to cope with rough surfaces."},
-    {"id":"KPIA-066","category":"recommendation","prompt":"I need sanitation facilities that can be moved when a pit is full.","expected_behavior":"Identify Mobilet based on its documented reusable pit-to-pit design.","expected_answer":"Mobilet is documented as mobile and reusable from pit to pit; once a pit is full, the toilet can be moved to a new site."},
-    {"id":"KPIA-067","category":"grounding","prompt":"What is the exact warranty on Mobilet?","expected_behavior":"Do not convert its expected lifespan into a warranty.","expected_answer":"The brochure documents a 20-year expected lifespan, not a warranty term; warranty requires separate verified documentation."},
-    {"id":"KPIA-068","category":"grounding","prompt":"Can you guarantee the BlueFlame produces a certain amount of gas every day?","expected_behavior":"Avoid unsupported production guarantees.","expected_answer":"Do not guarantee a daily gas output unless a verified technical source specifies one."},
-    {"id":"KPIA-069","category":"grounding","prompt":"What is the maximum load of the Qdesk?","expected_behavior":"Do not invent a load rating because the supplied Qdesk brochure does not verify one.","expected_answer":"The supplied Qdesk brochure does not provide a verified maximum load rating."},
-    {"id":"KPIA-070","category":"grounding","prompt":"What is the warranty of the Kentainers pallets?","expected_behavior":"Do not invent a warranty from durability or expected lifespan language.","expected_answer":"The supplied pallet documentation does not establish a warranty term; do not invent one."},
-    {"id":"KPIA-071","category":"catalogue","prompt":"Apart from water tanks, what other products can I ask you about?","expected_behavior":"Explain that the knowledge base now covers multiple Kentainers product families.","expected_answer":"The expanded knowledge base covers water storage, sanitation and waste, agriculture and biogas, material handling, furniture/Qdesk, plus products such as bins, buckets, cattle troughs, cooler boxes, fish tanks, GranSilo, BlueFlame, gutters, Mobilet, pallets, barriers and rolling drums."},
-    {"id":"KPIA-072","category":"conversation-continuity","prompt":"Turn 1: I need something for a school. Turn 2: hand washing.","expected_behavior":"Use the second turn to narrow the recommendation to Pedal Hand Wash rather than repeating a generic product list.","expected_answer":"Recommend the documented Pedal Hand Wash range and ask for required capacity/quantity."},
-    {"id":"KPIA-073","category":"conversation-continuity","prompt":"Turn 1: I need a pallet. Turn 2: for a cold room.","expected_behavior":"Use the cold-room context to recommend relevant DuraPall pallet information.","expected_answer":"Recommend the documented DuraPall pallet variants suitable for cold rooms and ask about load and dimensions required."},
-    {"id":"KPIA-074","category":"conversation-continuity","prompt":"Turn 1: I need a barrier. Turn 2: road construction.","expected_behavior":"Use the application to identify TuffBarrier/Traffic Con and distinguish them.","expected_answer":"Recommend the documented road-barrier options and distinguish TuffBarrier from Traffic Con rather than treating them as identical products."},
-    {"id":"KPIA-075","category":"multi-product","prompt":"I need 500 L of water storage, 500 L livestock feeding, and grain storage.","expected_behavior":"Map each requirement to documented products and ask clarifying questions where necessary.","expected_answer":"Use the appropriate verified water-storage option for 500 L, CF50 for the 500 L cattle trough, and GranSilo for grain storage; clarify the intended water-storage product before selecting a variant."}
+    {
+      "id": "KPIA-001",
+      "category": "clarification",
+      "prompt": "I need 6,000 litres.",
+      "expected_behavior": "Ask for intended application because 6,000 L appears in multiple documented product types.",
+      "expected_answer": "Ask whether the customer needs an above-ground water tank, underground water storage, or another application before selecting a product."
+    },
+    {
+      "id": "KPIA-002",
+      "category": "retrieval",
+      "prompt": "Which Kentank is suitable for 6,000 litres?",
+      "expected_behavior": "Identify CCV 600 as the documented 6,000 L above-ground Kentank.",
+      "expected_answer": "CCV 600 is the documented 6,000 L above-ground Kentank."
+    },
+    {
+      "id": "KPIA-003",
+      "category": "comparison",
+      "prompt": "Compare the two 5,000-litre Kentank options.",
+      "expected_behavior": "Distinguish CCV 500 Short from CCV 500 and provide their documented dimensions.",
+      "expected_answer": "Distinguish CCV 500 Short and CCV 500 using only their documented dimensions and product descriptions."
+    },
+    {
+      "id": "KPIA-004",
+      "category": "retrieval",
+      "prompt": "What are the dimensions of the 8,000-litre Kentank?",
+      "expected_behavior": "Return the documented CCV 800 dimensions with product context.",
+      "expected_answer": "Return the documented CCV 800 dimensions from the Water Tanks source."
+    },
+    {
+      "id": "KPIA-005",
+      "category": "application",
+      "prompt": "Can Kentank be used for rainwater harvesting?",
+      "expected_behavior": "Answer from the documented Kentank applications.",
+      "expected_answer": "Yes, where rainwater harvesting is listed as a documented application; avoid adding unsupported installation claims."
+    },
+    {
+      "id": "KPIA-006",
+      "category": "cross-document",
+      "prompt": "I need a solution for a shallow hand-dug well. What Kentainers product should I investigate?",
+      "expected_behavior": "Retrieve Permawell information if present in the indexed source library; otherwise state that the available source set does not verify it.",
+      "expected_answer": "Investigate Permawell as the documented shallow-well liner solution; provide only verified features."
+    },
+    {
+      "id": "KPIA-007",
+      "category": "application",
+      "prompt": "I need a hand-washing solution for a school.",
+      "expected_behavior": "Retrieve relevant Pedal Hand Wash information and avoid unsupported claims.",
+      "expected_answer": "Recommend the documented Pedal Hand Wash range and ask about required capacity if needed."
+    },
+    {
+      "id": "KPIA-008",
+      "category": "pricing",
+      "prompt": "How much is a 5,000 litre Kentank in Nairobi?",
+      "expected_behavior": "Use the current indexed official price source when available, distinguish the two 5,000 L variants, identify the applicable zone/effective date and warn that prices may change.",
+      "expected_answer": "Use only the current verified official price source; do not invent a price if no current price evidence is indexed."
+    },
+    {
+      "id": "KPIA-009",
+      "category": "pricing",
+      "prompt": "How much is a 6,000 litre Kentank in Kisumu?",
+      "expected_behavior": "Ask or infer the intended above-ground/underground application from the wording before quoting; use the applicable official zonal price source and date.",
+      "expected_answer": "Clarify the product/application first, then use the applicable verified zonal price."
+    },
+    {
+      "id": "KPIA-010",
+      "category": "grounding",
+      "prompt": "What is the warranty period for CCV 600?",
+      "expected_behavior": "Do not turn the documented expected lifespan into a warranty; state that a warranty term requires a separate verified warranty source.",
+      "expected_answer": "The indexed product documentation does not verify a warranty period; expected lifespan must not be presented as a warranty."
+    },
+    {
+      "id": "KPIA-011",
+      "category": "specification",
+      "prompt": "What is the diameter of the 6,000-litre above-ground tank?",
+      "expected_behavior": "Return the documented CCV 600 diameter with product context.",
+      "expected_answer": "Return the documented CCV 600 diameter and identify it as the above-ground 6,000 L Kentank."
+    },
+    {
+      "id": "KPIA-012",
+      "category": "specification",
+      "prompt": "What is the height of the 5,000-litre tank?",
+      "expected_behavior": "Recognize that there are two 5,000-litre variants and provide both documented heights.",
+      "expected_answer": "Explain that both CCV 500 Short and CCV 500 must be distinguished before giving the corresponding documented heights."
+    },
+    {
+      "id": "KPIA-013",
+      "category": "product",
+      "prompt": "What sizes are available for Kpot?",
+      "expected_behavior": "Return the documented 30 L and 60 L variants.",
+      "expected_answer": "KPOT 3 is 30 L and KPOT 6 is 60 L."
+    },
+    {
+      "id": "KPIA-014",
+      "category": "product",
+      "prompt": "What is Permawell used for?",
+      "expected_behavior": "Return its documented shallow-well application if the source is present; otherwise clearly state that it is not currently verified.",
+      "expected_answer": "Permawell is documented for shallow-well use; do not add unsupported performance claims."
+    },
+    {
+      "id": "KPIA-015",
+      "category": "multi-document",
+      "prompt": "Compare Kentank and Bunkatank.",
+      "expected_behavior": "Distinguish above-ground and underground water storage and cite relevant documented characteristics.",
+      "expected_answer": "Kentank is the above-ground water-storage range; Bunkatank is documented as underground water storage."
+    },
+    {
+      "id": "KPIA-016",
+      "category": "technical",
+      "prompt": "How should I prepare the base before installing a Kentank?",
+      "expected_behavior": "Use manufacturer installation guidance: fully supported flat base, no gaps, larger than tank diameter, and no stones/sharp objects.",
+      "expected_answer": "Use a fully supported flat base, larger than the tank diameter, free of gaps, stones and sharp objects."
+    },
+    {
+      "id": "KPIA-017",
+      "category": "technical",
+      "prompt": "Can I drill the tank using a hot metal rod?",
+      "expected_behavior": "State that the installation guidance warns against drilling with a hot metal rod or knife.",
+      "expected_answer": "No. Follow the manufacturer installation instructions and use the specified drilling method rather than a hot metal rod or knife."
+    },
+    {
+      "id": "KPIA-018",
+      "category": "grounding",
+      "prompt": "What is the pressure rating of CCV 600?",
+      "expected_behavior": "Do not invent a pressure rating; state that the indexed documentation does not verify one.",
+      "expected_answer": "The indexed Kentainers documentation does not verify a pressure rating for CCV 600."
+    },
+    {
+      "id": "KPIA-019",
+      "category": "website",
+      "prompt": "Where is the Nairobi Kentainers factory?",
+      "expected_behavior": "Return the official Nairobi location from the website source.",
+      "expected_answer": "Use the current official website location information; do not invent a different branch address."
+    },
+    {
+      "id": "KPIA-020",
+      "category": "website",
+      "prompt": "What are Kentainers opening hours on Saturday?",
+      "expected_behavior": "Return the official FAQ Saturday hours of 8:30 am to 1:30 pm.",
+      "expected_answer": "Saturday: 8:30 am to 1:30 pm."
+    },
+    {
+      "id": "KPIA-021",
+      "category": "website",
+      "prompt": "Do you install tanks?",
+      "expected_behavior": "State that the official FAQ says installation services are offered at a cost.",
+      "expected_answer": "The official FAQ states that installation services are available at a cost."
+    },
+    {
+      "id": "KPIA-022",
+      "category": "website",
+      "prompt": "Which categories of products does Kentainers sell?",
+      "expected_behavior": "Return the website categories: Water Storage, Sanitation & Waste, Agriculture & Biogas, Material Handling, and Furniture & QDesk.",
+      "expected_answer": "Water Storage; Sanitation & Waste; Agriculture & Biogas; Material Handling; Furniture & QDesk."
+    },
+    {
+      "id": "KPIA-023",
+      "category": "product",
+      "prompt": "What sizes are available for the Nestable Stackable Tray?",
+      "expected_behavior": "Return the sizes documented on the official website source, including Heavy Duty and lid variants where applicable.",
+      "expected_answer": "Return the currently verified website variants: 20 L, 30 L, 40 L, 40 L Heavy Duty, 50 L, 60 L, 70 L, 80 L, 120 L, 180 L, 250 L/Lid, 300 L and 500 L."
+    },
+    {
+      "id": "KPIA-024",
+      "category": "material-handling",
+      "prompt": "What load can the Kenpallet 130 carry?",
+      "expected_behavior": "Return the website-stated static and dynamic loads and distinguish them clearly.",
+      "expected_answer": "Kenpallet 130 is documented at 3 tonnes static load and 2 tonnes dynamic load."
+    },
+    {
+      "id": "KPIA-025",
+      "category": "agriculture",
+      "prompt": "Do you have a grain silo?",
+      "expected_behavior": "Identify Grain Silo as an Agriculture & Biogas product and return only documented capacity/details.",
+      "expected_answer": "Yes. GranSilo is documented as a 500 L hermetic grain silo."
+    },
+    {
+      "id": "KPIA-026",
+      "category": "agriculture",
+      "prompt": "What sizes does the Fish Tub come in?",
+      "expected_behavior": "Return the currently verified website variants and flag any conflict with brochure/PDF evidence rather than silently reconciling it.",
+      "expected_answer": "Use the source-specific evidence: the current website lists 600 L and 800 L, while the supplied Fish/insulated-tub brochure evidence must be treated separately where it documents other capacities."
+    },
+    {
+      "id": "KPIA-027",
+      "category": "grounding",
+      "prompt": "Do you have stock of CCV 600 in Nairobi today?",
+      "expected_behavior": "Do not claim live stock unless a live inventory source is connected.",
+      "expected_answer": "Live stock is not verified by the knowledge base; offer to direct the customer to sales for confirmation."
+    },
+    {
+      "id": "KPIA-028",
+      "category": "pricing",
+      "prompt": "Give me the price of a 500 litre Grain Silo.",
+      "expected_behavior": "Use an official current price source if indexed; otherwise state that a verified price is unavailable.",
+      "expected_answer": "Give only a currently verified official price; otherwise say a verified price is unavailable."
+    },
+    {
+      "id": "KPIA-029",
+      "category": "pricing",
+      "prompt": "What price should I use for a customer in Kisumu?",
+      "expected_behavior": "Ask for the exact product/variant and use the applicable official zonal pricing source.",
+      "expected_answer": "Ask for the product and variant, then apply the correct verified zone price."
+    },
+    {
+      "id": "KPIA-030",
+      "category": "grounding",
+      "prompt": "Is the 30-year lifespan a warranty?",
+      "expected_behavior": "Explain that expected lifespan and warranty are different.",
+      "expected_answer": "No. An expected lifespan is not a warranty term; warranty requires separate verified documentation."
+    },
+    {
+      "id": "KPIA-031",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need 6,000 litres. Turn 2: home use.",
+      "expected_behavior": "Use the second-turn home-use context to identify the documented CCV 600.",
+      "expected_answer": "For a domestic/home above-ground 6,000 L requirement, identify CCV 600, while noting that underground use would point to BKT 600."
+    },
+    {
+      "id": "KPIA-032",
+      "category": "contact-capture",
+      "prompt": "Ask an unresolved technical question without providing customer contact details.",
+      "expected_behavior": "State that a verified response is unavailable and request customer name plus either email or phone before Kentainers follow-up.",
+      "expected_answer": "Request the customer's name and either email address or phone number for follow-up."
+    },
+    {
+      "id": "KPIA-033",
+      "category": "product",
+      "prompt": "What Bunkatank sizes are available?",
+      "expected_behavior": "Return BKT 200, BKT 250, BKT 300 and BKT 600.",
+      "expected_answer": "BKT 200, BKT 250, BKT 300 and BKT 600."
+    },
+    {
+      "id": "KPIA-034",
+      "category": "comparison",
+      "prompt": "What is the difference between a 6,000 L Kentank and a 6,000 L Bunkatank?",
+      "expected_behavior": "Distinguish CCV 600 as above-ground storage from BKT 600 as underground storage.",
+      "expected_answer": "CCV 600 is the documented above-ground 6,000 L Kentank; BKT 600 is the documented underground 6,000 L Bunkatank."
+    },
+    {
+      "id": "KPIA-035",
+      "category": "product",
+      "prompt": "What sizes does Loftank come in?",
+      "expected_behavior": "Return LR 23, LR 46 and LR 100 with documented capacities.",
+      "expected_answer": "LR 23: 230 L; LR 46: 460 L; LR 100: 920 L."
+    },
+    {
+      "id": "KPIA-036",
+      "category": "product",
+      "prompt": "What sizes are available for Nestank?",
+      "expected_behavior": "Return NST 50 and NST 100 with documented capacities.",
+      "expected_answer": "Return the documented NST 50 and NST 100 variants and their verified capacities."
+    },
+    {
+      "id": "KPIA-037",
+      "category": "product",
+      "prompt": "What is Permawell?",
+      "expected_behavior": "Identify Permawell as a double-walled shallow well liner and describe only documented application/features.",
+      "expected_answer": "Permawell is the documented shallow-well liner solution; use only verified brochure/source details."
+    },
+    {
+      "id": "KPIA-038",
+      "category": "product",
+      "prompt": "What capacities are available for Pedal Hand Wash?",
+      "expected_behavior": "Use the supplied Pedal Hand Wash source and return 100 L, 200 L and 250 L.",
+      "expected_answer": "100 L, 200 L and 250 L."
+    },
+    {
+      "id": "KPIA-039",
+      "category": "product",
+      "prompt": "What are the Drum sizes?",
+      "expected_behavior": "Return DRUM 10 at 100 L and DRUM 20 at 200 L.",
+      "expected_answer": "DRUM 10: 100 L; DRUM 20: 200 L."
+    },
+    {
+      "id": "KPIA-040",
+      "category": "catalogue",
+      "prompt": "Show me Kentank sizes from the smallest to the largest.",
+      "expected_behavior": "Use the supplied Water Tanks PDF and identify the listed CCV variants without inventing omitted details.",
+      "expected_answer": "Return the verified Kentank variants from the supplied Water Tanks catalogue in ascending capacity order."
+    },
+    {
+      "id": "KPIA-041",
+      "category": "product",
+      "prompt": "What sizes of dustbins do you have?",
+      "expected_behavior": "Retrieve the updated Bins brochure and distinguish the documented DM5, DM7 and DM10 sizes.",
+      "expected_answer": "DM5: 50 L; DM7: 70 L; DM10: 100 L."
+    },
+    {
+      "id": "KPIA-042",
+      "category": "application",
+      "prompt": "I want a home biogas and fertilizer solution using animal waste. What do you recommend?",
+      "expected_behavior": "Identify BlueFlame BioslurriGaz Biodigester and explain its documented use without inventing output rates.",
+      "expected_answer": "BlueFlame BioslurriGaz Biodigester is designed to use animal dung and agricultural crop residue to produce bioslurry and biogas."
+    },
+    {
+      "id": "KPIA-043",
+      "category": "product",
+      "prompt": "What BlueFlame biodigester sizes are documented?",
+      "expected_behavior": "Return the LFM and SHM variants and their documented digester/gasholder volumes.",
+      "expected_answer": "LFM: 3.2 m³ digester and 3.0 m³ gasholder; SHM: 1.8 m³ digester and 1.5 m³ gasholder."
+    },
+    {
+      "id": "KPIA-044",
+      "category": "product",
+      "prompt": "What cattle trough sizes are available?",
+      "expected_behavior": "Return KT14, CF50 and CF80 with documented capacities.",
+      "expected_answer": "KT14: 140 L; CF50: 500 L; CF80: 800 L."
+    },
+    {
+      "id": "KPIA-045",
+      "category": "specification",
+      "prompt": "What are the dimensions of the CF50 cattle trough?",
+      "expected_behavior": "Return the brochure dimensions with units and product context.",
+      "expected_answer": "CF50 is documented as 500 L with dimensions 120 × 90 × 47 cm."
+    },
+    {
+      "id": "KPIA-046",
+      "category": "product",
+      "prompt": "Do you have insulated cooler boxes for fish or meat?",
+      "expected_behavior": "Identify Cooler Boxes and explain the documented food-contact and insulation application.",
+      "expected_answer": "Yes. The insulated Cooler Box is documented for fish and meat processing and is made from food-contact polyethylene with a double-wall foam-filled construction."
+    },
+    {
+      "id": "KPIA-047",
+      "category": "product",
+      "prompt": "What capacities are documented for the cooler boxes?",
+      "expected_behavior": "Return only the documented capacities.",
+      "expected_answer": "The supplied Cooler Box brochure documents 660 L and 1,000 L."
+    },
+    {
+      "id": "KPIA-048",
+      "category": "agriculture",
+      "prompt": "Do you have a fish farming tank?",
+      "expected_behavior": "Identify Fish Tank and return its documented CV220 specification.",
+      "expected_answer": "Yes. The Fish Tank brochure documents CV220 at 2,200 L, with height 188 cm and diameter 74 cm."
+    },
+    {
+      "id": "KPIA-049",
+      "category": "product",
+      "prompt": "What flower bucket sizes are available?",
+      "expected_behavior": "Return the documented FB05 and FB20 capacities.",
+      "expected_answer": "FB05: 50 L; FB20: 200 L."
+    },
+    {
+      "id": "KPIA-050",
+      "category": "rainwater",
+      "prompt": "I need a gutter for rainwater harvesting. What does Kentainers have?",
+      "expected_behavior": "Identify LifeLine Gutters and return only documented profile/specification information.",
+      "expected_answer": "LifeLine Gutters are documented reinforced rectangular gutters for rainwater harvesting, with food-contact-grade UV-stabilized polyethylene."
+    },
+    {
+      "id": "KPIA-051",
+      "category": "product",
+      "prompt": "What sizes are documented for LifeLine Gutters?",
+      "expected_behavior": "Return the two documented LifeLine dimensions.",
+      "expected_answer": "The brochure documents LifeLine 5.8 × 20 × 11 cm and LifeLine 5.8 × 10 × 11.5 cm under length, width and height."
+    },
+    {
+      "id": "KPIA-052",
+      "category": "technical",
+      "prompt": "What is the Kentainers hand hole used for?",
+      "expected_behavior": "Identify Hand Hole as a PE cable chamber for telecommunications and explain its documented depth/use limitations.",
+      "expected_answer": "It is a flat-bottom chamber for access, installation, cleaning and inspection of electrical/telecommunication cable systems, documented for a maximum depth of up to 1 m from ground level."
+    },
+    {
+      "id": "KPIA-053",
+      "category": "sanitation",
+      "prompt": "What is Mobilet?",
+      "expected_behavior": "Identify Mobilet as a mobile/reusable sanitation solution and describe documented applications.",
+      "expected_answer": "Mobilet is a modular plastic toilet solution that can be moved from pit to pit and is documented for schools, clinics, hospitals, refugee and IDP camps and other institutions."
+    },
+    {
+      "id": "KPIA-054",
+      "category": "material-handling",
+      "prompt": "Which pallets do you have for warehouses and cold rooms?",
+      "expected_behavior": "Identify DuraPall pallets and distinguish documented two-way, four-way and reversible variants.",
+      "expected_answer": "DuraPall pallets are documented for warehouses, cold rooms, wet areas, refrigerated trucks and areas requiring air circulation; variants include two-way, four-way and reversible pallets."
+    },
+    {
+      "id": "KPIA-055",
+      "category": "material-handling",
+      "prompt": "What are the documented loads for the PT 120 x 100 pallet?",
+      "expected_behavior": "Return static and dynamic loads exactly as documented.",
+      "expected_answer": "PT 120 × 100 is documented at 2 tonnes static and 1 tonne dynamic."
+    },
+    {
+      "id": "KPIA-056",
+      "category": "education",
+      "prompt": "What is Qdesk?",
+      "expected_behavior": "Identify Qdesk as the patented one-piece polyethylene school desk and provide documented user-size information.",
+      "expected_answer": "Qdesk is a one-piece polyethylene school desk. The brochure documents Small at 15 inches floor-to-seat height and Medium at 17 inches."
+    },
+    {
+      "id": "KPIA-057",
+      "category": "product",
+      "prompt": "What is the TuffBarrier used for?",
+      "expected_behavior": "Identify it as a road/construction barrier and return its documented dimensions and applications.",
+      "expected_answer": "TuffBarrier is a robust barricade system for construction sites, road works, hazard areas, sporting events, parking and crowd control; documented dimensions are 117 × 60 × 74 cm."
+    },
+    {
+      "id": "KPIA-058",
+      "category": "product",
+      "prompt": "Do you have traffic cones/barriers?",
+      "expected_behavior": "Identify the Traffic Con product and distinguish it from TuffBarrier.",
+      "expected_answer": "Yes. The Traffic Con brochure documents a Road Barrier product called Traffic Con with dimensions 41 × 41 × 66 cm; it should not be conflated with TuffBarrier."
+    },
+    {
+      "id": "KPIA-059",
+      "category": "product",
+      "prompt": "What is the Rolling Drum used for?",
+      "expected_behavior": "Identify the water drum and its documented rural-use application.",
+      "expected_answer": "The Rolling Drum is designed for fetching water in rural environments; the brochure documents 30 L capacity and dimensions of 35 × 42 cm for height and diameter."
+    },
+    {
+      "id": "KPIA-060",
+      "category": "product",
+      "prompt": "What bucket sizes are available?",
+      "expected_behavior": "Return the documented multi-purpose bucket codes and capacities.",
+      "expected_answer": "CC1: 10 L; CC2: 20 L; CC3: 30 L; SC04: 40 L; SC05: 50 L."
+    },
+    {
+      "id": "KPIA-061",
+      "category": "application",
+      "prompt": "I need products for a school: water storage, hand washing and desks. What can you suggest?",
+      "expected_behavior": "Cross-sell only documented products relevant to the stated application.",
+      "expected_answer": "Relevant documented products include Kentank for water storage, Pedal Hand Wash for hand washing, and Qdesk for school desks. Ask for capacity/quantity requirements before selecting variants."
+    },
+    {
+      "id": "KPIA-062",
+      "category": "application",
+      "prompt": "I run a farm and need water storage, cattle feeding and grain storage.",
+      "expected_behavior": "Recommend only documented products matching each need.",
+      "expected_answer": "Use Kentank/Loftank or another verified water-storage product for water, Cattle Troughs for livestock feeding, and GranSilo for hermetic grain storage."
+    },
+    {
+      "id": "KPIA-063",
+      "category": "comparison",
+      "prompt": "What is the difference between a Fish Tank and a Cooler Box?",
+      "expected_behavior": "Distinguish the products by documented purpose and construction.",
+      "expected_answer": "Fish Tank is documented for small-scale fish farming and storage/containment; Cooler Box is insulated and documented for fish/meat processing and temperature control."
+    },
+    {
+      "id": "KPIA-064",
+      "category": "recommendation",
+      "prompt": "I need a product for rural water collection where the terrain is rough.",
+      "expected_behavior": "Identify Rolling Drum based on its documented application and rough-terrain design.",
+      "expected_answer": "Rolling Drum is the relevant documented product for fetching water in rural environments and is designed to cope with rough surfaces."
+    },
+    {
+      "id": "KPIA-065",
+      "category": "recommendation",
+      "prompt": "I need sanitation facilities that can be moved when a pit is full.",
+      "expected_behavior": "Identify Mobilet based on its documented reusable pit-to-pit design.",
+      "expected_answer": "Mobilet is documented as mobile and reusable from pit to pit; once a pit is full, the toilet can be moved to a new site."
+    },
+    {
+      "id": "KPIA-066",
+      "category": "grounding",
+      "prompt": "What is the exact warranty on Mobilet?",
+      "expected_behavior": "Do not convert its expected lifespan into a warranty.",
+      "expected_answer": "The brochure documents a 20-year expected lifespan, not a warranty term; warranty requires separate verified documentation."
+    },
+    {
+      "id": "KPIA-067",
+      "category": "grounding",
+      "prompt": "Can you guarantee the BlueFlame produces a certain amount of gas every day?",
+      "expected_behavior": "Avoid unsupported production guarantees.",
+      "expected_answer": "Do not guarantee a daily gas output unless a verified technical source specifies one."
+    },
+    {
+      "id": "KPIA-068",
+      "category": "grounding",
+      "prompt": "What is the maximum load of the Qdesk?",
+      "expected_behavior": "Do not invent a load rating because the supplied Qdesk brochure does not verify one.",
+      "expected_answer": "The supplied Qdesk brochure does not provide a verified maximum load rating."
+    },
+    {
+      "id": "KPIA-069",
+      "category": "grounding",
+      "prompt": "What is the warranty of the Kentainers pallets?",
+      "expected_behavior": "Do not invent a warranty from durability or expected lifespan language.",
+      "expected_answer": "The supplied pallet documentation does not establish a warranty term; do not invent one."
+    },
+    {
+      "id": "KPIA-070",
+      "category": "catalogue",
+      "prompt": "Apart from water tanks, what other products can I ask you about?",
+      "expected_behavior": "Explain that the knowledge base now covers multiple Kentainers product families.",
+      "expected_answer": "The expanded knowledge base covers water storage, sanitation and waste, agriculture and biogas, material handling, furniture/Qdesk, plus products such as bins, buckets, cattle troughs, cooler boxes, fish tanks, GranSilo, BlueFlame, gutters, Mobilet, pallets, barriers and rolling drums."
+    },
+    {
+      "id": "KPIA-071",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need something for a school. Turn 2: hand washing.",
+      "expected_behavior": "Use the second turn to narrow the recommendation to Pedal Hand Wash rather than repeating a generic product list.",
+      "expected_answer": "Recommend the documented Pedal Hand Wash range and ask for required capacity/quantity."
+    },
+    {
+      "id": "KPIA-072",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need a pallet. Turn 2: for a cold room.",
+      "expected_behavior": "Use the cold-room context to recommend relevant DuraPall pallet information.",
+      "expected_answer": "Recommend the documented DuraPall pallet variants suitable for cold rooms and ask about load and dimensions required."
+    },
+    {
+      "id": "KPIA-073",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need a barrier. Turn 2: road construction.",
+      "expected_behavior": "Use the application to identify TuffBarrier/Traffic Con and distinguish them.",
+      "expected_answer": "Recommend the documented road-barrier options and distinguish TuffBarrier from Traffic Con rather than treating them as identical products."
+    },
+    {
+      "id": "KPIA-074",
+      "category": "multi-product",
+      "prompt": "I need 500 L of water storage, 500 L livestock feeding, and grain storage.",
+      "expected_behavior": "Map each requirement to documented products and ask clarifying questions where necessary.",
+      "expected_answer": "Use the appropriate verified water-storage option for 500 L, CF50 for the 500 L cattle trough, and GranSilo for grain storage; clarify the intended water-storage product before selecting a variant."
+    },
+    {
+      "id": "KPIA-075",
+      "category": "application",
+      "prompt": "I need products for a construction site to control traffic.",
+      "expected_behavior": "Identify relevant documented traffic-control products without inventing package pricing or unsupported specifications.",
+      "expected_answer": "Recommend TuffBarrier and/or Traffic Con based on the documented construction and traffic-control applications, and ask about the quantity required."
+    },
+    {
+      "id": "KPIA-076",
+      "category": "application",
+      "prompt": "I need water storage for a construction site.",
+      "expected_behavior": "Identify a relevant documented water-storage product and ask for the required capacity before selecting a variant.",
+      "expected_answer": "Recommend the appropriate verified water-storage product, such as Kentank where applicable, and ask for the required capacity and quantity."
+    }
   ]
 }
