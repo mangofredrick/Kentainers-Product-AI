@@ -1,6 +1,6 @@
 {
   "name": "KPIA Product Intelligence Customer Q&A Evaluation Suite",
-  "version": "3.1",
+  "version": "3.2",
   "purpose": "Regression tests for grounded customer product questions, recommendations, technical guidance, website information and pricing across the expanded Kentainers brochure and official catalogue knowledge base.",
   "cases": [
     {
@@ -534,6 +534,286 @@
       "prompt": "I need water storage for a construction site.",
       "expected_behavior": "Identify a relevant documented water-storage product and ask for the required capacity before selecting a variant.",
       "expected_answer": "Recommend the appropriate verified water-storage product, such as Kentank where applicable, and ask for the required capacity and quantity."
+    },
+    {
+      "id": "KPIA-077",
+      "category": "product",
+      "prompt": "Tell me about Permawell.",
+      "expected_behavior": "Focus only on Permawell and explain its purpose and key features naturally.",
+      "expected_answer": "Explain Permawell as a shallow-well liner and provide only its verified features."
+    },
+    {
+      "id": "KPIA-078",
+      "category": "sales",
+      "prompt": "I'm interested in Permawell. What would you like to know from me?",
+      "expected_behavior": "Ask only the key sales questions needed to understand the customer's well requirement.",
+      "expected_answer": "Ask about the type/depth of well and intended application where needed, without overwhelming the customer."
+    },
+    {
+      "id": "KPIA-079",
+      "category": "product",
+      "prompt": "Tell me about Pedal Hand Wash.",
+      "expected_behavior": "Focus only on Pedal Hand Wash and give a concise natural product introduction.",
+      "expected_answer": "Explain the product and available capacities without introducing unrelated products."
+    },
+    {
+      "id": "KPIA-080",
+      "category": "sales",
+      "prompt": "I need a Pedal Hand Wash for a school. Which size should I consider?",
+      "expected_behavior": "Use the school context and ask for quantity/users or required capacity before selecting a variant if needed.",
+      "expected_answer": "Recommend from the 100 L, 200 L and 250 L range only after obtaining the key missing requirement."
+    },
+    {
+      "id": "KPIA-081",
+      "category": "product",
+      "prompt": "Tell me about Bunkatank.",
+      "expected_behavior": "Focus only on Bunkatank and explain its purpose and available sizes.",
+      "expected_answer": "Explain Bunkatank as underground water storage and provide its available capacities."
+    },
+    {
+      "id": "KPIA-082",
+      "category": "sales",
+      "prompt": "I want a Bunkatank. What information do you need?",
+      "expected_behavior": "Ask for capacity, installation/application and quantity as appropriate.",
+      "expected_answer": "Ask concise questions needed to select a Bunkatank."
+    },
+    {
+      "id": "KPIA-083",
+      "category": "product",
+      "prompt": "Tell me about Loftank.",
+      "expected_behavior": "Focus only on Loftank and explain the available variants.",
+      "expected_answer": "Explain LR 23, LR 46 and LR 100 without listing unrelated products."
+    },
+    {
+      "id": "KPIA-084",
+      "category": "sales",
+      "prompt": "I need a Loftank for my building. What size do you recommend?",
+      "expected_behavior": "Ask for required capacity and available installation space before selecting a variant.",
+      "expected_answer": "Ask for the required capacity and space constraints."
+    },
+    {
+      "id": "KPIA-085",
+      "category": "product",
+      "prompt": "Tell me about Nestank.",
+      "expected_behavior": "Focus only on Nestank and provide available variants.",
+      "expected_answer": "Explain NST 50 and NST 100 and their capacities."
+    },
+    {
+      "id": "KPIA-086",
+      "category": "product",
+      "prompt": "Tell me about KPOT.",
+      "expected_behavior": "Focus only on KPOT and provide available sizes.",
+      "expected_answer": "Explain KPOT 3 and KPOT 6 and their capacities."
+    },
+    {
+      "id": "KPIA-087",
+      "category": "product",
+      "prompt": "Tell me about the BlueFlame biodigester.",
+      "expected_behavior": "Focus only on BlueFlame and explain its purpose and sizes.",
+      "expected_answer": "Explain the BlueFlame biodigester and its LFM/SHM sizes without inventing gas output."
+    },
+    {
+      "id": "KPIA-088",
+      "category": "sales",
+      "prompt": "I want BlueFlame for my farm. What do you need to know?",
+      "expected_behavior": "Ask about intended feedstock/application and required system size without promising output.",
+      "expected_answer": "Ask concise questions needed to determine the appropriate BlueFlame variant."
+    },
+    {
+      "id": "KPIA-089",
+      "category": "product",
+      "prompt": "Tell me about the cattle troughs.",
+      "expected_behavior": "Focus only on cattle troughs and list their available capacities.",
+      "expected_answer": "Explain KT14, CF50 and CF80 and their capacities."
+    },
+    {
+      "id": "KPIA-090",
+      "category": "sales",
+      "prompt": "I need a cattle trough for 30 cows. What size should I get?",
+      "expected_behavior": "Do not invent a herd-to-capacity formula; ask for feeding arrangement or required capacity.",
+      "expected_answer": "Ask for the information needed to select a trough without making an unsupported capacity recommendation."
+    },
+    {
+      "id": "KPIA-091",
+      "category": "product",
+      "prompt": "Tell me about the cooler boxes.",
+      "expected_behavior": "Focus only on Cooler Boxes and explain their purpose and capacities.",
+      "expected_answer": "Explain the insulated cooler boxes and the 660 L and 1000 L capacities."
+    },
+    {
+      "id": "KPIA-092",
+      "category": "sales",
+      "prompt": "I need a cooler box for fish processing. What size should I consider?",
+      "expected_behavior": "Ask about quantity/volume and handling requirements before selecting a size.",
+      "expected_answer": "Ask for the required volume or quantity and then guide the customer to a verified size."
+    },
+    {
+      "id": "KPIA-093",
+      "category": "product",
+      "prompt": "Tell me about the Fish Tank.",
+      "expected_behavior": "Focus only on Fish Tank and provide its verified specification.",
+      "expected_answer": "Explain CV220 at 2,200 L with its verified dimensions."
+    },
+    {
+      "id": "KPIA-094",
+      "category": "sales",
+      "prompt": "I want a fish farming tank. What information do you need?",
+      "expected_behavior": "Ask about required capacity and farming/application requirements.",
+      "expected_answer": "Ask for required water capacity and intended fish-farming setup before recommending a variant."
+    },
+    {
+      "id": "KPIA-095",
+      "category": "product",
+      "prompt": "Tell me about GranSilo.",
+      "expected_behavior": "Focus only on GranSilo and explain its purpose and capacity.",
+      "expected_answer": "Explain the 500 L hermetic grain-storage product."
+    },
+    {
+      "id": "KPIA-096",
+      "category": "sales",
+      "prompt": "I need grain storage for my farm. How much can GranSilo hold?",
+      "expected_behavior": "Answer directly with the verified capacity.",
+      "expected_answer": "State that GranSilo holds 500 L."
+    },
+    {
+      "id": "KPIA-097",
+      "category": "product",
+      "prompt": "Tell me about LifeLine Gutters.",
+      "expected_behavior": "Focus only on LifeLine Gutters and explain their application and available profiles.",
+      "expected_answer": "Explain the LifeLine Gutter range and its documented dimensions."
+    },
+    {
+      "id": "KPIA-098",
+      "category": "sales",
+      "prompt": "I need gutters for rainwater harvesting. What information do you need?",
+      "expected_behavior": "Ask for building/roof dimensions or quantity where appropriate without inventing sizing rules.",
+      "expected_answer": "Ask for the roof/building requirements needed to determine quantity and profile."
+    },
+    {
+      "id": "KPIA-099",
+      "category": "product",
+      "prompt": "Tell me about Mobilet.",
+      "expected_behavior": "Focus only on Mobilet and explain its sanitation use and mobility.",
+      "expected_answer": "Explain Mobilet as a movable modular sanitation solution and mention its documented applications."
+    },
+    {
+      "id": "KPIA-100",
+      "category": "sales",
+      "prompt": "I need sanitation facilities for a school. Can Mobilet work for us?",
+      "expected_behavior": "Answer from known product information and ask about number of users/stances if selection requires it.",
+      "expected_answer": "Explain Mobilet's institutional use and ask for the number of required stances."
+    },
+    {
+      "id": "KPIA-101",
+      "category": "product",
+      "prompt": "Tell me about the pallets.",
+      "expected_behavior": "Focus only on pallets and explain the range without mixing in other material-handling products.",
+      "expected_answer": "Explain DuraPall pallet types and ask about load/size if the customer wants a recommendation."
+    },
+    {
+      "id": "KPIA-102",
+      "category": "sales",
+      "prompt": "I need pallets for a cold room. What do you need to know?",
+      "expected_behavior": "Ask about load, pallet dimensions and handling requirements.",
+      "expected_answer": "Ask for load and required pallet dimensions before selecting a pallet."
+    },
+    {
+      "id": "KPIA-103",
+      "category": "product",
+      "prompt": "Tell me about Qdesk.",
+      "expected_behavior": "Focus only on Qdesk and explain its school-desk characteristics and sizes.",
+      "expected_answer": "Explain Qdesk and its small/medium size information."
+    },
+    {
+      "id": "KPIA-104",
+      "category": "sales",
+      "prompt": "I need desks for a school. How do we determine the Qdesk size?",
+      "expected_behavior": "Use the available size guidance and ask the relevant learner/class level.",
+      "expected_answer": "Explain the small and medium size guidance and ask the class/grade level."
+    },
+    {
+      "id": "KPIA-105",
+      "category": "product",
+      "prompt": "Tell me about TuffBarrier.",
+      "expected_behavior": "Focus only on TuffBarrier and explain its purpose and dimensions.",
+      "expected_answer": "Explain its traffic-control applications and 117 × 60 × 74 cm dimensions."
+    },
+    {
+      "id": "KPIA-106",
+      "category": "sales",
+      "prompt": "I need barriers for road works. How many TuffBarriers do I need?",
+      "expected_behavior": "Do not invent quantity calculations; ask for site length/layout and required coverage.",
+      "expected_answer": "Ask for the area or length to be controlled before estimating quantity."
+    },
+    {
+      "id": "KPIA-107",
+      "category": "product",
+      "prompt": "Tell me about Traffic Con.",
+      "expected_behavior": "Focus only on Traffic Con and distinguish it from TuffBarrier.",
+      "expected_answer": "Explain Traffic Con and its 41 × 41 × 66 cm dimensions."
+    },
+    {
+      "id": "KPIA-108",
+      "category": "sales",
+      "prompt": "I need traffic barriers for a construction site. What information do you need?",
+      "expected_behavior": "Ask about site layout, required coverage and quantity.",
+      "expected_answer": "Ask for the length/area to be controlled and required quantity."
+    },
+    {
+      "id": "KPIA-109",
+      "category": "product",
+      "prompt": "Tell me about the Rolling Drum.",
+      "expected_behavior": "Focus only on Rolling Drum and explain its intended use and capacity.",
+      "expected_answer": "Explain the 30 L Rolling Drum and its rural water-collection application."
+    },
+    {
+      "id": "KPIA-110",
+      "category": "sales",
+      "prompt": "I need a Rolling Drum for water collection. How many do I need?",
+      "expected_behavior": "Ask about distance, users and required water volume rather than inventing a quantity.",
+      "expected_answer": "Ask for the expected water volume and collection requirements."
+    },
+    {
+      "id": "KPIA-111",
+      "category": "product",
+      "prompt": "What bin sizes do you have?",
+      "expected_behavior": "Return the verified bin sizes only.",
+      "expected_answer": "Return DM5 50 L, DM7 70 L and DM10 100 L."
+    },
+    {
+      "id": "KPIA-112",
+      "category": "product",
+      "prompt": "What bucket sizes do you have?",
+      "expected_behavior": "Return the verified bucket sizes only.",
+      "expected_answer": "Return CC1 10 L, CC2 20 L, CC3 30 L, SC04 40 L and SC05 50 L."
+    },
+    {
+      "id": "KPIA-113",
+      "category": "comparison",
+      "prompt": "What is the difference between TuffBarrier and Traffic Con?",
+      "expected_behavior": "Compare only these two products and distinguish their documented dimensions/applications.",
+      "expected_answer": "Explain the difference without conflating the two barrier products."
+    },
+    {
+      "id": "KPIA-114",
+      "category": "comparison",
+      "prompt": "What is the difference between Fish Tank and Fish Tub?",
+      "expected_behavior": "Distinguish the two products and explicitly flag conflicting source information when applicable.",
+      "expected_answer": "Do not silently merge Fish Tank and Fish Tub specifications."
+    },
+    {
+      "id": "KPIA-115",
+      "category": "sales",
+      "prompt": "I know the product I want. How do I get a price?",
+      "expected_behavior": "Ask for product/variant, quantity and delivery town only where needed for a verified quotation.",
+      "expected_answer": "Move naturally toward pricing without exposing internal pricing mechanics."
+    },
+    {
+      "id": "KPIA-116",
+      "category": "sales",
+      "prompt": "I want to buy this product. What details do you need from me?",
+      "expected_behavior": "Ask only the minimum purchase-enquiry details needed.",
+      "expected_answer": "Collect product/variant, quantity, delivery town and customer contact when follow-up is required."
     }
   ]
 }
