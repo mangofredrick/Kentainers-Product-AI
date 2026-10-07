@@ -324,3 +324,5 @@ Answer the customer using only supported evidence. If the evidence does not supp
     return localGroundedFallback(userMessage);
   }
 }
+
+// Deployment marker: verified evidenceBlock template-string syntax.
