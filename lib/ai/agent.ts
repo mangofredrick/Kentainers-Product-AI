@@ -10,28 +10,28 @@ import type { AgentResult, Product } from "../types";
 // queries may return multiple products when the customer has not identified one.
 function namedProductIntent(message: string): string | null {
   const patterns: Array<[RegExp, string]> = [
-    [/\\bpermawell\\b/i, "Permawell"],
-    [/\\bpedal\\s+hand\\s*wash\\b|\\bhand[- ]washing\\b|\\bhand[- ]wash\\b/i, "Pedal Hand Wash"],
-    [/\\bblueflame\\b|\\bbioslurri\\s*gaz\\b|\\bbiodigester\\b/i, "BlueFlame"],
-    [/\\bbunkatank\\b/i, "Bunkatank"],
-    [/\\bloftank\\b/i, "Loftank"],
-    [/\\bnestank\\b/i, "Nestank"],
-    [/\\bkpot\\b/i, "KPOT"],
-    [/\\bkentank\\b/i, "Kentank"],
-    [/\\bgran\\s*silo\\b|\\bgrainsilo\\b/i, "Grain Silo"],
-    [/\\bfish\\s+tank\\b/i, "Fish Tank"],
-    [/\\bfish\\s+tub\\b/i, "Fish Tub"],
-    [/\\bcattle\\s+trough\\b/i, "Cattle Trough"],
-    [/\\bcooler\\s+box\\b/i, "Cooler Box"],
-    [/\\blifeline\\s+gutter\\b/i, "LifeLine Gutters"],
-    [/\\bmobilet\\b/i, "Mobilet"],
-    [/\\bqdesk\\b/i, "Qdesk"],
-    [/\\btuffbarrier\\b/i, "TuffBarrier"],
-    [/\\btraffic\\s+con\\b/i, "Traffic Con"],
-    [/\\brolling\\s+drum\\b/i, "Rolling Drum"],
-    [/\\bkenpallet\\b|\\bdurapall\\b/i, "DuraPall Pallet"],
-    [/\\bbucket\\b/i, "Bucket"],
-    [/\\bbin\\b|\\bdustbin\\b/i, "Bins"],
+    [/\bpermawell\b/i, "Permawell"],
+    [/\bpedal\s+hand\s*wash\b|\bhand[- ]washing\b|\bhand[- ]wash\b/i, "Pedal Hand Wash"],
+    [/\bblueflame\b|\bbioslurri\s*gaz\b|\bbiodigester\b/i, "BlueFlame"],
+    [/\bbunkatank\b/i, "Bunkatank"],
+    [/\bloftank\b/i, "Loftank"],
+    [/\bnestank\b/i, "Nestank"],
+    [/\bkpot\b/i, "KPOT"],
+    [/\bkentank\b/i, "Kentank"],
+    [/\bgran\s*silo\b|\bgrainsilo\b/i, "Grain Silo"],
+    [/\bfish\s+tank\b/i, "Fish Tank"],
+    [/\bfish\s+tub\b/i, "Fish Tub"],
+    [/\bcattle\s+trough\b/i, "Cattle Trough"],
+    [/\bcooler\s+box\b/i, "Cooler Box"],
+    [/\blifeline\s+gutter\b/i, "LifeLine Gutters"],
+    [/\bmobilet\b/i, "Mobilet"],
+    [/\bqdesk\b/i, "Qdesk"],
+    [/\btuffbarrier\b/i, "TuffBarrier"],
+    [/\btraffic\s+con\b/i, "Traffic Con"],
+    [/\brolling\s+drum\b/i, "Rolling Drum"],
+    [/\bkenpallet\b|\bdurapall\b/i, "DuraPall Pallet"],
+    [/\bbucket\b/i, "Bucket"],
+    [/\bbin\b|\bdustbin\b/i, "Bins"],
   ];
   return patterns.find(([pattern]) => pattern.test(message))?.[1] || null;
 }
@@ -76,9 +76,9 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
 
     if (products.length) {
       const normalizedRequest = userMessage.trim()
-        .replace(/^what is\\s+/i, "")
-        .replace(/^what are\\s+/i, "")
-        .replace(/^tell me about\\s+/i, "")
+        .replace(/^what is\s+/i, "")
+        .replace(/^what are\s+/i, "")
+        .replace(/^tell me about\s+/i, "")
         .replace(/[?!.]+$/, "")
         .trim();
       const exact = getProductDetails(normalizedRequest);
