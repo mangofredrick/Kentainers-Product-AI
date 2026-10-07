@@ -135,17 +135,21 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
 
       if (selected) {
         if (specificIntent === "Bins") {
-          const binProducts = products.filter(p =>
+          // For a generic dust-bin enquiry, use the isolated product-family
+          // matches rather than the initial ranked search result. This prevents
+          // a single variant (for example DM5) from being presented as the
+          // entire range.
+          const binProducts = intentMatches.filter(p =>
             (p.product_name || "").toLowerCase().includes("dust bin") ||
             (p.category || "").toLowerCase() === "bins"
           );
-          if (binProducts.length) {
+          if (binProducts.length > 1 && requestedCapacity === null) {
             const variants = binProducts.map(p =>
               p.product_name + " (" + p.product_code + ")" +
               (p.capacity ? " – " + p.capacity + (p.capacity_unit || "") : "")
             ).join("; ");
             return {
-              answer: "We have the following Kentainers dust bins: " + variants + ". Which capacity would you like?",
+              answer: "Yes. We have several Kentainers dust bins: " + variants + ". Which capacity would you like?",
               sources: sources.length ? sources : binProducts.map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
               products: binProducts,
               action: "details",
