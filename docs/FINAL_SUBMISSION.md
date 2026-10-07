@@ -167,3 +167,7 @@ The agent prompt also explicitly requires:
 - avoiding catalogue-style phrases such as "relevant product" and "based on the available catalogue";
 - asking only the next useful sales question; and
 - keeping product-specific conversations focused on the named product.
+
+### Expanded Evaluation Diagnostics
+
+The customer-facing regression suite contains 220 scenarios. Each scenario may include an expected answer, and the agent evaluation runner now records lightweight answer-alignment diagnostics for product names, product codes, and explicit numeric/specification anchors. This supplements the existing grounding, safety, action-selection and tool-use rubric; it is not a substitute for semantic evaluation frameworks such as RAGAS or DeepEval.
