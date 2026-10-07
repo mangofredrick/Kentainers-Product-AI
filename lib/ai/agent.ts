@@ -88,15 +88,39 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         };
       }
 
-      const names = products.slice(0, 6).map(p => {
-        const capacity = p.capacity ? ` (${p.capacity}${p.capacity_unit || ""})` : "";
-        return `${p.product_code || p.product_name}${capacity}`;
-      }).join(", ");
+      // For a specific customer product request, return the best matching product
+      // instead of exposing a broad list of loosely related catalogue matches.
+      const specificIntent =
+        /\\b(permawell)\\b/i.test(userMessage) ? "Permawell" :
+        /\\b(pedal\\s+hand\\s*wash|hand[- ]washing|hand[- ]wash)\\b/i.test(userMessage) ? "Pedal Hand Wash" :
+        /\\b(loftank)\\b/i.test(userMessage) ? "Loftank" :
+        /\\b(nestank)\\b/i.test(userMessage) ? "Nestank" :
+        /\\b(bunkatank)\\b/i.test(userMessage) ? "Bunkatank" :
+        /\\b(kentank)\\b/i.test(userMessage) ? "Kentank" :
+        null;
+
+      const selected = specificIntent
+        ? products.find(p => (p.product_name || "").toLowerCase().includes(specificIntent.toLowerCase()) || (p.product_code || "").toLowerCase().includes(specificIntent.toLowerCase()))
+        : products[0];
+
+      if (selected) {
+        const capacity = selected.capacity ? `Capacity: ${selected.capacity}${selected.capacity_unit || ""}. ` : "";
+        const dimensions = selected.dimensions ? `Dimensions: ${selected.dimensions}. ` : "";
+        const features = selected.features ? `Key documented features: ${selected.features}. ` : "";
+        return {
+          answer: `The specific Kentainers product relevant to your request is ${selected.product_name}${selected.product_code ? ` (${selected.product_code})` : ""}. ${capacity}${dimensions}${features}If you need pricing, provide the product/variant and delivery town.`,
+          sources: sources.length ? sources : [{ document: selected.source_document || "Kentainers product catalogue", page: selected.source_page }],
+          products: [selected],
+          action: "details",
+          toolCalls: []
+        };
+      }
+
       return {
-        answer: `Based on the available Kentainers product catalogue, these products are relevant to your request: ${names}. If you tell me the intended application or exact product, I can narrow the recommendation. For pricing, provide the product/variant and delivery town so I can use the applicable verified price source.`,
-        sources: sources.length ? sources : products.slice(0, 6).map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
-        products: products.slice(0, 6),
-        action: "search",
+        answer: `I found a relevant Kentainers product, but the available catalogue evidence is not specific enough to select a single variant. Please tell me the exact product or requirement you want.`,
+        sources,
+        products: products.slice(0, 1),
+        action: "clarify",
         toolCalls: []
       };
     }
