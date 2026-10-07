@@ -262,6 +262,18 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   const clarification = shouldClarify(userMessage);
   if (clarification) return { answer: clarification, sources: [], action: "clarify", toolCalls: [] };
 
+  // Keep generic product-family enquiries deterministic. This prevents the
+  // language model from selecting one variant when the customer has asked
+  // about the family, e.g. "Do you have bins?"
+  const specificIntent = namedProductIntent(userMessage);
+  if (
+    specificIntent === "Bins" &&
+    !/\b(50|70|100)\s*(l|litre|litres|liter|liters)\b/i.test(userMessage) &&
+    !/\b(DM5|DM7|DM10)\b/i.test(userMessage)
+  ) {
+    return localGroundedFallback(userMessage);
+  }
+
   const client = getClient();
   if (!client) return localGroundedFallback(userMessage);
 
