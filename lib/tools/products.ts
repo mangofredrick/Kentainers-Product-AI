@@ -117,33 +117,56 @@ export function findProducts(query: string, limit = 6): Product[] {
   const aliasesFound = aliasTerms(query);
   const tokens = normalizedQuery.split(" ").filter(token => token.length > 1);
 
-  return products
-    .map(product => {
-      const haystack = normalize([
-        product.product_code,
-        product.product_name,
-        product.category,
-        product.capacity,
-        product.capacity_unit,
-        product.application,
-        product.dimensions,
-        product.material,
-        product.features
-      ].join(" "));
+  const scored = products.map(product => {
+    const haystack = normalize([
+      product.product_code,
+      product.product_name,
+      product.category,
+      product.capacity,
+      product.capacity_unit,
+      product.application,
+      product.dimensions,
+      product.material,
+      product.features
+    ].join(" "));
 
-      let score = tokens.reduce((total, token) => total + (haystack.includes(token) ? 1 : 0), 0);
+    const productName = normalize(product.product_name || "");
+    const productCategory = normalize(product.category || "");
 
-      for (const alias of aliasesFound) {
-        if (haystack.includes(normalize(alias)) || normalize(product.product_name).includes(normalize(alias))) {
-          score += 4;
-        }
-      }
+    let score = tokens.reduce((total, token) => total + (haystack.includes(token) ? 1 : 0), 0);
 
-      if (product.product_code && normalizedQuery === normalize(product.product_code)) score += 20;
-      if (product.product_name && normalizedQuery === normalize(product.product_name)) score += 20;
+    for (const alias of aliasesFound) {
+      const aliasNormalized = normalize(alias);
+      const aliasMatched =
+        productName.includes(aliasNormalized) ||
+        productCategory === aliasNormalized ||
+        haystack.includes(aliasNormalized);
 
-      return { product, score };
-    })
+      if (aliasMatched) score += 20;
+      else score -= 5;
+    }
+
+    if (product.product_code && normalizedQuery === normalize(product.product_code)) score += 50;
+    if (product.product_name && normalizedQuery === productName) score += 50;
+
+    return { product, score };
+  });
+
+  // When a recognized product-family alias is present, only return products
+  // belonging to that family. This prevents shared words/capacities from
+  // selecting an unrelated product such as Pedal Hand Wash for "dust bin".
+  const familyMatched = aliasesFound.length
+    ? scored.filter(item => aliasesFound.every(alias => {
+        const a = normalize(alias);
+        return normalize(item.product.product_name || "").includes(a) ||
+          normalize(item.product.category || "") === a ||
+          normalize(item.product.category || "").includes(a);
+      }))
+    : [];
+
+  const candidates = familyMatched.length ? familyMatched : scored;
+
+  return candidates
     .filter(item => item.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, Math.min(Math.max(limit, 1), 10))
