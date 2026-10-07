@@ -112,7 +112,7 @@ The repository now includes executable evaluation runners referenced by package.
 
 These runners deliberately do not fabricate RAGAS/DeepEval metrics. They provide reproducible behavioural regression evidence; formal RAGAS/DeepEval measurements still require execution in the configured runtime environment. A static product-catalogue validator is also available as `npm run validate:catalogue` to check required fields, duplicate IDs/codes, numeric capacities and source references.
 
-The current focused regression file contains 141 customer-facing cases. The repository also contains the broader product intelligence test bank.
+The current focused regression file contains 220 customer-facing cases. The repository also contains the broader product intelligence test bank.
 
 ## 11. Final deployment status
 
@@ -133,7 +133,7 @@ The latest commits have been pushed to `main`. Vercel deployment status for the 
 
 Live runtime accuracy and formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
 
-Current focused regression file: `eval/kpia-test-cases.json` contains 141 customer-facing cases, including the expanded brochure products and cross-product recommendation, clarification, grounding, technical installation and conversation-continuity scenarios. Formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
+Current focused regression file: `eval/kpia-test-cases.json` contains 220 customer-facing cases, including the expanded brochure products and cross-product recommendation, clarification, grounding, technical installation and conversation-continuity scenarios. Formal RAGAS/DeepEval scores are intentionally not claimed until the evaluation runners have actually executed against the configured production database/API environment.
 
 ## 12. Product-source expansion — 6 October 2026
 
@@ -157,7 +157,7 @@ Source conflicts are not silently reconciled. Where website and brochure evidenc
 
 ## 14. Customer conversation and sales Q&A expansion — 7 October 2026
 
-The focused regression suite now contains 141 customer-facing scenarios. The additional cases test natural sales conversations rather than catalogue-only lookups, including product introductions, product-specific follow-up questions, newly added Qdesk, Rolling Drum, Sliver Can, tray, sanitation slab and WonderLoo scenarios, purchase enquiries, quotation information, application clarification, product comparisons and quantity-selection questions.
+The focused regression suite now contains 220 customer-facing scenarios. The additional cases test natural sales conversations rather than catalogue-only lookups, including product introductions, product-specific follow-up questions, expanded Qdesk, Rolling Drum, Sliver Can, tray, sanitation slab, WonderLoo and full-range product scenarios, purchase enquiries, quotation information, application clarification, product comparisons and quantity-selection questions.
 
 The agent prompt also explicitly requires:
 - accepting a customer's selected product rather than asking them to choose again;
