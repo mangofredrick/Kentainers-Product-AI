@@ -1,6 +1,6 @@
 {
   "name": "KPIA Product Intelligence Customer Q&A Evaluation Suite",
-  "version": "3.4",
+  "version": "3.5",
   "purpose": "Expanded regression tests for grounded customer product questions, natural sales conversations, recommendations, technical guidance, website information and pricing across the Kentainers brochure and official catalogue knowledge base.",
   "cases": [
     {
@@ -1542,6 +1542,426 @@
       "prompt": "Do you have live stock of GranSilo today?",
       "expected_behavior": "Do not invent real-time inventory.",
       "expected_answer": "Live stock is not verified by the product knowledge base; direct the customer to sales for current stock confirmation."
+    },
+    {
+      "id": "KPIA-221",
+      "category": "product",
+      "prompt": "What bins do you have?",
+      "expected_behavior": "Return the three documented bin sizes.",
+      "expected_answer": "DM5 is 50 L, DM7 is 70 L and DM10 is 100 L."
+    },
+    {
+      "id": "KPIA-222",
+      "category": "product",
+      "prompt": "Tell me about BlueFlame.",
+      "expected_behavior": "Identify BlueFlame rather than a different product.",
+      "expected_answer": "BlueFlame BioslurriGaz is an above-ground biodigester; documented models include LFM 6200 and SHM 3300."
+    },
+    {
+      "id": "KPIA-223",
+      "category": "product",
+      "prompt": "What cattle troughs do you have?",
+      "expected_behavior": "Return all documented trough options.",
+      "expected_answer": "The documented cattle troughs are KT14 140 L, CF50 500 L and CF80 800 L."
+    },
+    {
+      "id": "KPIA-224",
+      "category": "product",
+      "prompt": "I need a cooler box.",
+      "expected_behavior": "Identify the cooler-box range.",
+      "expected_answer": "Kentainers documents 660 L and 1,000 L cooler boxes."
+    },
+    {
+      "id": "KPIA-225",
+      "category": "product",
+      "prompt": "Do you have a fish farming tank?",
+      "expected_behavior": "Identify Fish Tank.",
+      "expected_answer": "Yes. The documented Fish Tank is CV220 at 2,200 L."
+    },
+    {
+      "id": "KPIA-226",
+      "category": "product",
+      "prompt": "I need a grain silo.",
+      "expected_behavior": "Identify GranSilo.",
+      "expected_answer": "GranSilo is the documented 500 L hermetic grain silo."
+    },
+    {
+      "id": "KPIA-227",
+      "category": "product",
+      "prompt": "What flower buckets do you have?",
+      "expected_behavior": "Return documented options.",
+      "expected_answer": "FB05 is 50 L and FB20 is 200 L."
+    },
+    {
+      "id": "KPIA-228",
+      "category": "product",
+      "prompt": "I need a rainwater harvesting gutter.",
+      "expected_behavior": "Identify LifeLine Gutter.",
+      "expected_answer": "LifeLine Gutters are the documented reinforced rectangular gutter range for rainwater harvesting."
+    },
+    {
+      "id": "KPIA-229",
+      "category": "product",
+      "prompt": "What mobile toilet solution do you have?",
+      "expected_behavior": "Identify Mobilet.",
+      "expected_answer": "Mobilet is the documented mobile and reusable sanitation solution, configurable for 2–6 or more stances."
+    },
+    {
+      "id": "KPIA-230",
+      "category": "product",
+      "prompt": "I need a cable chamber for telecom cables.",
+      "expected_behavior": "Identify Hand Hole.",
+      "expected_answer": "Hand Hole is the documented PE cable chamber for electrical and telecommunication cable junctions."
+    },
+    {
+      "id": "KPIA-231",
+      "category": "product",
+      "prompt": "I need pallets for a warehouse.",
+      "expected_behavior": "Identify DuraPall pallet range.",
+      "expected_answer": "DuraPall pallets are documented for factories, warehouses, cold rooms, wet areas and related applications."
+    },
+    {
+      "id": "KPIA-232",
+      "category": "product",
+      "prompt": "I need a road barrier.",
+      "expected_behavior": "Identify TuffBarrier.",
+      "expected_answer": "TuffBarrier is the documented road barrier option."
+    },
+    {
+      "id": "KPIA-233",
+      "category": "product",
+      "prompt": "I need traffic cones.",
+      "expected_behavior": "Identify Traffic Con without confusing it with TuffBarrier.",
+      "expected_answer": "Traffic Con is the documented traffic-control product; do not substitute TuffBarrier."
+    },
+    {
+      "id": "KPIA-234",
+      "category": "product",
+      "prompt": "Tell me about Qdesk.",
+      "expected_behavior": "Identify Qdesk.",
+      "expected_answer": "Qdesk is a one-piece polyethylene school desk with Small and Medium variants."
+    },
+    {
+      "id": "KPIA-235",
+      "category": "product",
+      "prompt": "I need a stackable tray.",
+      "expected_behavior": "Identify the tray range.",
+      "expected_answer": "Kentainers documents nestable and stackable tray options including NS4, NS7, NS6, KT5, NS9, KT14 and BF3."
+    },
+    {
+      "id": "KPIA-236",
+      "category": "product",
+      "prompt": "I need a fodder tray.",
+      "expected_behavior": "Identify LB10.",
+      "expected_answer": "LB10 is the documented 100 L Fodder Tray."
+    },
+    {
+      "id": "KPIA-237",
+      "category": "product",
+      "prompt": "I need an ecological sanitation slab.",
+      "expected_behavior": "Identify the slab family.",
+      "expected_answer": "The documented range includes EkoSlab, MobiSlab, EkoPlate and SaniSlab variants."
+    },
+    {
+      "id": "KPIA-238",
+      "category": "product",
+      "prompt": "I need a WonderLoo for home use.",
+      "expected_behavior": "Identify WonderLoo and its documented suitability.",
+      "expected_answer": "WonderLoo is a self-supporting toilet pedestal for indoor household use and is also described for elderly, physically challenged, expectant, child and sick users."
+    },
+    {
+      "id": "KPIA-239",
+      "category": "product",
+      "prompt": "I need a shallow well liner.",
+      "expected_behavior": "Identify Permawell.",
+      "expected_answer": "Permawell is the documented shallow-well liner solution."
+    },
+    {
+      "id": "KPIA-240",
+      "category": "product",
+      "prompt": "I need a rectangular water tank.",
+      "expected_behavior": "Identify Loftank rather than Kentank.",
+      "expected_answer": "Loftank is the documented rectangular water-storage range."
+    },
+    {
+      "id": "KPIA-241",
+      "category": "product",
+      "prompt": "I need an underground water tank.",
+      "expected_behavior": "Identify Bunkatank.",
+      "expected_answer": "Bunkatank is the documented underground water-storage range."
+    },
+    {
+      "id": "KPIA-242",
+      "category": "product",
+      "prompt": "I need a small portable water storage option.",
+      "expected_behavior": "Identify Kpot/Rolling Drum carefully.",
+      "expected_answer": "Kpot and Rolling Drum are documented portable/small water-storage products; ask about required capacity and use before selecting one."
+    },
+    {
+      "id": "KPIA-243",
+      "category": "product",
+      "prompt": "I need a nestable water tank.",
+      "expected_behavior": "Identify Nestank.",
+      "expected_answer": "Nestank is the documented nestable water-storage range."
+    },
+    {
+      "id": "KPIA-244",
+      "category": "product",
+      "prompt": "I need a handwashing station.",
+      "expected_behavior": "Identify Pedal Hand Wash.",
+      "expected_answer": "Pedal Hand Wash is the documented handwashing range, available in 100 L, 200 L and 250 L."
+    },
+    {
+      "id": "KPIA-245",
+      "category": "product",
+      "prompt": "I need a 100 L drum.",
+      "expected_behavior": "Distinguish Drum from Rolling Drum.",
+      "expected_answer": "The documented 100 L Drum is DRUM 10; Rolling Drum is a separate 30 L product."
+    },
+    {
+      "id": "KPIA-246",
+      "category": "product",
+      "prompt": "I need a 30 L rolling water carrier.",
+      "expected_behavior": "Identify Rolling Drum.",
+      "expected_answer": "Rolling Drum is the documented 30 L product."
+    },
+    {
+      "id": "KPIA-247",
+      "category": "product",
+      "prompt": "I need a 100 L waste bin.",
+      "expected_behavior": "Identify DM10.",
+      "expected_answer": "DM10 is the documented 100 L dust bin."
+    },
+    {
+      "id": "KPIA-248",
+      "category": "product",
+      "prompt": "I need a 50 L waste bin.",
+      "expected_behavior": "Identify DM5.",
+      "expected_answer": "DM5 is the documented 50 L dust bin."
+    },
+    {
+      "id": "KPIA-249",
+      "category": "product",
+      "prompt": "I need a 70 L waste bin.",
+      "expected_behavior": "Identify DM7.",
+      "expected_answer": "DM7 is the documented 70 L dust bin."
+    },
+    {
+      "id": "KPIA-250",
+      "category": "comparison",
+      "prompt": "Compare TuffBarrier and Traffic Con.",
+      "expected_behavior": "Keep the two product families distinct.",
+      "expected_answer": "TuffBarrier is 117 × 60 × 74 cm and has an interlocking system; Traffic Con is 41 × 41 × 66 cm and is listed for traffic-control applications."
+    },
+    {
+      "id": "KPIA-251",
+      "category": "comparison",
+      "prompt": "Compare Cooler Box and Fish Tank.",
+      "expected_behavior": "Do not merge their applications or specifications.",
+      "expected_answer": "Cooler Box is an insulated temperature-control container available in 660 L and 1,000 L; Fish Tank CV220 is a 2,200 L fish-farming/storage tank."
+    },
+    {
+      "id": "KPIA-252",
+      "category": "comparison",
+      "prompt": "Compare GranSilo and Kentank.",
+      "expected_behavior": "Distinguish grain storage from water storage.",
+      "expected_answer": "GranSilo is a 500 L hermetic grain silo, while Kentank is the above-ground water-storage range."
+    },
+    {
+      "id": "KPIA-253",
+      "category": "grounding",
+      "prompt": "Does Traffic Con have TuffBarrier's interlocking system?",
+      "expected_behavior": "Do not transfer features between products.",
+      "expected_answer": "Do not claim an interlocking system for Traffic Con unless its own source confirms it."
+    },
+    {
+      "id": "KPIA-254",
+      "category": "grounding",
+      "prompt": "Does Fish Tank CV220 have a 30-year lifespan?",
+      "expected_behavior": "Do not transfer lifespan from GranSilo.",
+      "expected_answer": "Do not claim a 30-year lifespan for CV220 unless the Fish Tank source confirms it."
+    },
+    {
+      "id": "KPIA-255",
+      "category": "grounding",
+      "prompt": "Does the 100 L bin have the same features as Pedal Hand Wash?",
+      "expected_behavior": "Do not cross-contaminate product records.",
+      "expected_answer": "No. DM10 and Pedal Hand Wash 100 L are different products with different documented features."
+    },
+    {
+      "id": "KPIA-256",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need a bin. Turn 2: 70 litres.",
+      "expected_behavior": "Use the second turn to select DM7.",
+      "expected_answer": "DM7 is the documented 70 L bin."
+    },
+    {
+      "id": "KPIA-257",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need a fish tank. Turn 2: 2,200 litres.",
+      "expected_behavior": "Use the second turn to identify CV220.",
+      "expected_answer": "CV220 is the documented 2,200 L Fish Tank."
+    },
+    {
+      "id": "KPIA-258",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need a cattle trough. Turn 2: 800 litres.",
+      "expected_behavior": "Use the second turn to identify CF80.",
+      "expected_answer": "CF80 is the documented 800 L cattle trough."
+    },
+    {
+      "id": "KPIA-259",
+      "category": "conversation-continuity",
+      "prompt": "Turn 1: I need a cooler. Turn 2: 1,000 litres.",
+      "expected_behavior": "Use the second turn to identify the 1,000 L cooler box.",
+      "expected_answer": "The documented 1,000 L option is Cooler Box 1000 L."
+    },
+    {
+      "id": "KPIA-260",
+      "category": "grounding",
+      "prompt": "What products do you have for traffic control?",
+      "expected_behavior": "Return both documented traffic-control families.",
+      "expected_answer": "The documented options include TuffBarrier and Traffic Con."
+    },
+    {
+      "id": "KPIA-261",
+      "category": "grounding",
+      "prompt": "What products do you have for livestock?",
+      "expected_behavior": "Return relevant documented livestock products without inventing.",
+      "expected_answer": "Cattle Troughs are documented for cattle and other small livestock; ask whether the customer needs feeding or drinking capacity."
+    },
+    {
+      "id": "KPIA-262",
+      "category": "grounding",
+      "prompt": "What products do you have for grain storage?",
+      "expected_behavior": "Identify GranSilo without substituting water tanks.",
+      "expected_answer": "GranSilo is the documented hermetic grain-storage product."
+    },
+    {
+      "id": "KPIA-263",
+      "category": "grounding",
+      "prompt": "What products do you have for waste collection?",
+      "expected_behavior": "Identify bins.",
+      "expected_answer": "The documented Bins range includes DM5 50 L, DM7 70 L and DM10 100 L."
+    },
+    {
+      "id": "KPIA-264",
+      "category": "grounding",
+      "prompt": "What products do you have for school furniture?",
+      "expected_behavior": "Identify Qdesk.",
+      "expected_answer": "Qdesk is the documented school-desk product, with Small and Medium variants."
+    },
+    {
+      "id": "KPIA-265",
+      "category": "grounding",
+      "prompt": "What products do you have for sanitation?",
+      "expected_behavior": "Return the broader sanitation range.",
+      "expected_answer": "The documented sanitation range includes Mobilet, WonderLoo, EkoSlab, MobiSlab, EkoPlate and SaniSlab variants."
+    },
+    {
+      "id": "KPIA-266",
+      "category": "grounding",
+      "prompt": "What products do you have for material handling?",
+      "expected_behavior": "Do not return only one product.",
+      "expected_answer": "The material-handling range includes Sliver Cans, trays, pallets, bins, cooler boxes and related products."
+    },
+    {
+      "id": "KPIA-267",
+      "category": "grounding",
+      "prompt": "What products do you have for rainwater harvesting?",
+      "expected_behavior": "Identify LifeLine Gutter without confusing it with tanks.",
+      "expected_answer": "LifeLine Gutters are documented for effective rainwater harvesting."
+    },
+    {
+      "id": "KPIA-268",
+      "category": "sales",
+      "prompt": "I need something for a construction site to control traffic.",
+      "expected_behavior": "Recommend traffic-control products.",
+      "expected_answer": "TuffBarrier and Traffic Con are documented traffic-control options for construction sites."
+    },
+    {
+      "id": "KPIA-269",
+      "category": "sales",
+      "prompt": "I need something for storing grain on a farm.",
+      "expected_behavior": "Recommend GranSilo.",
+      "expected_answer": "GranSilo is the documented grain-storage option; ask about the quantity to be stored."
+    },
+    {
+      "id": "KPIA-270",
+      "category": "sales",
+      "prompt": "I need waste bins for an institution.",
+      "expected_behavior": "Recommend bins and ask capacity.",
+      "expected_answer": "Kentainers documents 50 L, 70 L and 100 L bins; ask about the required capacity and number of bins."
+    },
+    {
+      "id": "KPIA-271",
+      "category": "sales",
+      "prompt": "I need a livestock watering trough for a farm.",
+      "expected_behavior": "Recommend cattle troughs and ask herd size.",
+      "expected_answer": "Cattle Trough options include 140 L, 500 L and 800 L; ask about the number of animals and required capacity."
+    },
+    {
+      "id": "KPIA-272",
+      "category": "sales",
+      "prompt": "I need desks for a school.",
+      "expected_behavior": "Recommend Qdesk and ask grade level.",
+      "expected_answer": "Qdesk has Small for up to Grade 5 and Medium for Class 6 to University; ask which learner group is being furnished."
+    },
+    {
+      "id": "KPIA-273",
+      "category": "sales",
+      "prompt": "I need sanitation for a refugee camp.",
+      "expected_behavior": "Recommend documented sanitation options.",
+      "expected_answer": "Mobilet and the sanitation slab range are documented for refugee/IDP camps; ask about users, site conditions and preferred setup."
+    },
+    {
+      "id": "KPIA-274",
+      "category": "sales",
+      "prompt": "I need insulated storage for fish processing.",
+      "expected_behavior": "Recommend Cooler Box.",
+      "expected_answer": "Cooler Boxes are documented for fish and meat processing and provide insulated temperature control; ask which capacity is required."
+    },
+    {
+      "id": "KPIA-275",
+      "category": "sales",
+      "prompt": "I need a pallet for a cold room.",
+      "expected_behavior": "Recommend DuraPall and ask load requirement.",
+      "expected_answer": "DuraPall pallets are documented for cold rooms; ask about the required dimensions and static/dynamic load."
+    },
+    {
+      "id": "KPIA-276",
+      "category": "sales",
+      "prompt": "I need a telecom cable chamber.",
+      "expected_behavior": "Recommend Hand Hole.",
+      "expected_answer": "Hand Hole is the documented PE cable chamber for electrical and telecommunication cable junctions."
+    },
+    {
+      "id": "KPIA-277",
+      "category": "sales",
+      "prompt": "I need a 2,200 L tank for fish farming.",
+      "expected_behavior": "Do not substitute a Kentank.",
+      "expected_answer": "The documented Fish Tank option is CV220 at 2,200 L."
+    },
+    {
+      "id": "KPIA-278",
+      "category": "sales",
+      "prompt": "I need 500 L grain storage, not water storage.",
+      "expected_behavior": "Use application to distinguish GranSilo from Kentank.",
+      "expected_answer": "GranSilo is the documented 500 L grain-storage product."
+    },
+    {
+      "id": "KPIA-279",
+      "category": "sales",
+      "prompt": "I need 100 L waste storage, not handwashing.",
+      "expected_behavior": "Use application to distinguish DM10 from Pedal Hand Wash.",
+      "expected_answer": "DM10 is the documented 100 L dust bin; Pedal Hand Wash 100 L is a separate product."
+    },
+    {
+      "id": "KPIA-280",
+      "category": "sales",
+      "prompt": "I need 70 L storage for materials, not waste.",
+      "expected_behavior": "Do not automatically choose DM7.",
+      "expected_answer": "Ask what material is being stored, because a 70 L capacity alone does not establish the correct product."
     }
   ]
 }
