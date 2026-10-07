@@ -107,15 +107,15 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         const capacity = selected.capacity ? `Capacity: ${selected.capacity}${selected.capacity_unit || ""}. ` : "";
         const dimensions = selected.dimensions ? `Dimensions: ${selected.dimensions}. ` : "";
         const features = selected.features ? `Key documented features: ${selected.features}. ` : "";
+        const productLabel = selected.product_name || selected.product_code || specificIntent || "this product";
         return {
-          answer: `The specific Kentainers product relevant to your request is ${selected.product_name}${selected.product_code ? ` (${selected.product_code})` : ""}. ${capacity}${dimensions}${features}If you need pricing, provide the product/variant and delivery town.`,
+          answer: `Here is the information for ${productLabel}: ${capacity}${dimensions}${features}`.trim(),
           sources: sources.length ? sources : [{ document: selected.source_document || "Kentainers product catalogue", page: selected.source_page }],
           products: [selected],
           action: "details",
           toolCalls: []
         };
       }
-
       return {
         answer: `I found a relevant Kentainers product, but the available catalogue evidence is not specific enough to select a single variant. Please tell me the exact product or requirement you want.`,
         sources,
