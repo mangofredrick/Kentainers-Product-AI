@@ -89,7 +89,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         const material = exact.material ? "Material: " + exact.material + ". " : "";
         const features = exact.features ? "Key documented features: " + exact.features + ". " : "";
         return {
-          answer: "According to the available Kentainers product catalogue, " + exact.product_name + " (" + exact.product_code + ") is in the " + exact.category + " category. " + capacity + dimensions + material + features + "For application-specific or technical details not shown here, I can use the Kentainers knowledge library or escalate for confirmation.",
+          answer: exact.product_name + " (" + exact.product_code + ") is a " + exact.category.toLowerCase() + ". " + capacity + dimensions + material + features + " What would you like to know next?",
           sources: sources.length ? sources : [{ document: exact.source_document || "Kentainers product catalogue", page: exact.source_page }],
           products: [exact],
           action: "details",
