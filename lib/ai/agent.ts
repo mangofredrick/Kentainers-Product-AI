@@ -270,11 +270,11 @@ function resolveShortProductSelection(userMessage: string, conversationContext: 
   return match || null;
 }
 
-export async function runAgent(userMessage: string, conversationContext = "") {
+export async function runAgent(userMessage: string, conversationContext = ""): Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
   const resolvedSelection = resolveShortProductSelection(userMessage, conversationContext);
   if (resolvedSelection) {
     userMessage = resolvedSelection;
-  }: Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
+  }
   const pricing = answerPricing(userMessage);
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
