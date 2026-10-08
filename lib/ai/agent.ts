@@ -114,6 +114,32 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         ? intentMatches.find(p => Number(p.capacity || "") === requestedCapacity)
         : undefined;
 
+      // Handle generic bin enquiries before the generic family formatter so
+      // "Do you have dustbins?" always gets the full bin range rather than DM5.
+      if (
+        specificIntent === "Bins" &&
+        !capacitySelected &&
+        requestedCapacity === null &&
+        intentMatches.length > 1
+      ) {
+        const variants = intentMatches
+          .map(p => {
+            const capacity = p.capacity ? " – " + p.capacity + (p.capacity_unit || "") : "";
+            return p.product_name + " (" + p.product_code + ")" + capacity;
+          })
+          .join("; ");
+
+        return {
+          answer: "Yes, we have Kentainers dust bins in the following variants: " + variants + ". Which capacity would you like?",
+          sources: sources.length ? sources : intentMatches.map(p => ({ document: p.source_document || "Kentainers product catalogue", page: p.source_page })),
+          products: intentMatches,
+          action: "details",
+          toolCalls: []
+        };
+      }
+
+      // For all other product families, present the available variants when no
+      // specific capacity or code has been supplied.
       if (specificIntent && !capacitySelected && intentMatches.length > 1) {
         const variants = intentMatches
           .map(p => {
