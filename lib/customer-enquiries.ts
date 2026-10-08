@@ -106,9 +106,30 @@ function normalizeQuestion(question: string) {
 }
 
 function memoryStatus(result: AgentResult) {
-  if (result.action === "escalate") return { status: "unverified", review: true, reason: "Chatbot could not provide a verified answer." };
-  if (result.action === "clarify") return { status: "needs_clarification", review: true, reason: "Customer question requires additional information or knowledge review." };
+  if (result.action === "escalate") {
+    return { status: "unverified", review: true, reason: "Chatbot could not provide a verified answer." };
+  }
+  if (result.action === "clarify") {
+    return { status: "needs_clarification", review: true, reason: "Customer question requires additional information or knowledge review." };
+  }
+  if (!result.answer?.trim()) {
+    return { status: "unverified", review: true, reason: "No answer was generated." };
+  }
   return { status: "answered", review: false, reason: null };
+}
+
+function questionReviewReason(question: string, result: AgentResult) {
+  const q = question.trim();
+  if (result.action === "escalate") return "Requires verified Kentainers follow-up.";
+  if (result.action === "clarify") return "Customer intent or required product detail is not yet clear.";
+  if (/\b(price|cost|quote|quotation|stock|availability|available|delivery|lead time)\b/i.test(q)) {
+    return "Commercial information may change and should be verified before becoming reusable knowledge.";
+  }
+  if (/\b(dimension|dimensions|size|height|diameter|width|length|weight|material|installation|compatible|compatibility|capacity)\b/i.test(q) &&
+      (!result.sources || result.sources.length === 0)) {
+    return "Technical question answered without recorded source evidence; review before reuse.";
+  }
+  return null;
 }
 
 export async function recordChatbotQuestion(question: string, result: AgentResult, requirements: CustomerRequirements = {}) {
@@ -116,6 +137,9 @@ export async function recordChatbotQuestion(question: string, result: AgentResul
   await ensureQuestionMemoryTable();
   const normalized = normalizeQuestion(question);
   const status = memoryStatus(result);
+  const automaticReviewReason = questionReviewReason(question, result);
+  const needsReview = status.review || Boolean(automaticReviewReason);
+  const reviewReason = automaticReviewReason || status.reason;
   const pool = getPool();
   const existing = await pool.query(
     `SELECT id FROM chatbot_question_memory WHERE question = $1 LIMIT 1`,
@@ -143,7 +167,7 @@ export async function recordChatbotQuestion(question: string, result: AgentResul
        JSON.stringify(result.products || []), JSON.stringify(result.sources || []),
        requirements.product?.trim() || result.products?.[0]?.product_name || null,
        requirements.capacity?.trim() || null, requirements.application?.trim() || null,
-       requirements.location?.trim() || null, status.status, status.review, status.reason]
+       requirements.location?.trim() || null, status.status, needsReview, reviewReason]
     );
   } else {
     await pool.query(
@@ -155,7 +179,7 @@ export async function recordChatbotQuestion(question: string, result: AgentResul
        JSON.stringify(result.products || []), JSON.stringify(result.sources || []),
        requirements.product?.trim() || result.products?.[0]?.product_name || null,
        requirements.capacity?.trim() || null, requirements.application?.trim() || null,
-       requirements.location?.trim() || null, status.status, status.review, status.reason]
+       requirements.location?.trim() || null, status.status, needsReview, reviewReason]
     );
   }
 }
