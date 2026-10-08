@@ -300,15 +300,21 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
       .filter(product => /above[- ]ground|water storage|home|domestic|residential/i.test(
         [product.application, product.features, product.product_name].join(" ")
       ));
-    if (homeProducts.length === 1) {
-      const product = homeProducts[0];
-      const dimensions = (product.dimensions || "not currently specified")
-        .replace(/not specified in uploaded pdf/i, "not currently specified");
+    if (homeProducts.length) {
+      const lines = homeProducts.map(product => {
+        const dimensions = (product.dimensions || "not currently specified")
+          .replace(/not specified in uploaded pdf/i, "not currently specified");
+        return "- " + product.product_name + " — " + dimensions;
+      });
       return {
-        answer: "For home/domestic use, the suitable documented option is " + product.product_name +
-          ", with dimensions of " + dimensions + ". If you would like, I can also help with its price or availability.",
-        sources: [{ document: product.source_document || "Kentainers product catalogue", page: product.source_page }],
-        action: "details",
+        answer: "For home/domestic water storage, the documented 10,000 L options are:\n" +
+          lines.join("\n") +
+          "\n\nFor a home installation, the choice can be based on available space: the Short variant is lower and wider, while the standard variant is taller and narrower. If you tell me the available installation space, I can help you choose between them.",
+        sources: homeProducts.map(product => ({
+          document: product.source_document || "Kentainers product catalogue",
+          page: product.source_page
+        })),
+        action: "clarify",
         toolCalls: []
       };
     }
