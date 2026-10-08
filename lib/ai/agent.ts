@@ -300,6 +300,15 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     return localGroundedFallback(userMessage);
   }
 
+  // Generic BlueFlame enquiries should show the available variants instead
+  // of letting the model/fallback select LFM 6200 as a single product.
+  if (
+    specificIntent === "BlueFlame" &&
+    !/\b(LFM\s*6200|SHM\s*3300)\b/i.test(userMessage)
+  ) {
+    return localGroundedFallback(userMessage);
+  }
+
   const client = getClient();
   if (!client) return localGroundedFallback(userMessage);
 
