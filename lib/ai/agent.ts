@@ -290,8 +290,8 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   // When a customer asks for a capacity without naming a specific product,
   // return every verified product variant at that capacity rather than guessing
   // a single or unrelated product.
-  const capacityMatch = normalized.match(/(?:^|\\D)(\\d{2,6})\\s*(?:l|litre|litres|liter|liters)\\b/i);
-  const asksDimension = /\\b(dimension|dimensions|size|height|diameter|width|length)\\b/i.test(normalized);
+  const capacityMatch = normalized.match(/(?:^|\D)(\d{2,6})\s*(?:l|litre|litres|liter|liters)\b/i);
+  const asksDimension = /\b(dimension|dimensions|size|height|diameter|width|length)\b/i.test(normalized);
   if (capacityMatch && asksDimension) {
     const requestedCapacity = Number(capacityMatch[1]);
     const capacityProducts = findProducts(String(requestedCapacity) + " L", 10)
@@ -320,7 +320,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
 
 
 
-  if (/(^|\\s)10000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {
+  if (/(^|\s)10000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {
     return {
       answer: "Kentainers documents two 10,000 L Kentank variants: CCV 1000 Short — approximately 200 cm high × 285 cm diameter; and CCV 1000 — approximately 255 cm high × 232 cm diameter. Both are above-ground water-storage tanks. Which variant would you like to know more about?",
       sources: [{ document: "Water tanks.pdf", page: 1 }],
