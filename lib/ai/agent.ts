@@ -97,9 +97,19 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
         };
       }
 
-      // For a specific customer product request, return the best matching product
-      // instead of exposing a broad list of loosely related catalogue matches.
+      // Do not turn fuzzy/partial catalogue matches into a confident product answer.
+      // A misspelled or unavailable product must be clarified instead of falling
+      // through to the highest-scoring unrelated product (for example, Pedal Hand Wash).
       const specificIntent = namedProductIntent(userMessage);
+      if (!specificIntent && !exact) {
+        return {
+          answer: "I could not match that product to a verified Kentainers product. Please check the product name or product code and try again. If you are unsure of the exact product, tell me what you need it for and I can help narrow it down.",
+          sources,
+          products: [],
+          action: "clarify",
+          toolCalls: []
+        };
+      }
 
       const intentMatches = specificIntent
         ? findProducts(specificIntent, 10)
