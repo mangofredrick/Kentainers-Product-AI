@@ -321,6 +321,35 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
       };
     }
   }
+  const asksCommercialUse = /\b(commercial|business|industrial|institutional)\b/i.test(userMessage);
+  if (capacityMatch && asksCommercialUse) {
+    const requestedCapacity = Number(capacityMatch[1]);
+    const commercialProducts = findProducts(String(requestedCapacity) + " L", 10)
+      .filter(product => Number(product.capacity) === requestedCapacity)
+      .filter(product => /water storage|rainwater|irrigation|commercial|industrial|institutional|above[- ]ground/i.test(
+        [product.application, product.features, product.product_name].join(" ")
+      ));
+
+    if (commercialProducts.length) {
+      const lines = commercialProducts.map(product => {
+        const dimensions = (product.dimensions || "not currently specified")
+          .replace(/not specified in uploaded pdf/i, "not currently specified");
+        return "- " + product.product_name + " — " + dimensions;
+      });
+      return {
+        answer: "For commercial/business use at " + requestedCapacity.toLocaleString() + " L, Kentainers documents:\n" +
+          lines.join("\n") +
+          "\n\nThe documented application covers water storage, rainwater harvesting and irrigation. If you tell me the commercial application and available installation space, I can help narrow down the most suitable variant.",
+        sources: commercialProducts.map(product => ({
+          document: product.source_document || "Kentainers product catalogue",
+          page: product.source_page
+        })),
+        action: commercialProducts.length > 1 ? "clarify" : "details",
+        toolCalls: []
+      };
+    }
+  }
+
   if (capacityMatch && asksDimension) {
     const requestedCapacity = Number(capacityMatch[1]);
     const capacityProducts = findProducts(String(requestedCapacity) + " L", 10)
