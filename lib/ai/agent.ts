@@ -285,7 +285,8 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   // and "industrial use" as contextual refinements of the customer's preceding
   // product/capacity question. This keeps the behavior generic across all tanks
   // and products instead of relying on a single capacity.
-  const applicationOnlyFollowUp = /^(?:for\s+)?(?:home|house|domestic|residential|household|commercial|business|industrial|institutional|farming|agricultural|irrigation|sanitation|septic|construction|hospitality|school|hotel|restaurant|factory|farm)\s*(?:use|application|water storage|requirement)?\.?$/i.test(userMessage.trim());
+  const currentMessageForFollowUp = (userMessage.match(/Current customer message:\s*([\\s\\S]*)$/i)?.[1] || userMessage).trim();
+  const applicationOnlyFollowUp = /^(?:for\s+)?(?:home|house|domestic|residential|household|commercial|business|industrial|institutional|farming|agricultural|irrigation|sanitation|septic|construction|hospitality|school|hotel|restaurant|factory|farm)\s*(?:use|application|water storage|requirement)?\.?$/i.test(currentMessageForFollowUp);
   if (applicationOnlyFollowUp && conversationContext) {
     const customerMessages = Array.from(conversationContext.matchAll(/Customer:\s*([^\n]+)/gi))
       .map(m => m[1].trim())
