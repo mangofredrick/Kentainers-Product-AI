@@ -157,8 +157,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
           action: "clarify",
           toolCalls: []
         };
-      }      const intentMatches = specificIntent
-        ? findProducts(specificIntent, 10)
+      }      const intentMatches = specificIntent        ? findProducts(specificIntent, 10)
         : [];
 
       // If the customer names a product family without choosing a variant,
@@ -317,8 +316,7 @@ function resolveShortProductSelection(userMessage: string, conversationContext: 
   // suffix 3300 when the customer is selecting from the preceding options.
   return matches.sort((a, b) => {    const aHasPrefix = /^[a-z]/i.test(a);
     const bHasPrefix = /^[a-z]/i.test(b);    return Number(bHasPrefix) - Number(aHasPrefix);
-  })[0] || null;
-}
+  })[0] || null;}
 
 export async function runAgent(userMessage: string, conversationContext = ""): Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
   const resolvedSelection = resolveShortProductSelection(userMessage, conversationContext);
@@ -362,8 +360,8 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     const directProducts = findProducts(directIntent, 10);
 
     if (directProducts.length) {
-      const requestedCode = userMessage.match(/\\b(?:[A-Z]{2,12}\\s*)?\\d{2,6}\\b/i)?.[0]?.replace(/\\s+/g, " ").trim();
-      const requestedCapacityMatch = userMessage.match(/\\b(\\d[\\d,]*)\\s*(?:l|litre|litres|liter|liters)\\b/i);
+      const requestedCode = userMessage.match(/\b(?:[A-Z]{2,12}\s*)?\d{2,6}\b/i)?.[0]?.replace(/\s+/g, " ").trim();
+      const requestedCapacityMatch = userMessage.match(/\b(\d[\d,]*)\s*(?:l|litre|litres|liter|liters)\b/i);
       const requestedCapacity = requestedCapacityMatch
         ? Number(requestedCapacityMatch[1].replace(/,/g, ""))
         : null;
@@ -371,8 +369,8 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
       // Prefer an exact product code when the customer supplied one.
       const exactCodeProduct = requestedCode
         ? directProducts.find(p =>
-            (p.product_code || "").replace(/\\s+/g, "").toLowerCase() ===
-            requestedCode.replace(/\\s+/g, "").toLowerCase()
+            (p.product_code || "").replace(/\s+/g, "").toLowerCase() ===
+            requestedCode.replace(/\s+/g, "").toLowerCase()
           )
         : undefined;
 
@@ -477,8 +475,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   const asksHomeUse = /\b(home|house|domestic|residential|household)\b/i.test(userMessage);
   if (capacityMatch && asksHomeUse) {
     const requestedCapacity = Number(capacityMatch[1]);
-    const homeProducts = findProducts(String(requestedCapacity) + " L", 10)
-      .filter(product => Number(product.capacity) === requestedCapacity)
+    const homeProducts = findProducts(String(requestedCapacity) + " L", 10)      .filter(product => Number(product.capacity) === requestedCapacity)
       .filter(product => /above[- ]ground|water storage|home|domestic|residential/i.test(
         [product.application, product.features, product.product_name].join(" ")
       ));
@@ -637,8 +634,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     Boolean(namedProductIntent(userMessage)) ||
     /\b(product|model|variant|price|cost|available|availability|dimension|dimensions|capacity|specification|specifications|product code|do you have|sell|stock)\b/i.test(userMessage);
 
-  if (productQuery) {
-    return localGroundedFallback(userMessage);
+  if (productQuery) {    return localGroundedFallback(userMessage);
   }
 
   const client = getClient();
