@@ -51,11 +51,13 @@ export async function POST(req: Request) {
       /provide (?:your )?(?:name|phone)|leave your (?:phone|contact)|customer details|contact details|representative will contact/i.test(lastAssistant);
 
     const contactFollowUp =
-      hasMandatoryContact &&
-      (
-        awaitingContact ||
-        (/\\b(?:name|phone|contact|details)\\b/i.test(body.message) && body.message.trim().length < 500)
-      );
+      awaitingContact &&
+      hasMandatoryContact;
+
+    const needsPhoneForEscalation =
+      awaitingContact &&
+      hasName &&
+      !hasPhone;
 
     const result = contactFollowUp
       ? {
@@ -64,13 +66,20 @@ export async function POST(req: Request) {
           action: "escalate" as const,
           toolCalls: []
         }
-      : await runAgent(`${customerContext}
+      : needsPhoneForEscalation
+        ? {
+            answer: "Thanks, " + body.customer.name.trim() + ". Please provide the customer's phone number so the Kentainers team can follow up on this enquiry.",
+            sources: [],
+            action: "escalate" as const,
+            toolCalls: []
+          }
+        : await runAgent(`${customerContext}
 ${requirementContext}
 
 Current customer message: ${body.message}`, conversationContext);
 
     if (result.action === "escalate") {
-      if (!hasMandatoryContact) {
+      if (!hasMandatoryContact && !needsPhoneForEscalation) {
         result.answer =
           result.answer +
           " To help the Kentainers team follow up, please provide your name and phone number in the customer details above.";
