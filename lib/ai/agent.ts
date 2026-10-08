@@ -261,13 +261,19 @@ function resolveShortProductSelection(userMessage: string, conversationContext: 
   ).map(m => m[0].replace(/\s+/g, " ").trim());
 
   const compactMessage = message.replace(/\s+/g, "");
-  const match = contextCodes.find(code => {
+  const matches = contextCodes.filter(code => {
     const compactCode = code.toLowerCase().replace(/\s+/g, "");
     return compactCode === compactMessage ||
       (message.match(/^\d{3,6}$/) && compactCode.endsWith(compactMessage));
   });
 
-  return match || null;
+  // Prefer a full product code such as SHM 3300 over the bare numeric
+  // suffix 3300 when the customer is selecting from the preceding options.
+  return matches.sort((a, b) => {
+    const aHasPrefix = /^[a-z]/i.test(a);
+    const bHasPrefix = /^[a-z]/i.test(b);
+    return Number(bHasPrefix) - Number(aHasPrefix);
+  })[0] || null;
 }
 
 export async function runAgent(userMessage: string, conversationContext = ""): Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
