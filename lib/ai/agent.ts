@@ -281,6 +281,23 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   if (resolvedSelection) {
     userMessage = resolvedSelection;
   }
+  // Treat short application messages such as "home use", "commercial use",
+  // and "industrial use" as contextual refinements of the customer's preceding
+  // product/capacity question. This keeps the behavior generic across all tanks
+  // and products instead of relying on a single capacity.
+  const applicationOnlyFollowUp = /^(?:for\s+)?(?:home|house|domestic|residential|household|commercial|business|industrial|institutional|farming|agricultural|irrigation)\s*(?:use|application)?\.?$/i.test(userMessage.trim());
+  if (applicationOnlyFollowUp && conversationContext) {
+    const customerMessages = Array.from(conversationContext.matchAll(/Customer:\s*([^\n]+)/gi))
+      .map(m => m[1].trim())
+      .filter(Boolean);
+    const previousCustomerMessage = customerMessages.length > 1
+      ? customerMessages[customerMessages.length - 2]
+      : "";
+    if (previousCustomerMessage) {
+      userMessage = previousCustomerMessage + " " + userMessage;
+    }
+  }
+
   const pricing = answerPricing(userMessage);
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
