@@ -173,12 +173,20 @@ export function findProducts(query: string, limit = 6): Product[] {
     .map(item => item.product);
 }
 
+function compactNormalize(text: string): string {
+  return normalize(text).replace(/[^a-z0-9]/g, "");
+}
+
 export function getProductDetails(identifier: string): Product | undefined {
   const q = normalize(identifier);
+  const compact = compactNormalize(identifier);
   return loadProducts().find(product =>
     normalize(product.product_code) === q ||
     normalize(product.product_name) === q ||
-    normalize(product.product_id) === q
+    normalize(product.product_id) === q ||
+    compactNormalize(product.product_code || "") === compact ||
+    compactNormalize(product.product_name || "") === compact ||
+    compactNormalize(product.product_id || "") === compact
   );
 }
 
