@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { runAgent } from "@/lib/ai/agent";
-import { saveCustomerEnquiry, recordChatbotQuestion, type CustomerRequirements } from "@/lib/customer-enquiries";
+import { saveCustomerEnquiry, recordChatbotQuestion, findApprovedQuestionAnswer, type CustomerRequirements } from "@/lib/customer-enquiries";
 import { sendCustomerEnquiryEmail } from "@/lib/customer-email";
 
 const RequirementsSchema = z.object({
@@ -81,6 +81,14 @@ export async function POST(req: Request) {
       "\nCustomer email: " + (effectiveCustomer.email || "Not provided") +
       "\nCustomer phone: " + (effectiveCustomer.phone || "Not provided");
 
+    const normalizedCurrentQuestion = body.message.trim().toLowerCase().replace(/\s+/g, " ");
+    let approvedMemoryAnswer: Awaited<ReturnType<typeof findApprovedQuestionAnswer>> = null;
+    try {
+      approvedMemoryAnswer = await findApprovedQuestionAnswer(body.message);
+    } catch (memoryError) {
+      console.error("KPIA approved question memory lookup error", memoryError);
+    }
+
     const result = contactFollowUp
       ? {
           answer: "Thanks, " + inferredName + ". I have captured your enquiry. A Kentainers representative will contact you with the verified information.",
@@ -93,6 +101,14 @@ export async function POST(req: Request) {
             answer: "Thanks, " + inferredName + ". Please provide the customer's phone number so the Kentainers team can follow up on this enquiry.",
             sources: [],
             action: "escalate" as const,
+            toolCalls: []
+          }
+        : approvedMemoryAnswer
+        ? {
+            answer: approvedMemoryAnswer.approved_answer,
+            sources: [],
+            products: [],
+            action: "details" as const,
             toolCalls: []
           }
         : await runAgent(effectiveCustomerContext + "\n" + requirementContext + "\n\nCurrent customer message: " + body.message, conversationContext);
