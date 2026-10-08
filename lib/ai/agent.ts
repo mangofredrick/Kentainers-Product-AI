@@ -26,7 +26,7 @@ function namedProductIntent(message: string): string | null {
     [/\bcattle\s+trough\b/i, "Cattle Trough"],
     [/\bcooler\s+box\b/i, "Cooler Box"],
     [/\blifeline\s+gutter\b|\blifeline\b/i, "LifeLine Gutters"],
-    [/\bmobilet\b|\bmobile\s+toil(?:et|te)\b|\bportable\s+toil(?:et|te)\b/i, "Mobilet"],
+    [/\bmobilet\b|\bmobile\s+toil(?:et|te)s?\b|\bportable\s+toil(?:et|te)s?\b/i, "Mobilet"],
     [/\bqdesk\b|\bschool\s+desk\b|\bstudent\s+desk\b/i, "Qdesk"],
     [/\btuffbarrier\b|\broad\s+barrier\b|\broad\s+barricade\b/i, "TuffBarrier"],
     [/\btraffic\s+con(?:e)?\b|\btraffic\s+cone\b/i, "Traffic Con"],
@@ -49,7 +49,7 @@ function namedProductIntent(message: string): string | null {
 
 function requirementEquivalentIntent(message: string): string | null {
   const rules: Array<[RegExp, string]> = [
-    [/\bmobile\s+(?:toil(?:et|te)|loo|lavatory)\b|\bportable\s+(?:toil(?:et|te)|loo)\b/i, "Mobilet"],
+    [/\bmobile\s+(?:toil(?:et|te)s?|loos?|lavator(?:y|ies))\b|\bportable\s+(?:toil(?:et|te)s?|loos?)\b/i, "Mobilet"],
     [/\b(?:toilet|loo)\b.*\b(?:mobile|portable|movable|temporary|site)\b|\b(?:mobile|portable|movable|temporary|site)\b.*\b(?:toilet|loo)\b/i, "Mobilet"],
     [/\bhand\s*wash(?:ing)?\b|\bwash\s+hands\b|\bhand\s+hygiene\b/i, "Pedal Hand Wash"],
     [/\bbiogas\b|\bbiodigester\b|\bgas\s+from\s+(?:manure|waste)\b/i, "BlueFlame"],
@@ -158,7 +158,6 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
           toolCalls: []
         };
       }
-
       const intentMatches = specificIntent
         ? findProducts(specificIntent, 10)
         : [];
@@ -317,8 +316,7 @@ function resolveShortProductSelection(userMessage: string, conversationContext: 
 
   // Prefer a full product code such as SHM 3300 over the bare numeric
   // suffix 3300 when the customer is selecting from the preceding options.
-  return matches.sort((a, b) => {
-    const aHasPrefix = /^[a-z]/i.test(a);
+  return matches.sort((a, b) => {    const aHasPrefix = /^[a-z]/i.test(a);
     const bHasPrefix = /^[a-z]/i.test(b);
     return Number(bHasPrefix) - Number(aHasPrefix);
   })[0] || null;
@@ -477,8 +475,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
 
 
 
-  if (/(^|\s)10000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {
-    return {
+  if (/(^|\s)10000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {    return {
       answer: "Kentainers documents two 10,000 L Kentank variants: CCV 1000 Short — approximately 200 cm high × 285 cm diameter; and CCV 1000 — approximately 255 cm high × 232 cm diameter. Both are above-ground water-storage tanks. Which variant would you like to know more about?",
       sources: [{ document: "Water tanks.pdf", page: 1 }],
       action: "details",
@@ -637,8 +634,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
 
     return localGroundedFallback(userMessage);
   } catch (error) {
-    console.error("Kentainers AI agent error; using grounded knowledge fallback", error);
-    return localGroundedFallback(userMessage);
+    console.error("Kentainers AI agent error; using grounded knowledge fallback", error);    return localGroundedFallback(userMessage);
   }
 }
 
