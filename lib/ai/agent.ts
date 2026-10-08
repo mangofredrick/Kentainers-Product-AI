@@ -322,6 +322,17 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     return localGroundedFallback(userMessage);
   }
 
+  // Keep all product-identification requests deterministic and conservative.
+  // This prevents the language model from guessing an unrelated catalogue item
+  // when a product is misspelled, unavailable, or only partially specified.
+  const productQuery =
+    Boolean(namedProductIntent(userMessage)) ||
+    /\b(product|model|variant|price|cost|available|availability|dimension|dimensions|capacity|specification|specifications|product code|do you have|sell|stock)\b/i.test(userMessage);
+
+  if (productQuery) {
+    return localGroundedFallback(userMessage);
+  }
+
   const client = getClient();
   if (!client) return localGroundedFallback(userMessage);
 
