@@ -290,9 +290,15 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     const customerMessages = Array.from(conversationContext.matchAll(/Customer:\s*([^\n]+)/gi))
       .map(m => m[1].trim())
       .filter(Boolean);
-    const previousCustomerMessage = customerMessages.length > 1
-      ? customerMessages[customerMessages.length - 2]
-      : "";
+
+    // Use the latest substantive customer product/requirement message as the
+    // anchor. The immediately preceding message may itself be a short
+    // refinement, so walk backwards until we find a message that contains
+    // product/capacity/requirement information.
+    const refinementPattern = /^(?:for\s+)?(?:home|house|domestic|residential|household|commercial|business|industrial|institutional|farming|agricultural|irrigation|sanitation|septic|construction|hospitality|school|hotel|restaurant|factory|farm)\s*(?:use|application|water storage|requirement)?\.?$/i;
+    const previousCustomerMessage = [...customerMessages].reverse()
+      .find(message => !refinementPattern.test(message)) || "";
+
     if (previousCustomerMessage) {
       userMessage = previousCustomerMessage + " " + userMessage;
     }
