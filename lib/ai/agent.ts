@@ -24,7 +24,7 @@ function namedProductIntent(message: string): string | null {
     [/\bcattle\s+trough\b/i, "Cattle Trough"],
     [/\bcooler\s+box\b/i, "Cooler Box"],
     [/\blifeline\s+gutter\b/i, "LifeLine Gutters"],
-    [/\bmobilet\b/i, "Mobilet"],
+    [/\bmobilet\b|\bmobile\s+toilet\b/i, "Mobilet"],
     [/\bqdesk\b/i, "Qdesk"],
     [/\btuffbarrier\b/i, "TuffBarrier"],
     [/\btraffic\s+con\b/i, "Traffic Con"],
@@ -287,7 +287,9 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   // and products instead of relying on a single capacity.
   const currentMessageForFollowUp = (userMessage.match(/Current customer message:\s*([\\s\\S]*)$/i)?.[1] || userMessage).trim();
   const applicationOnlyFollowUp = /^(?:for\s+)?(?:home|house|domestic|residential|household|commercial|business|industrial|institutional|farming|agricultural|irrigation|sanitation|septic|construction|hospitality|school|hotel|restaurant|factory|farm)\s*(?:use|application|water storage|requirement)?\.?$/i.test(currentMessageForFollowUp);
-  if (applicationOnlyFollowUp && conversationContext) {
+  const currentHasProductIntent = Boolean(namedProductIntent(currentMessageForFollowUp)) ||
+    /\b\d[\d,]*\s*(?:l|litre|litres|liter|liters)\b|\b(?:ccv|bkt|shm|lfm)\s*\d{3,6}\b/i.test(currentMessageForFollowUp);
+  if (applicationOnlyFollowUp && !currentHasProductIntent && conversationContext) {
     const customerMessages = Array.from(conversationContext.matchAll(/Customer:\s*([^\n]+)/gi))
       .map(m => m[1].trim())
       .filter(Boolean);
