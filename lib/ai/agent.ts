@@ -287,6 +287,15 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   // Deterministic responses for common high-frequency tank queries.
   const normalized = (conversationContext + "\n" + userMessage).toLowerCase().replace(/,/g, "");
 
+  if (/(^|\\s)10000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {
+    return {
+      answer: "Kentainers documents two 10,000 L Kentank variants: CCV 1000 Short — approximately 200 cm high × 285 cm diameter; and CCV 1000 — approximately 255 cm high × 232 cm diameter. Both are above-ground water-storage tanks. Which variant would you like to know more about?",
+      sources: [{ document: "Water tanks.pdf", page: 1 }],
+      action: "details",
+      toolCalls: []
+    };
+  }
+
   if (/(^|\s)5000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank)/.test(normalized)) {
     return {
       answer: "Kentainers documents two 5,000 L above-ground Kentank variants: CCV 500 Short (approximately 175 cm high × 203 cm diameter) and CCV 500 (approximately 215 cm high × 185 cm diameter). The two variants have different dimensions, so selection should consider the available installation space. Confirm the current commercial quotation before ordering.",
