@@ -310,7 +310,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   const capacityMatch = normalized.match(/(?:^|\D)(\d{2,6})\s*(?:l|litre|litres|liter|liters)\b/i);
   const asksDimension = /\b(dimension|dimensions|size|height|diameter|width|length)\b/i.test(normalized);
   const asksHomeUse = /\b(home|house|domestic|residential|household)\b/i.test(userMessage);
-  if (capacityMatch && asksDimension && asksHomeUse) {
+  if (capacityMatch && asksHomeUse) {
     const requestedCapacity = Number(capacityMatch[1]);
     const homeProducts = findProducts(String(requestedCapacity) + " L", 10)
       .filter(product => Number(product.capacity) === requestedCapacity)
