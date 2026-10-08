@@ -53,6 +53,22 @@ function requirementEquivalentIntent(message: string): string | null {
     [/\bgrain\s+(?:storage|silo)\b|\bstore\s+grain\b/i, "Grain Silo"],
     [/\brainwater\b.*\b(?:harvest|collect|storage|store)\b|\b(?:harvest|collect)\s+rainwater\b/i, "Kentank"],
     [/\brainwater\s+gutter\b|\bgutter\b.*\brainwater\b/i, "LifeLine Gutters"],
+    [/\b(?:cable|telecom|telecommunication)\b.*\b(?:chamber|handhole|hand hole)\b|\b(?:chamber|handhole|hand hole)\b.*\b(?:cable|telecom|telecommunication)\b/i, "Hand Hole"],
+    [/\bschool\s+(?:desk|furniture)\b|\bstudent\s+desk\b/i, "Qdesk"],
+    [/\broad\s+(?:barrier|barricade)\b|\btraffic\s+barrier\b/i, "TuffBarrier"],
+    [/\btraffic\s+cone\b|\broad\s+cone\b/i, "Traffic Con"],
+    [/\bpallet\b.*\b(?:goods|warehouse|storage|transport)\b|\bwarehouse\s+pallet\b/i, "DuraPall Pallet"],
+    [/\binsulated\s+(?:box|cooler)\b|\bkeep\s+(?:food|drinks|items)\s+cold\b/i, "Cooler Box"],
+    [/\bfish\s+(?:tub|tank)\b|\bfish\s+rearing\b/i, "Fish Tub"],
+    [/\bflower\s+(?:bucket|container)\b|\bflower\s+arrangement\b/i, "Flower Bucket"],
+    [/\bstackable\s+tray\b|\bnestable\s+tray\b|\bfodder\s+tray\b/i, "Tray"],
+    [/\b(?:grain|feed)\s+(?:storage|container)\b|\bhermetic\s+grain\b/i, "Grain Silo"],
+    [/\bsliver\s+can\b|\bmilk\s+collection\s+can\b|\btote\s+box\b/i, "Sliver Can"],
+    [/\bwater\s+slab\b|\btoilet\s+slab\b|\bsanitation\s+slab\b/i, "SaniSlab"],
+    [/\b(?:eco|eko)\s+(?:slab|plate)\b/i, "EkoSlab"],
+    [/\b(?:mobi|mobile)\s+slab\b/i, "MobiSlab"],
+    [/\b(?:eco|eko)\s+plate\b/i, "EkoPlate"],
+    [/\btoilet\s+pedestal\b|\btoilet\s+pan\b|\bloo\s+pedestal\b/i, "WonderLoo"],
   ];
   return rules.find(([pattern]) => pattern.test(message))?.[1] || null;
 }
