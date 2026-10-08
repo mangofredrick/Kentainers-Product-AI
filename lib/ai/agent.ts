@@ -292,6 +292,27 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   // a single or unrelated product.
   const capacityMatch = normalized.match(/(?:^|\D)(\d{2,6})\s*(?:l|litre|litres|liter|liters)\b/i);
   const asksDimension = /\b(dimension|dimensions|size|height|diameter|width|length)\b/i.test(normalized);
+  const asksHomeUse = /\b(home|house|domestic|residential|household)\b/i.test(userMessage);
+  if (capacityMatch && asksDimension && asksHomeUse) {
+    const requestedCapacity = Number(capacityMatch[1]);
+    const homeProducts = findProducts(String(requestedCapacity) + " L", 10)
+      .filter(product => Number(product.capacity) === requestedCapacity)
+      .filter(product => /above[- ]ground|water storage|home|domestic|residential/i.test(
+        [product.application, product.features, product.product_name].join(" ")
+      ));
+    if (homeProducts.length === 1) {
+      const product = homeProducts[0];
+      const dimensions = (product.dimensions || "not currently specified")
+        .replace(/not specified in uploaded pdf/i, "not currently specified");
+      return {
+        answer: "For home/domestic use, the suitable documented option is " + product.product_name +
+          ", with dimensions of " + dimensions + ". If you would like, I can also help with its price or availability.",
+        sources: [{ document: product.source_document || "Kentainers product catalogue", page: product.source_page }],
+        action: "details",
+        toolCalls: []
+      };
+    }
+  }
   if (capacityMatch && asksDimension) {
     const requestedCapacity = Number(capacityMatch[1]);
     const capacityProducts = findProducts(String(requestedCapacity) + " L", 10)
