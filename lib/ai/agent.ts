@@ -311,7 +311,14 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
   // Deterministic responses for common high-frequency tank queries.
-  const normalized = (conversationContext + "\n" + userMessage).toLowerCase().replace(/,/g, "");
+  // Once the current request establishes a product, that product becomes the
+  // primary scope for the answer. Do not let an older capacity/application in
+  // conversation history override a new product request.
+  const activeProductIntent = namedProductIntent(userMessage);
+  const normalized = (activeProductIntent || currentHasProductIntent
+    ? userMessage
+    : conversationContext + "\n" + userMessage
+  ).toLowerCase().replace(/,/g, "");
   // Generic capacity-based dimension/specification handling across the entire catalogue.
   // When a customer asks for a capacity without naming a specific product,
   // return every verified product variant at that capacity rather than guessing
