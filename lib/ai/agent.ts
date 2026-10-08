@@ -187,8 +187,11 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
           ? "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". "
           : "";
 
-        const dimensions = selected.dimensions
-          ? "Dimensions: " + selected.dimensions + ". "
+        const safeDimensions = selected.dimensions
+          ? selected.dimensions.replace(/not specified in uploaded pdf/i, "not currently specified")
+          : "";
+        const dimensions = safeDimensions
+          ? "Dimensions: " + safeDimensions + ". "
           : "";
 
         const features = selected.features
