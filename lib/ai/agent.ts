@@ -311,7 +311,8 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
           lines.join("\\n") +
           "\\n\\n" + (homeProducts.length > 1
             ? "For a home installation, the best choice depends on the available installation space and the dimensions shown above. If you tell me the available height and diameter/footprint, I can help you narrow it down."
-            : "This is the documented option matching that capacity for home/domestic water storage.")        sources: homeProducts.map(product => ({
+            : "This is the documented option matching that capacity for home/domestic water storage."),
+        sources: homeProducts.map(product => ({
           document: product.source_document || "Kentainers product catalogue",
           page: product.source_page
         })),
