@@ -157,8 +157,7 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
           action: "clarify",
           toolCalls: []
         };
-      }
-      const intentMatches = specificIntent
+      }      const intentMatches = specificIntent
         ? findProducts(specificIntent, 10)
         : [];
 
@@ -317,8 +316,7 @@ function resolveShortProductSelection(userMessage: string, conversationContext: 
   // Prefer a full product code such as SHM 3300 over the bare numeric
   // suffix 3300 when the customer is selecting from the preceding options.
   return matches.sort((a, b) => {    const aHasPrefix = /^[a-z]/i.test(a);
-    const bHasPrefix = /^[a-z]/i.test(b);
-    return Number(bHasPrefix) - Number(aHasPrefix);
+    const bHasPrefix = /^[a-z]/i.test(b);    return Number(bHasPrefix) - Number(aHasPrefix);
   })[0] || null;
 }
 
@@ -356,21 +354,108 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   const pricing = answerPricing(userMessage);
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
-  // Deterministic direct handling for clearly named products. This prevents
-  // fuzzy catalogue matching or stale conversation context from overriding an
-  // explicit customer product request.
+  // Deterministic direct handling for clearly named products across the
+  // entire catalogue. This prevents fuzzy catalogue matching, stale context,
+  // or the language model from overriding an explicit customer product request.
   const directIntent = namedProductIntent(userMessage);
-  if (directIntent === "Mobilet") {
-    const mobiletProducts = findProducts("Mobilet", 10);
-    if (mobiletProducts.length) {
-      const p = mobiletProducts[0];
-      return {
-        answer: "Yes, we do. The Kentainers Mobilet is a mobile and reusable sanitation solution. It is documented for use in schools, clinics, hospitals, institutions, farms, homes and construction sites. The documented dimensions are 100 × 100 × 230 cm, and it is modular for 2–6 or more stances. Would you like the specifications, pricing, or guidance on the number of stances you need?",
-        sources: [{ document: p.source_document || "Kentainers product catalogue", page: p.source_page }],
-        products: [p],
-        action: "details",
-        toolCalls: []
-      };
+  if (directIntent) {
+    const directProducts = findProducts(directIntent, 10);
+
+    if (directProducts.length) {
+      const requestedCode = userMessage.match(/\\b(?:[A-Z]{2,12}\\s*)?\\d{2,6}\\b/i)?.[0]?.replace(/\\s+/g, " ").trim();
+      const requestedCapacityMatch = userMessage.match(/\\b(\\d[\\d,]*)\\s*(?:l|litre|litres|liter|liters)\\b/i);
+      const requestedCapacity = requestedCapacityMatch
+        ? Number(requestedCapacityMatch[1].replace(/,/g, ""))
+        : null;
+
+      // Prefer an exact product code when the customer supplied one.
+      const exactCodeProduct = requestedCode
+        ? directProducts.find(p =>
+            (p.product_code || "").replace(/\\s+/g, "").toLowerCase() ===
+            requestedCode.replace(/\\s+/g, "").toLowerCase()
+          )
+        : undefined;
+
+      // Otherwise use an explicitly requested capacity when it uniquely
+      // identifies a variant in the product family.
+      const capacityProducts = requestedCapacity !== null
+        ? directProducts.filter(p => Number(p.capacity || "") === requestedCapacity)
+        : [];
+
+      const selected = exactCodeProduct ||
+        (capacityProducts.length === 1 ? capacityProducts[0] : undefined);
+
+      if (selected) {
+        const capacity = selected.capacity
+          ? "Capacity: " + selected.capacity + (selected.capacity_unit || "") + ". "
+          : "";
+        const dimensions = selected.dimensions
+          ? "Dimensions: " + selected.dimensions.replace(/not specified in uploaded pdf/i, "not currently specified") + ". "
+          : "";
+        const material = selected.material
+          ? "Material: " + selected.material + ". "
+          : "";
+        const features = selected.features
+          ? "Key documented features: " + selected.features + ". "
+          : "";
+
+        return {
+          answer: "Yes — we have the " + (selected.product_name || selected.product_code || directIntent) +
+            ". " + capacity + dimensions + material + features +
+            "What would you like to know next? I can help with pricing, availability, or whether it suits your application.",
+          sources: [{ document: selected.source_document || "Kentainers product catalogue", page: selected.source_page }],
+          products: [selected],
+          action: "details",
+          toolCalls: []
+        };
+      }
+
+      // If the customer names a product family without choosing a variant,
+      // consistently show the verified variants and ask for only the missing
+      // selection. This applies to every family, not just tanks.
+      if (directProducts.length > 1 && requestedCapacity === null && !exactCodeProduct) {
+        const variants = directProducts.map(p => {
+          const capacity = p.capacity ? " – " + p.capacity + (p.capacity_unit || "") : "";
+          return (p.product_name || p.product_code || directIntent) +
+            (p.product_code ? " (" + p.product_code + ")" : "") + capacity;
+        }).join("; ");
+
+        return {
+          answer: "Yes, we have " + directIntent + " options including " + variants +
+            ". Which one would you like to know more about?",
+          sources: directProducts.map(p => ({
+            document: p.source_document || "Kentainers product catalogue",
+            page: p.source_page
+          })),
+          products: directProducts,
+          action: "details",
+          toolCalls: []
+        };
+      }
+
+      // If a capacity was supplied but matches multiple variants, do not guess.
+      if (requestedCapacity !== null && capacityProducts.length > 1) {
+        const variants = capacityProducts.map(p => {
+          const dimensions = p.dimensions
+            ? " – " + p.dimensions.replace(/not specified in uploaded pdf/i, "not currently specified")
+            : "";
+          return (p.product_name || p.product_code || directIntent) +
+            (p.product_code ? " (" + p.product_code + ")" : "") + dimensions;
+        }).join("; ");
+
+        return {
+          answer: "Yes, we have several " + directIntent + " options at " +
+            requestedCapacity.toLocaleString() + " L: " + variants +
+            ". Which variant would you like?",
+          sources: capacityProducts.map(p => ({
+            document: p.source_document || "Kentainers product catalogue",
+            page: p.source_page
+          })),
+          products: capacityProducts,
+          action: "clarify",
+          toolCalls: []
+        };
+      }
     }
   }
 
@@ -477,8 +562,7 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
 
   if (/(^|\s)10000\s*(l|litre|litres|liter|liters)\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {    return {
       answer: "Kentainers documents two 10,000 L Kentank variants: CCV 1000 Short — approximately 200 cm high × 285 cm diameter; and CCV 1000 — approximately 255 cm high × 232 cm diameter. Both are above-ground water-storage tanks. Which variant would you like to know more about?",
-      sources: [{ document: "Water tanks.pdf", page: 1 }],
-      action: "details",
+      sources: [{ document: "Water tanks.pdf", page: 1 }],      action: "details",
       toolCalls: []
     };
   }
@@ -637,5 +721,4 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     console.error("Kentainers AI agent error; using grounded knowledge fallback", error);    return localGroundedFallback(userMessage);
   }
 }
-
 // Deployment marker: verified evidenceBlock template-string syntax.
