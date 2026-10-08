@@ -40,44 +40,57 @@ export async function POST(req: Request) {
       ? `\n\nRecent conversation:\n${body.history.map((m) => `${m.role === "user" ? "Customer" : "Chatbot"}: ${m.text}`).join("\n")}`
       : "";
     const lastAssistant = [...body.history].reverse().find((m) => m.role === "assistant")?.text || "";
-    const hasName = Boolean(body.customer.name?.trim());
-    const hasPhone = Boolean(body.customer.phone?.trim());
-    const hasMandatoryContact = hasName && hasPhone;
+    const priorUserMessages = body.history.filter((m) => m.role === "user").map((m) => m.text.trim());
+    const currentMessage = body.message.trim();
+    const currentLooksLikePhone = /^(?:\+?254|0)7\d{8}$/.test(currentMessage.replace(/[\s()-]/g, ""));
+    const currentLooksLikeName = /^[A-Za-z][A-Za-z .'-]{1,59}$/.test(currentMessage);
 
-    // A price/availability escalation requires a name and phone number.
-    // Never rerun product discovery when the customer is simply completing
-    // the contact details requested by the previous escalation.
     const awaitingContact =
       /provide (?:your )?(?:name|phone)|leave your (?:phone|contact)|customer details|contact details|representative will contact/i.test(lastAssistant);
 
-    const contactFollowUp =
-      awaitingContact &&
-      hasMandatoryContact;
+    // Customers may complete mandatory contact details either in the
+    // enquiry fields or conversationally. Never send a contact-only reply
+    // back through product discovery.
+    const inferredName =
+      body.customer.name?.trim() ||
+      (awaitingContact && currentLooksLikeName ? currentMessage : "") ||
+      (awaitingContact ? [...priorUserMessages].reverse().find((m) => /^[A-Za-z][A-Za-z .'-]{1,59}$/.test(m)) || "" : "");
 
-    const needsPhoneForEscalation =
-      awaitingContact &&
-      hasName &&
-      !hasPhone;
+    const inferredPhone =
+      body.customer.phone?.trim() ||
+      (currentLooksLikePhone ? currentMessage.replace(/[\s()-]/g, "") : "");
+
+    const hasName = Boolean(inferredName);
+    const hasPhone = Boolean(inferredPhone);
+    const hasMandatoryContact = hasName && hasPhone;
+
+    const contactFollowUp = awaitingContact && hasMandatoryContact;
+    const needsPhoneForEscalation = awaitingContact && hasName && !hasPhone;
+
+    const effectiveCustomer = {
+      ...body.customer,
+      name: inferredName || body.customer.name,
+      phone: inferredPhone || body.customer.phone
+    };
+    const effectiveCustomerContext = "Customer name: " + (effectiveCustomer.name || "Not provided") +
+      "\nCustomer email: " + (effectiveCustomer.email || "Not provided") +
+      "\nCustomer phone: " + (effectiveCustomer.phone || "Not provided");
 
     const result = contactFollowUp
       ? {
-          answer: "Thanks, " + body.customer.name.trim() + ". I have captured your enquiry. A Kentainers representative will contact you with the verified information.",
+          answer: "Thanks, " + inferredName + ". I have captured your enquiry. A Kentainers representative will contact you with the verified information.",
           sources: [],
           action: "escalate" as const,
           toolCalls: []
         }
       : needsPhoneForEscalation
         ? {
-            answer: "Thanks, " + body.customer.name.trim() + ". Please provide the customer's phone number so the Kentainers team can follow up on this enquiry.",
+            answer: "Thanks, " + inferredName + ". Please provide the customer's phone number so the Kentainers team can follow up on this enquiry.",
             sources: [],
             action: "escalate" as const,
             toolCalls: []
           }
-        : await runAgent(`${customerContext}
-${requirementContext}
-
-Current customer message: ${body.message}`, conversationContext);
-
+        : await runAgent(effectiveCustomerContext + "\n" + requirementContext + "\n\nCurrent customer message: " + body.message, conversationContext);
     if (result.action === "escalate") {
       if (!hasMandatoryContact && !needsPhoneForEscalation) {
         result.answer =
@@ -87,7 +100,7 @@ Current customer message: ${body.message}`, conversationContext);
     }
     let enquiryId: string | undefined;
     try {
-      enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);
+      enquiryId = await saveCustomerEnquiry(effectiveCustomer, body.message, result, requirements);
       await recordChatbotQuestion(body.message, result, requirements);
       if (process.env.RESEND_API_KEY && process.env.KPIA_FROM_EMAIL) {
         try {
