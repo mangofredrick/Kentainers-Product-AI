@@ -347,6 +347,24 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
   const pricing = answerPricing(userMessage);
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
+  // Deterministic direct handling for clearly named products. This prevents
+  // fuzzy catalogue matching or stale conversation context from overriding an
+  // explicit customer product request.
+  const directIntent = namedProductIntent(userMessage);
+  if (directIntent === "Mobilet") {
+    const mobiletProducts = findProducts("Mobilet", 10);
+    if (mobiletProducts.length) {
+      const p = mobiletProducts[0];
+      return {
+        answer: "Yes, we do. The Kentainers Mobilet is a mobile and reusable sanitation solution. It is documented for use in schools, clinics, hospitals, institutions, farms, homes and construction sites. The documented dimensions are 100 × 100 × 230 cm, and it is modular for 2–6 or more stances. Would you like the specifications, pricing, or guidance on the number of stances you need?",
+        sources: [{ document: p.source_document || "Kentainers product catalogue", page: p.source_page }],
+        products: [p],
+        action: "details",
+        toolCalls: []
+      };
+    }
+  }
+
   // Deterministic responses for common high-frequency tank queries.
   // Once the current request establishes a product, that product becomes the
   // primary scope for the answer. Do not let an older capacity/application in
