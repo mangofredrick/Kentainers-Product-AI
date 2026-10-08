@@ -231,6 +231,23 @@ export async function markQuestionMemoryReviewed(id: number, status: "verified" 
   );
 }
 
+export async function findApprovedQuestionAnswer(question: string) {
+  await ensureQuestionMemoryTable();
+  const normalized = normalizeQuestion(question);
+  const result = await getPool().query(
+    `SELECT question, approved_answer, product_interest, capacity, application, frequency
+     FROM chatbot_question_memory
+     WHERE knowledge_status = 'verified'
+       AND needs_review = FALSE
+       AND approved_answer IS NOT NULL
+       AND question = $1
+     LIMIT 1`,
+    [normalized]
+  );
+  return result.rows[0] || null;
+}
+
+
 export async function listFollowUpEnquiries(limit = 50) {
   await ensureCustomerEnquiriesTable();
   const result = await getPool().query(
