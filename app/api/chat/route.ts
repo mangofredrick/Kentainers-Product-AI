@@ -39,15 +39,8 @@ export async function POST(req: Request) {
     const conversationContext = body.history.length
       ? `\n\nRecent conversation:\n${body.history.map((m) => `${m.role === "user" ? "Customer" : "Chatbot"}: ${m.text}`).join("\n")}`
       : "";
-    const result = await runAgent(`${customerContext}\n${requirementContext}\n\nCurrent customer message: ${body.message}`, conversationContext);
-    if (result.action === "escalate") {
-      const hasContact = Boolean(body.customer.name?.trim() && (body.customer.email?.trim() || body.customer.phone?.trim()));
-      if (!hasContact) {
-        result.answer = result.answer +
-          " To help the Kentainers team follow up, please provide your name and either your phone number or email address in the customer details above.";
-      }
-    }
-    let enquiryId: string | undefined;
+    const lastAssistant = [...body.history].reverse().find((m) => m.role === "assistant")?.text || "";\n    const hasContact = Boolean(body.customer.name?.trim() && (body.customer.email?.trim() || body.customer.phone?.trim()));\n    const awaitingContact = /provide (?:your )?(?:name|email|phone)|leave your email|customer details|contact details|representative will contact/i.test(lastAssistant);\n\n    // Complete an escalated enquiry after contact details are supplied instead of\n    // rerunning product discovery and losing the original product/enquiry intent.\n    const result = hasContact && awaitingContact\n      ? {\n          answer: "Thanks, " + body.customer.name.trim() + ". I have captured your enquiry" + (requirements.product ? " for " + requirements.product : "") + (requirements.capacity ? " (" + requirements.capacity + ")" : "") + ". A Kentainers representative will get back to you with the verified information.",\n          sources: [],\n          action: "escalate" as const,\n          toolCalls: []\n        }\n      : await runAgent(`${customerContext}\\n${requirementContext}\\n\\nCurrent customer message: ${body.message}`, conversationContext);
+    if (result.action === "escalate") {\n      if (!hasContact && !awaitingContact) {\n        result.answer = result.answer +\n          " To help the Kentainers team follow up, please provide your name and either your phone number or email address in the customer details above.";\n      }\n    }\n    let enquiryId: string | undefined;
     try {
       enquiryId = await saveCustomerEnquiry(body.customer, body.message, result, requirements);
       await recordChatbotQuestion(body.message, result, requirements);
