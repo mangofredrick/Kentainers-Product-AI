@@ -307,10 +307,11 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
         return "- " + product.product_name + " — " + dimensions;
       });
       return {
-        answer: "For home/domestic water storage, the documented 10,000 L options are:\n" +
-          lines.join("\n") +
-          "\n\nFor a home installation, the choice can be based on available space: the Short variant is lower and wider, while the standard variant is taller and narrower. If you tell me the available installation space, I can help you choose between them.",
-        sources: homeProducts.map(product => ({
+        answer: "For home/domestic water storage at " + requestedCapacity.toLocaleString() + " L, Kentainers documents:\\n" +
+          lines.join("\\n") +
+          "\\n\\n" + (homeProducts.length > 1
+            ? "For a home installation, the best choice depends on the available installation space and the dimensions shown above. If you tell me the available height and diameter/footprint, I can help you narrow it down."
+            : "This is the documented option matching that capacity for home/domestic water storage.")        sources: homeProducts.map(product => ({
           document: product.source_document || "Kentainers product catalogue",
           page: product.source_page
         })),
