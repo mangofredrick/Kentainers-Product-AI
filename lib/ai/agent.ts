@@ -12,7 +12,7 @@ function namedProductIntent(message: string): string | null {
   const patterns: Array<[RegExp, string]> = [
     [/\bpermawell\b/i, "Permawell"],
     [/\bpedal\s+hand\s*wash\b|\bhand[- ]washing\b|\bhand[- ]wash\b/i, "Pedal Hand Wash"],
-    [/\bblueflame\b|\bbioslurri\s*gaz\b|\bbiodigester\b/i, "BlueFlame"],
+    [/\bblueflame\b|\bbioslurri\s*gaz\b|\bbiodigester\b|\bbiogas\b/i, "BlueFlame"],
     [/\bbunkatank\b/i, "Bunkatank"],
     [/\bloftank\b/i, "Loftank"],
     [/\bnestank\b/i, "Nestank"],
