@@ -286,6 +286,39 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
 
   // Deterministic responses for common high-frequency tank queries.
   const normalized = (conversationContext + "\n" + userMessage).toLowerCase().replace(/,/g, "");
+  // Generic capacity-based dimension/specification handling across the entire catalogue.
+  // When a customer asks for a capacity without naming a specific product,
+  // return every verified product variant at that capacity rather than guessing
+  // a single or unrelated product.
+  const capacityMatch = normalized.match(/(?:^|\\D)(\\d{2,6})\\s*(?:l|litre|litres|liter|liters)\\b/i);
+  const asksDimension = /\\b(dimension|dimensions|size|height|diameter|width|length)\\b/i.test(normalized);
+  if (capacityMatch && asksDimension) {
+    const requestedCapacity = Number(capacityMatch[1]);
+    const capacityProducts = findProducts(String(requestedCapacity) + " L", 10)
+      .filter(product => Number(product.capacity) === requestedCapacity);
+
+    if (capacityProducts.length) {
+      const lines = capacityProducts.map(product => {
+        const dimensions = product.dimensions
+          ? product.dimensions.replace(/not specified in uploaded pdf/i, "not currently specified")
+          : "not currently specified";
+        return "- " + product.product_name + " — " + dimensions;
+      });
+      return {
+        answer: "For " + requestedCapacity.toLocaleString() + " L, Kentainers documents the following product option" +
+          (capacityProducts.length > 1 ? "s" : "") + ":\\n" + lines.join("\\n") +
+          "\\n\\nIf you tell me the intended application, I can help you select the most suitable option.",
+        sources: capacityProducts.map(product => ({
+          document: product.source_document || "Kentainers product catalogue",
+          page: product.source_page
+        })),
+        action: capacityProducts.length > 1 ? "clarify" : "details",
+        toolCalls: []
+      };
+    }
+  }
+
+
 
   if (/(^|\\s)10000\\s*(l|litre|litres|liter|liters)\\b/.test(normalized) && /(tank|kentank|storage)/.test(normalized)) {
     return {
