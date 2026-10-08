@@ -19,6 +19,7 @@ function namedProductIntent(message: string): string | null {
     [/\bkpot\b/i, "KPOT"],
     [/\bkentank\b/i, "Kentank"],
     [/\bgran\s*silo\b|\bgransilo\b/i, "Grain Silo"],
+    [/\brolling\s+drum\b/i, "Rolling Drum"],
     [/\bdrum\b/i, "Drum"],
     [/\bfish\s+tank\b/i, "Fish Tank"],
     [/\bfish\s+tub\b/i, "Fish Tub"],
@@ -29,9 +30,8 @@ function namedProductIntent(message: string): string | null {
     [/\bqdesk\b|\bschool\s+desk\b|\bstudent\s+desk\b/i, "Qdesk"],
     [/\btuffbarrier\b|\broad\s+barrier\b|\broad\s+barricade\b/i, "TuffBarrier"],
     [/\btraffic\s+con(?:e)?\b|\btraffic\s+cone\b/i, "Traffic Con"],
-    [/\brolling\s+drum\b/i, "Rolling Drum"],
     [/\bkenpallet\b|\bdurapall\b|\bpallet\b/i, "DuraPall Pallet"],
-    [/\bsliver\s+can\b|\bsc\s*\d{2}\b/i, "Sliver Can"],
+    [/\b(?:sliver|silver)\s+can\b|\bsc\s*\d{2}\b/i, "Sliver Can"],
     [/\btray\b|\bfodder\s+tray\b|\bnestable\s+tray\b|\bstackable\s+tray\b/i, "Tray"],
     [/\bflower\s+bucket\b|\bflower\s+container\b/i, "Flower Bucket"],
     [/\bhand\s+hole\b|\bhandhole\b|\bcable\s+chamber\b/i, "Hand Hole"],
@@ -49,7 +49,7 @@ function namedProductIntent(message: string): string | null {
 
 function requirementEquivalentIntent(message: string): string | null {
   const rules: Array<[RegExp, string]> = [
-    [/\bmobile\s+(?:toilet|loo|lavatory)\b|\bportable\s+(?:toilet|loo)\b/i, "Mobilet"],
+    [/\bmobile\s+(?:toil(?:et|te)|loo|lavatory)\b|\bportable\s+(?:toil(?:et|te)|loo)\b/i, "Mobilet"],
     [/\b(?:toilet|loo)\b.*\b(?:mobile|portable|movable|temporary|site)\b|\b(?:mobile|portable|movable|temporary|site)\b.*\b(?:toilet|loo)\b/i, "Mobilet"],
     [/\bhand\s*wash(?:ing)?\b|\bwash\s+hands\b|\bhand\s+hygiene\b/i, "Pedal Hand Wash"],
     [/\bbiogas\b|\bbiodigester\b|\bgas\s+from\s+(?:manure|waste)\b/i, "BlueFlame"],
