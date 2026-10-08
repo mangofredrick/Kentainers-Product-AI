@@ -89,7 +89,7 @@ const aliases: Record<string, string[]> = {
   "flower bucket": ["flower bucket", "flower buckets"],
   gransilo: ["gransilo", "grain silo", "grain storage silo", "hermetic grain silo"],
   "lifeline gutter": ["lifeline gutter", "lifeline gutters", "rainwater gutter", "rainwater harvesting gutter"],
-  mobilet: ["mobilet", "mobile toilet", "mobile toilet block"],
+  mobilet: ["mobilet", "mobile toilet", "mobile toilets", "mobile toilet block", "mobile toile", "portable toilet", "portable toilets"],
   "hand hole": ["hand hole", "handhole", "cable chamber", "telecommunication chamber"],
   pallet: ["pallet", "pallets", "durapall", "durapall pallet"],
   qdesk: ["qdesk", "school desk", "student desk"],
