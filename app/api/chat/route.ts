@@ -46,10 +46,10 @@ export async function POST(req: Request) {
     const currentLooksLikeName = /^[A-Za-z][A-Za-z .'-]{1,59}$/.test(currentMessage);
 
     const awaitingContact =
-      /provide (?:your )?(?:name|phone)|leave your (?:phone|contact)|customer details|contact details|representative will contact/i.test(lastAssistant);
+      /provide (?:the customer(?:\'s)?|your|the)?\s*(?:name|phone)|leave your (?:phone|contact)|customer details|contact details|representative will contact/i.test(lastAssistant);
     const escalationInConversation = body.history.some((m) =>
       m.role === "assistant" &&
-      /provide (?:your )?(?:name|phone)|leave your (?:phone|contact)|customer details|contact details|representative will contact/i.test(m.text)
+      /provide (?:the customer(?:\'s)?|your|the)?\s*(?:name|phone)|leave your (?:phone|contact)|customer details|contact details|representative will contact/i.test(m.text)
     );
 
     // Customers may complete mandatory contact details either in the
