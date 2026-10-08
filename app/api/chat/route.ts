@@ -47,6 +47,10 @@ export async function POST(req: Request) {
 
     const awaitingContact =
       /provide (?:your )?(?:name|phone)|leave your (?:phone|contact)|customer details|contact details|representative will contact/i.test(lastAssistant);
+    const escalationInConversation = body.history.some((m) =>
+      m.role === "assistant" &&
+      /provide (?:your )?(?:name|phone)|leave your (?:phone|contact)|customer details|contact details|representative will contact/i.test(m.text)
+    );
 
     // Customers may complete mandatory contact details either in the
     // enquiry fields or conversationally. Never send a contact-only reply
@@ -64,8 +68,9 @@ export async function POST(req: Request) {
     const hasPhone = Boolean(inferredPhone);
     const hasMandatoryContact = hasName && hasPhone;
 
-    const contactFollowUp = awaitingContact && hasMandatoryContact;
-    const needsPhoneForEscalation = awaitingContact && hasName && !hasPhone;
+    const pendingEscalation = awaitingContact || escalationInConversation;
+    const contactFollowUp = pendingEscalation && hasMandatoryContact;
+    const needsPhoneForEscalation = pendingEscalation && hasName && !hasPhone;
 
     const effectiveCustomer = {
       ...body.customer,
