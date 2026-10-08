@@ -252,7 +252,29 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
   }
 }
 
-export async function runAgent(userMessage: string, conversationContext = ""): Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
+function resolveShortProductSelection(userMessage: string, conversationContext: string): string | null {
+  const message = userMessage.trim().toLowerCase();
+  if (!conversationContext || !/^(?:\d{3,6}|[a-z]{2,12}\s*\d{3,6})$/i.test(message)) return null;
+
+  const contextCodes = Array.from(
+    conversationContext.matchAll(/\b(?:[A-Z]{2,12}\s*)?\d{3,6}\b/gi)
+  ).map(m => m[0].replace(/\s+/g, " ").trim());
+
+  const compactMessage = message.replace(/\s+/g, "");
+  const match = contextCodes.find(code => {
+    const compactCode = code.toLowerCase().replace(/\s+/g, "");
+    return compactCode === compactMessage ||
+      (message.match(/^\d{3,6}$/) && compactCode.endsWith(compactMessage));
+  });
+
+  return match || null;
+}
+
+export async function runAgent(userMessage: string, conversationContext = "") {
+  const resolvedSelection = resolveShortProductSelection(userMessage, conversationContext);
+  if (resolvedSelection) {
+    userMessage = resolvedSelection;
+  }: Promise<AgentResult & { toolCalls?: ToolTrace[] }> {
   const pricing = answerPricing(userMessage);
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
