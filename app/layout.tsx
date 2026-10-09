@@ -1,8 +1,8 @@
 import React from "react";
 
 export const metadata = {
-  title: "Kentainers Product Chatbot",
-  description: "AI-powered Kentainers product selection, pricing and customer enquiry assistant",
+  title: "Kentainers Product & Services Virtual Assistant | ASTi Group",
+  description: "Kentainers, an ASTi Group company: virtual assistance for products, services, technical guidance, pricing and customer enquiries.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
