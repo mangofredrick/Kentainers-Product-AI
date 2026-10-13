@@ -15,20 +15,57 @@ export default function Home(){
  function newEnquiry(){setCustomerName("");setCustomerEmail("");setCustomerPhone("");setRequirements(emptyRequirements);setEnquiryId("");setInput("");setMessages([{role:"assistant",text:"Welcome to Kentainers, an ASTi Group company. I’m your virtual assistant for products, services, and customer support. Tell me what you need, and I’ll assist you in the best way I can. You can ask about our product range, applications, technical specifications, pricing, delivery, or installation guidance."}]);}
  function useQuestion(question:string){setInput(question);window.setTimeout(()=>document.getElementById("chat-input")?.focus(),0);}
  async function send(){const question=input.trim();if(!question||loading)return;setInput("");setMessages(m=>[...m,{role:"user",text:question}]);setLoading(true);try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:question,customer:{name:customerName,email:customerEmail,phone:customerPhone},requirements,history:messages.slice(-12)})});const data=await res.json();if(data.enquiryId)setEnquiryId(data.enquiryId);let rawProducts=Array.isArray(data.products)?data.products as ProductCard[]:[];
-const asksForImage=/\b(image|photo|picture|show me|see what it looks like)\b/i.test(question);
-const recentCustomerMessages=[...messages].reverse().filter(m=>m.role==="user").map(m=>m.text);
-const imageContext=[question,...recentCustomerMessages].join(" ");
+const asksForImage=/\b(image|photo|picture|show me|see what it looks like|what does .* look like)\b/i.test(question);
+const conversationMessages=messages.slice(-12).map(m=>m.text);
+const imageContext=[...conversationMessages,question].join(" ");
 if(asksForImage&&rawProducts.length===0){
-  const tankMatch=imageContext.match(/\b(\d[\d,]*)\s*(?:l|litre|litres|liter|liters)\b/i);
-  const shortVariant=/\bshort\b/i.test(imageContext);
-  const likelyQuery=tankMatch
-    ? "Kentank "+tankMatch[1].replace(/,/g,"")+" L"+(shortVariant?" Short":"")
-    : /\b(permawell|pedal hand wash|dust bin|bunkatank|blueflame|kentank|tank)\b/i.test(imageContext)
-      ? (imageContext.match(/\b(permawell|pedal hand wash|dust bin|bunkatank|blueflame|kentank|tank)\b/i)?.[0]||"Kentainers tank")
-      : "Kentainers tank";
-  rawProducts=[{product_name:likelyQuery}];
+  // Resolve the image request from the full conversation, across the entire
+  // product range rather than assuming every image request is about a tank.
+  const productPatterns:Array<[RegExp,string]>=[
+    [/\bpermawell\b/i,"Permawell Shallow Well Liner"],
+    [/\bpedal\s+hand\s*wash(?:\s*\d+\s*l?)?\b/i,"Pedal Hand Wash"],
+    [/\b(dm5|dm7|dm10)\b/i,"$1"],
+    [/\b(dust\s*bin|dustbin|blow\s*bin|bin)\b/i,"DM5 Blow Bin"],
+    [/\b(bunkatank|bunka\s*tank)\b/i,"Bunkatank"],
+    [/\b(blueflame|bioslurri\s*gaz|biodigester|biogas)\b/i,"BlueFlame"],
+    [/\b(cattle\s*feed\s*trough|feed\s*trough)\b/i,"Cattle Feed Trough"],
+    [/\b(cooler\s*box)\b/i,"Cooler Box"],
+    [/\b(bucket|cc2)\b/i,"CC2 Bucket"],
+    [/\b(pallets?)\b/i,"Kentainers pallet"],
+    [/\b(road\s*barrier|traffic\s*barrier|barrier)\b/i,"Kentainers barrier"],
+    [/\b(lr\s*23|lr\s*46)\b/i,"LR"],
+    [/\b(kentank|water\s*storage|water\s*tank|tank)\b/i,"Kentank"]
+  ];
+  let likelyQuery="";
+  for(const [pattern,label] of productPatterns){
+    const match=imageContext.match(pattern);
+    if(match){
+      likelyQuery=label==="$1"?match[1].toUpperCase():label;
+      const capacity=imageContext.match(/\b(\d[\d,]*)\s*(?:l|litre|litres|liter|liters)\b/i);
+      if(/Kentank/.test(likelyQuery)&&capacity){
+        const shortVariant=/\bshort\b/i.test(imageContext);
+        likelyQuery="CCV "+capacity[1].replace(/,/g,"")+(shortVariant?" Short":"");
+      }
+      break;
+    }
+  }
+  rawProducts=[{product_name:likelyQuery||"Kentainers products"}];
 }
-const products=await Promise.all(rawProducts.slice(0,6).map(async p=>{try{const query=p.product_code||p.product_name;const imageRes=await fetch("/api/product-images?search="+encodeURIComponent(query));const imageData=await imageRes.json();const matches=Array.isArray(imageData.products)?imageData.products:[];const normalized=(p.product_name||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();const match=matches.find((x:{name:string})=>x.name.toLowerCase().replace(/[^a-z0-9]+/g," ").trim()===normalized)||matches[0];return {...p,imageUrl:match?.imageUrl||"",imageAlt:match?.imageAlt||p.product_name,productUrl:match?.permalink||""};}catch{return p;}}));
+const products=await Promise.all(rawProducts.slice(0,6).map(async p=>{try{
+  const query=p.product_code||p.product_name;
+  const imageRes=await fetch("/api/product-images?search="+encodeURIComponent(query));
+  const imageData=await imageRes.json();
+  const matches=Array.isArray(imageData.products)?imageData.products:[];
+  const normalized=(p.product_name||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+  const productTokens=normalized.split(" ").filter((t:string)=>t.length>2&&!["kentainers","product","products"].includes(t));
+  const scored=matches.map((x:{name:string;imageUrl:string;imageAlt?:string;permalink?:string})=>{
+    const candidate=x.name.toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+    const score=productTokens.reduce((n:number,token:string)=>n+(candidate.includes(token)?1:0),0);
+    return {x,score};
+  }).sort((a:{score:number},b:{score:number})=>b.score-a.score);
+  const match=matches.find((x:{name:string})=>x.name.toLowerCase().replace(/[^a-z0-9]+/g," ").trim()===normalized)||scored[0]?.x||matches[0];
+  return {...p,imageUrl:match?.imageUrl||"",imageAlt:match?.imageAlt||p.product_name,productUrl:match?.permalink||""};
+}catch{return p;}}));
 const visibleProducts=products.filter(p=>p.imageUrl);
 const finalAnswer=asksForImage&&visibleProducts.length
   ? (data.answer||"Here are some product images to help you compare the options.")
