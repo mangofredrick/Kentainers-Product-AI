@@ -349,6 +349,46 @@ export async function runAgent(userMessage: string, conversationContext = ""): P
     }
   }
 
+  // Keep casual conversation friendly, while gently steering unrelated requests
+  // back to Kentainers products and services. Run after short follow-up resolution
+  // so replies such as "home use" continue the active product conversation.
+  const casualMessage = currentMessageForFollowUp.trim().toLowerCase().replace(/[.!?]+$/, "");
+  const greetingPattern = /^(?:hi|hello|hey|good morning|good afternoon|good evening|how are you|how's it going|thank you|thanks|thank you so much|cheers|goodbye|bye)\b/i;
+  if (greetingPattern.test(casualMessage) && casualMessage.length < 45) {
+    const isThanks = /^(?:thank you|thanks|thank you so much|cheers)\b/i.test(casualMessage);
+    const isBye = /^(?:goodbye|bye)\b/i.test(casualMessage);
+    return {
+      answer: isThanks
+        ? "You’re welcome! Is there anything else I can help you with from Kentainers?"
+        : isBye
+          ? "Thanks for chatting with Kentainers. Feel free to come back whenever you need help with our products or services."
+          : "Hi there! Welcome to Kentainers. What can I help you with today—products, pricing, delivery, or a technical question?",
+      sources: [],
+      action: "details",
+      toolCalls: []
+    };
+  }
+
+  const clearlyOffTopicPatterns = [
+    /\b(weather forecast|what(?:'s| is) the weather|temperature today)\b/i,
+    /\b(latest news|breaking news|political news|election results)\b/i,
+    /\b(who won|live score|football match|premier league|nba standings)\b/i,
+    /\b(homework|solve this equation|write my essay|school assignment|exam answers)\b/i,
+    /\b(write code|debug my code|python programming|javascript tutorial)\b/i,
+    /\b(stock market today|bitcoin price|crypto price)\b/i,
+    /\b(tell me a joke|play a game|write a poem|write a love letter)\b/i,
+    /\b(relationship advice|dating advice|personal medical advice)\b/i
+  ];
+  const mentionsKentainersContext = /\b(kentainers|kentank|tank|water storage|dust bin|dustbin|permawell|pedal hand wash|bunkatank|blueflame|delivery|installation|quotation|price|pricing|product|products|service|services|order|customer enquiry|customer support)\b/i.test(casualMessage);
+  if (!mentionsKentainersContext && clearlyOffTopicPatterns.some(pattern => pattern.test(casualMessage))) {
+    return {
+      answer: "I can help with Kentainers products and services, including product selection, specifications, pricing, delivery, installation guidance, and customer enquiries. I’m not the right assistant for that other topic, but tell me what you’re looking for from Kentainers and I’ll be happy to help.",
+      sources: [],
+      action: "clarify",
+      toolCalls: []
+    };
+  }
+
   const pricing = answerPricing(userMessage);
   if (pricing) return pricing as AgentResult & { toolCalls?: ToolTrace[] };
 
