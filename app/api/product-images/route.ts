@@ -18,20 +18,39 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const url = new URL("https://kentainers.co.ke/wp-json/wc/store/v1/products");
-    url.searchParams.set("search", search);
-    url.searchParams.set("per_page", "8");
-    const response = await fetch(url.toString(), {
-      headers: { Accept: "application/json" },
-      next: { revalidate: 3600 }
-    });
+    const base = "https://kentainers.co.ke/wp-json/wc/store/v1/products";
+    const headers = { Accept: "application/json" };
+    const fetchProducts = async (query?: string): Promise<StoreProduct[]> => {
+      const url = new URL(base);
+      if (query) url.searchParams.set("search", query);
+      url.searchParams.set("per_page", "100");
+      const response = await fetch(url.toString(), {
+        headers,
+        next: { revalidate: 3600 }
+      });
+      if (!response.ok) return [];
+      const body = await response.json();
+      return Array.isArray(body) ? body as StoreProduct[] : [];
+    };
 
-    if (!response.ok) {
-      return NextResponse.json({ products: [] }, { status: 200 });
-    }
+    // WooCommerce's search can miss products when customers use a capacity,
+    // abbreviation, or a different display name. Try the exact phrase first,
+    // then match against the full public shop catalogue.
+    let results = await fetchProducts(search);
+    if (!results.length) results = await fetchProducts();
 
-    const results = (await response.json()) as StoreProduct[];
-    const products = results.map((product) => ({
+    const normalize = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    const terms = normalize(search).split(" ").filter(term => term.length > 1);
+    const ranked = results.map(product => {
+      const name = normalize(product.name || "");
+      const score = terms.reduce((total, term) => total + (name.includes(term) ? 1 : 0), 0);
+      return { product, score };
+    }).filter(item => item.product.name && item.product.images?.[0]?.src)
+      .sort((a, b) => b.score - a.score);
+
+    const exact = ranked.filter(item => normalize(item.product.name || "") === normalize(search));
+    const selected = (exact.length ? exact : ranked.filter(item => item.score > 0)).slice(0, 8);
+    const products = selected.map(({ product }) => ({
       id: product.id,
       name: product.name || "",
       permalink: product.permalink || "",
