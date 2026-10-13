@@ -18,59 +18,73 @@ export default function Home(){
 const asksForImage=/\b(image|photo|picture|show me|see what it looks like|what does .* look like)\b/i.test(question);
 const conversationMessages=messages.slice(-12).map(m=>m.text);
 const imageContext=[...conversationMessages,question].join(" ");
-if(asksForImage&&rawProducts.length===0){
-  // Resolve the image request from the full conversation, across the entire
-  // product range rather than assuming every image request is about a tank.
-  const productPatterns:Array<[RegExp,string]>=[
-    [/\bpermawell\b/i,"Permawell Shallow Well Liner"],
-    [/\bpedal\s+hand\s*wash(?:\s*\d+\s*l?)?\b/i,"Pedal Hand Wash"],
-    [/\b(dm5|dm7|dm10)\b/i,"$1"],
-    [/\b(dust\s*bin|dustbin|blow\s*bin|bin)\b/i,"DM5 Blow Bin"],
-    [/\b(bunkatank|bunka\s*tank)\b/i,"Bunkatank"],
-    [/\b(blueflame|bioslurri\s*gaz|biodigester|biogas)\b/i,"BlueFlame"],
-    [/\b(cattle\s*feed\s*trough|feed\s*trough)\b/i,"Cattle Feed Trough"],
-    [/\b(cooler\s*box)\b/i,"Cooler Box"],
-    [/\b(bucket|cc2)\b/i,"CC2 Bucket"],
-    [/\b(pallets?)\b/i,"Kentainers pallet"],
-    [/\b(road\s*barrier|traffic\s*barrier|barrier)\b/i,"Kentainers barrier"],
-    [/\b(lr\s*23|lr\s*46)\b/i,"LR"],
-    [/\b(kentank|water\s*storage|water\s*tank|tank)\b/i,"Kentank"]
-  ];
-  let likelyQuery="";
-  for(const [pattern,label] of productPatterns){
-    const match=imageContext.match(pattern);
-    if(match){
-      likelyQuery=label==="$1"?match[1].toUpperCase():label;
-      const capacity=imageContext.match(/\b(\d[\d,]*)\s*(?:l|litre|litres|liter|liters)\b/i);
-      if(/Kentank/.test(likelyQuery)&&capacity){
-        const shortVariant=/\bshort\b/i.test(imageContext);
-        likelyQuery="CCV "+capacity[1].replace(/,/g,"")+(shortVariant?" Short":"");
-      }
-      break;
-    }
-  }
-  rawProducts=[{product_name:likelyQuery||"Kentainers products"}];
+const imageCandidates:string[]=[];
+if(asksForImage){
+  const context=imageContext.toLowerCase();
+  const capacity=context.match(/\b(\d[\d,]*)\s*(?:l|litre|litres|liter|liters)\b/i);
+  const shortVariant=/\bshort\b/.test(context);
+  const dm=context.match(/\bdm\s*(5|7|10)\b/i);
+  const pedal=context.match(/\bpedal\s+hand\s*wash(?:\s*(100|200|250)\s*l?)?\b/i);
+  if(/\bpermawell\b/i.test(context)) imageCandidates.push("Permawell","Permawell Shallow Well Liner");
+  else if(dm) imageCandidates.push("DM"+dm[1],"DM"+dm[1]+" Blow Bin","dust bin");
+  else if(/\b(dust\s*bin|dustbin|blow\s*bin|bin)\b/i.test(context)) imageCandidates.push("DM5 Blow Bin","DM7 Blow Bin","dust bin");
+  else if(pedal) imageCandidates.push(pedal[1]?"Pedal Hand Wash "+pedal[1]+" L":"Pedal Hand Wash","hand wash");
+  else if(/\b(bunkatank|bunka\s*tank)\b/i.test(context)) imageCandidates.push("Bunkatank","BKT");
+  else if(/\b(blueflame|bioslurri\s*gaz|biodigester|biogas)\b/i.test(context)) imageCandidates.push("BlueFlame","biodigester");
+  else if(/\b(cattle\s*feed\s*trough|feed\s*trough)\b/i.test(context)) imageCandidates.push("Cattle Feed Trough","feed trough");
+  else if(/\bcooler\s*box\b/i.test(context)) imageCandidates.push("Cooler Box");
+  else if(/\b(cc2|bucket)\b/i.test(context)) imageCandidates.push("CC2 Bucket","bucket");
+  else if(/\b(barrier|pallet|lr\s*23|lr\s*46)\b/i.test(context)) imageCandidates.push((context.match(/\b(barrier|pallet|lr\s*23|lr\s*46)\b/i)?.[0]||"Kentainers product"));
+  else if(capacity){
+    const litres=capacity[1].replace(/,/g,"");
+    const numeric=Number(litres);
+    const code=numeric===5000?"500":numeric===6000?"600":numeric===10000?"1000":numeric===4000?"400":numeric===4600?"460":numeric===8000?"800":"";
+    if(code) imageCandidates.push("CCV "+code+(shortVariant?" Short":""),"Kentank "+litres+" L"+(shortVariant?" Short":""));
+    imageCandidates.push(litres+" L"+(shortVariant?" Short":""),"Kentank "+litres);
+  } else if(/\b(tank|kentank|water storage)\b/i.test(context)) imageCandidates.push("Kentank","water tank","CCV tank");
+  else imageCandidates.push("Kentainers");
 }
-const products=await Promise.all(rawProducts.slice(0,6).map(async p=>{try{
-  const query=p.product_code||p.product_name;
-  const imageRes=await fetch("/api/product-images?search="+encodeURIComponent(query));
-  const imageData=await imageRes.json();
-  const matches=Array.isArray(imageData.products)?imageData.products:[];
-  const normalized=(p.product_name||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
-  const productTokens=normalized.split(" ").filter((t:string)=>t.length>2&&!["kentainers","product","products"].includes(t));
-  const scored=matches.map((x:{name:string;imageUrl:string;imageAlt?:string;permalink?:string})=>{
-    const candidate=x.name.toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
-    const score=productTokens.reduce((n:number,token:string)=>n+(candidate.includes(token)?1:0),0);
-    return {x,score};
-  }).sort((a:{score:number},b:{score:number})=>b.score-a.score);
-  const match=matches.find((x:{name:string})=>x.name.toLowerCase().replace(/[^a-z0-9]+/g," ").trim()===normalized)||scored[0]?.x||matches[0];
-  return {...p,imageUrl:match?.imageUrl||"",imageAlt:match?.imageAlt||p.product_name,productUrl:match?.permalink||""};
-}catch{return p;}}));
+if(asksForImage) rawProducts=[];
+let products:ProductCard[]=[];
+if(asksForImage){
+  const seen=new Set<string>();
+  for(const query of imageCandidates){
+    try{
+      const imageRes=await fetch("/api/product-images?search="+encodeURIComponent(query));
+      const imageData=await imageRes.json();
+      const matches=Array.isArray(imageData.products)?imageData.products:[];
+      for(const match of matches){
+        const key=(match.name||"").toLowerCase();
+        if(!match.imageUrl||seen.has(key)) continue;
+        seen.add(key);
+        products.push({product_name:match.name, imageUrl:match.imageUrl, imageAlt:match.imageAlt||match.name, productUrl:match.permalink||""});
+        if(products.length>=4) break;
+      }
+      if(products.length>=4) break;
+    }catch{/* Try the next official-shop search term. */}
+  }
+}else{
+  products=await Promise.all(rawProducts.slice(0,6).map(async p=>{try{
+    const query=p.product_code||p.product_name;
+    const imageRes=await fetch("/api/product-images?search="+encodeURIComponent(query));
+    const imageData=await imageRes.json();
+    const matches=Array.isArray(imageData.products)?imageData.products:[];
+    const normalized=(p.product_name||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+    const productTokens=normalized.split(" ").filter((t:string)=>t.length>2&&![ "kentainers","product","products"].includes(t));
+    const scored=matches.map((x:{name:string;imageUrl:string;imageAlt?:string;permalink?:string})=>{
+      const candidate=x.name.toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+      return {x,score:productTokens.reduce((n:number,token:string)=>n+(candidate.includes(token)?1:0),0)};
+    }).sort((a:{score:number},b:{score:number})=>b.score-a.score);
+    const match=matches.find((x:{name:string})=>x.name.toLowerCase().replace(/[^a-z0-9]+/g," ").trim()===normalized)||scored[0]?.x||matches[0];
+    return {...p,imageUrl:match?.imageUrl||"",imageAlt:match?.imageAlt||p.product_name,productUrl:match?.permalink||""};
+  }catch{return p;}}));
+}
 const visibleProducts=products.filter(p=>p.imageUrl);
+const inferredLabel=imageCandidates[0]||"that product";
 const finalAnswer=asksForImage&&visibleProducts.length
-  ? (data.answer||"Here are some product images to help you compare the options.")
-  : asksForImage&&!visibleProducts.length
-    ? (data.answer||"I couldn’t load a product image just now. You can view the Kentainers product range on our website.")
+  ? "Of course! Here"+(visibleProducts.length===1?"’s":" are")+" "+(visibleProducts.length===1?"an image":"a few images")+" of "+(visibleProducts.length===1?visibleProducts[0].product_name:inferredLabel)+". Tap a product to view its details on the Kentainers website."
+  : asksForImage
+    ? "I’m sorry, I couldn’t load an image for that product just now. You can tell me the exact product name or open the Kentainers shop to view available product photos."
     : (data.answer||"I could not process that request.");
 setMessages(m=>[...m,{role:"assistant",text:finalAnswer,enquiryId:data.enquiryId,products:visibleProducts}]);}catch{setMessages(m=>[...m,{role:"assistant",text:"The service is temporarily unavailable. Please try again."}]);}finally{setLoading(false);}}
  return <main style={{minHeight:"100vh",background:`linear-gradient(160deg,${brand.light} 0%,#fff 42%,#F2F8FC 100%)`,padding:"20px 14px 46px",fontFamily:"Arial, Helvetica, sans-serif"}}><div style={{maxWidth:1180,margin:"0 auto"}}>
