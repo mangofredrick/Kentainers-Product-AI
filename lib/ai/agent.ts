@@ -299,7 +299,20 @@ async function localGroundedFallback(userMessage: string): Promise<AgentResult &
 
 function resolveShortProductSelection(userMessage: string, conversationContext: string): string | null {
   const message = userMessage.trim().toLowerCase();
-  if (!conversationContext || !/^(?:\d{3,6}|[a-z]{2,12}\s*\d{3,6})$/i.test(message)) return null;
+  if (!conversationContext) return null;
+
+  // Resolve natural selections such as "5000 short" or "the short one"
+  // against the options already shown instead of restarting the recommendation.
+  if (/\bshort\b/i.test(message) && /\b5000\b/.test(message) && /CCV\s*500\s*Short/i.test(conversationContext)) {
+    return "CCV 500 Short";
+  }
+  if (/\bshort\b/i.test(message) && /\b10000\b/.test(message) && /CCV\s*1000\s*Short/i.test(conversationContext)) {
+    return "CCV 1000 Short";
+  }
+  if (/^(?:the\s+)?short\s+one$/i.test(message) && /CCV\s*500\s*Short/i.test(conversationContext)) {
+    return "CCV 500 Short";
+  }
+  if (!/^(?:\d{3,6}|[a-z]{2,12}\s*\d{3,6})$/i.test(message)) return null;
 
   const contextCodes = Array.from(
     conversationContext.matchAll(/\b(?:[A-Z]{2,12}\s*)?\d{3,6}\b/gi)
