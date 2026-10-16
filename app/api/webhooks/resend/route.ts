@@ -128,8 +128,12 @@ export async function POST(request: NextRequest) {
       enquiry_id TEXT,
       processed_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )`);
+    await pool.query("ALTER TABLE processed_inbound_emails ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'processed'");
     const claimed = await pool.query(
-      "INSERT INTO processed_inbound_emails (email_id) VALUES ($1) ON CONFLICT DO NOTHING RETURNING email_id",
+      `INSERT INTO processed_inbound_emails (email_id, status) VALUES ($1, 'processing')
+       ON CONFLICT (email_id) DO UPDATE SET status = 'processing'
+       WHERE processed_inbound_emails.status <> 'processed'
+       RETURNING email_id`,
       [emailId]
     );
     if (!claimed.rowCount) return NextResponse.json({ received: true, duplicate: true });
@@ -158,9 +162,16 @@ export async function POST(request: NextRequest) {
         answer: `AUTOMATIC REPLY NOT SENT: The chatbot could not verify a complete answer.\n\nDraft response: ${result.answer}`
       }, enquiryId, requirements);
     }
+    await pool.query("UPDATE processed_inbound_emails SET status = 'processed', enquiry_id = $2, processed_at = NOW() WHERE email_id = $1", [emailId, enquiryId]);
     return NextResponse.json({ received: true, enquiryId, autoReplied: verified });
   } catch (error) {
     console.error("Kentainers inbound email processing failed", error);
+    try {
+      const poolModule = await import("@/lib/db");
+      await poolModule.getPool().query("UPDATE processed_inbound_emails SET status = 'failed' WHERE email_id = $1 AND status <> 'processed'", [emailId]);
+    } catch (cleanupError) {
+      console.error("Could not mark inbound email processing for retry", cleanupError);
+    }
     return NextResponse.json({ error: "Email processing failed; the provider may retry this event." }, { status: 500 });
   }
 }
