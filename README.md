@@ -69,6 +69,18 @@ OPENAI_API_KEY=...
 DATABASE_URL=...
 ```
 
+## Website enquiry email integration
+
+The inbound email endpoint is `POST https://chatbot.kentainers.co.ke/api/webhooks/resend`. It accepts Resend `email.received` webhooks, verifies the webhook signature, retrieves the message through the Resend Receiving API, stores it in the existing customer enquiry system, and records the question for review.
+
+- Add these Vercel Production environment variables: `RESEND_API_KEY`, `KPIA_FROM_EMAIL`, and `RESEND_WEBHOOK_SECRET`.
+- `KPIA_FROM_EMAIL` must be a verified sender address on the Resend account/domain.
+- In Resend, enable inbound email receiving for a domain/address and configure a webhook for the `email.received` event at the endpoint above. Copy the webhook signing secret into `RESEND_WEBHOOK_SECRET`.
+- If the website currently sends enquiries to an existing mailbox hosted elsewhere, configure that mailbox/provider to forward a copy of those messages to the Resend receiving address. The existing mailbox can remain in use; simply adding this webhook does not automatically read Gmail, Microsoft 365, or another provider's inbox.
+- After configuring the environment variables and webhook, redeploy the Vercel production project.
+- The chatbot automatically replies only when it produces a non-escalated, non-clarification answer with recorded source evidence. Otherwise, it does not send an unverified answer and instead notifies the Kentainers enquiry mailbox for human follow-up.
+- Inbound webhook events are signature-checked and tracked for retry/idempotency. Do not expose the webhook signing secret in client-side code.
+
 ## Deployment
 
 The repository is connected to the Vercel production deployment. Pushing commits to `main` triggers the configured production build.
