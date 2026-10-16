@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
     const claimed = await pool.query(
       `INSERT INTO processed_inbound_emails (email_id, status) VALUES ($1, 'processing')
        ON CONFLICT (email_id) DO UPDATE SET status = 'processing'
-       WHERE processed_inbound_emails.status <> 'processed'
+       WHERE processed_inbound_emails.status = 'failed'
        RETURNING email_id`,
       [emailId]
     );
