@@ -16,8 +16,8 @@ async function main() {
   const anchors = (expected: string) => {
     const found = new Set<string>();
     for (const term of knownTerms) if (expected.toLowerCase().includes(term.toLowerCase())) found.add(term.toLowerCase());
-    for (const m of expected.matchAll(/\\b[A-Z]{2,}[A-Z0-9-]*\\d[A-Z0-9-]*\\b/g)) found.add(m[0].toLowerCase());
-    for (const m of expected.matchAll(/\\b\\d[\\d,.]*\\s*(?:L|cm|m|t|kg|hours?|years?)\\b/gi)) found.add(m[0].toLowerCase().replace(/\\s+/g, " "));
+    for (const m of expected.matchAll(/\b[A-Z]{2,}[A-Z0-9-]*\d[A-Z0-9-]*\b/g)) found.add(m[0].toLowerCase());
+    for (const m of expected.matchAll(/\b\d[\d,.]*\s*(?:L|cm|m|t|kg|hours?|years?)\b/gi)) found.add(m[0].toLowerCase().replace(/\s+/g, " "));
     return Array.from(found);
   };
   for (const tc of suite.cases) {
